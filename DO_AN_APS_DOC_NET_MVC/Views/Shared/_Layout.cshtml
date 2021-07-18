@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - King Clothes</title>
+    @*<link rel="icon" href="images/logo.png" sizes="30x30">*@
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+
+    @Styles.Render("~/Content/kingclothes_css")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/kingclothes_js")
+
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- TODO: Contact -->
+        <div class="row bg-dark py-1 flex-center">
+            <div class="col-sm-4 text-center text-white-50">
+                <a href="mailto: kingclothes@gmail.com" class="text-white-50">kingclothes@gmail.com</a> |
+                <a href="tel:033133233" class="text-white-50">Hotline: 033.133.233</a>
+            </div>
+            <div class="col-sm-4 text-center text-white-50">
+                <a href="/" class="text-white-50">KINGCLOTHES.VN</a>
+            </div>
+            <div class="col-sm-4">
+                <form action="" method="GET" class="container-4">
+                    <input type="search" id="search" placeholder="Tìm kiếm sản phẩm..." />
+                    <button class="icon"><i class="fa fa-search"></i></button>
+                </form>
+
+            </div>
+        </div>
+        <!-- TODO: Menu -->
+        <div class="row">
+            <div class="col-sm-12">
+                <nav class="navbar navbar-expand-md navbar-light shadow-none">
+                    <a class="navbar-brand" href="/"><img src="~/images/logo.png" alt="" height="60"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="font-weight-bold text-info" href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> HOME</a>
+                                &nbsp;&nbsp;&nbsp;
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="dropdown-toggle text-info font-weight-bold" data-toggle="dropdown"><i class="fas fa-tshirt"></i> SẢN PHẨM</a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-item"><a href="/products?view=1">Áo Thun</a></li>
+                                    <li class="dropdown-item"><a href="/products?view=2">Quần Dài</a></li>
+                                    <li class="dropdown-item"><a href="/products?view=3">Denim</a></li>
+                                    <li class="dropdown-item"><a href="/products?view=4">Túi Đeo</a></li>
+                                </ul>
+                                &nbsp;&nbsp;&nbsp;
+                            </li>
+                            <li class="nav-item">
+                                <a class="font-weight-bold text-info" href="#"><i class="fas fa-shopping-cart"></i> GIỎ HÀNG</a>
+                                &nbsp;&nbsp;&nbsp;
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- TODO: Banner -->
+        <div class="row">
+            <img src="~/images/6.jpg" alt="" width="100%">
+        </div>
+        @RenderBody()
+    </div>
+
+    <!-- TODO Footer -->
+    <div class="container-fluid p-0">
+        <div class="jumbotron text-center bg-light shadow-none" style="margin-bottom:0">
+            <p>&copy; @DateTime.Now.Year - King Clothes</p>
+        </div>
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

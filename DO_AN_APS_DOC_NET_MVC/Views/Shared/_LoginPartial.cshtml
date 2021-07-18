@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle text-info font-weight-bold text-uppercase" data-toggle="dropdown">
+                    Xin chào @GetDisplayName(User.Identity.GetUserId())
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="@Url.Action("Mine", "Courses")"><i class="fas fa-shopping-cart"></i> Giỏ Hàng</a></li>
+                    <li><a href="@Url.Action("Index", "Manage")"><i class="fas fa-user"></i> Quản Lý Tài Khoản</a></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a></li>
+                </ul>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("REGISTER", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "font-weight-bold text-info" })</li>
+        &nbsp;&nbsp;
+        <li>@Html.ActionLink("LOGIN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "font-weight-bold text-info" })</li>
+    </ul>
+}
+
+
+@{ 
+    string GetDisplayName(string userId)
+    {
+        DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext db = new DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext();
+        var displayName = db.Users.FirstOrDefault(i => i.Id == userId);
+        return displayName.Name.ToString();
+    }
+}

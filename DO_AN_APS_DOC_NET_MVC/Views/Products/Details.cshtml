@@ -1,0 +1,87 @@
+﻿@model DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12 text-center">
+        <br />
+        <h4 class="p-3" style="color: #5ecfbc;">CHI TIẾT SẢN PHẨM</h4>
+        <br />
+    </div>
+
+    <div class="col-sm-6">
+        <div class="carousel js-flickity">
+            <div class="carousel-cell">
+                <img src="~/images/ao.jpg" data-imagezoom="true" alt="" />
+            </div>
+            <div class="carousel-cell">
+                <img src="~/images/denim.jpg" data-imagezoom="true" alt="" />
+            </div>
+            <div class="carousel-cell">
+                <img src="~/images/quan.jpg" data-imagezoom="true" alt="" />
+            </div>
+            <div class="carousel-cell">
+                <img src="~/images/balo.jpg" data-imagezoom="true" alt="" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-6">
+        <div style="width: max-content;" class="text-uppercase">
+            <p>@Html.DisplayFor(model => model.Name) - @Html.DisplayFor(model => model.Color)</p>
+            <hr>
+        </div>
+
+        <div style="width: max-content;">
+            <p>@Html.DisplayFor(model => model.Price) ₫</p>
+            <hr>
+        </div>
+
+        <div style="width: max-content;">
+            <span>SIZE:</span>
+            &nbsp;&nbsp;
+            <input type="radio" name="Size" id="S" value="S" />
+            <label for="S"> S</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="Size" id="M" value="M" />
+            <label for="M"> M</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="Size" id="L" value="L" />
+            <label for="L"> L</label>
+            <hr>
+        </div>
+
+        <div class="quantity-area">
+            <span>SỐ LƯỢNG:</span>
+            <input type="button" value="-" onclick="minusQuantity()" class="qty-btn btn-left-quantity">
+            <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+            <input type="button" value="+" onclick="plusQuantity()" class="qty-btn btn-right-quantity">
+            <button class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
+        </div>
+        <hr>
+        <p>MÔ TẢ: @Html.DisplayFor(model => model.Describe)</p>
+    </div>
+</div>
+
+
+
+
+<br /> <br />
+
+@section scripts
+{
+    <script>
+        function plusQuantity() {
+            $("#quantity").val(parseInt($("#quantity").val()) + 1);
+        }
+        function minusQuantity() {
+            if (parseInt($("#quantity").val()) > 1) {
+                $("#quantity").val(parseInt($("#quantity").val()) - 1);
+            }
+        }
+    </script>
+}
