@@ -1,4 +1,4 @@
-﻿@model DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product
+﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.ProductsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -32,12 +32,12 @@
 
     <div class="col-sm-6">
         <div style="width: max-content;" class="text-uppercase">
-            <p>@Html.DisplayFor(model => model.Name) - @Html.DisplayFor(model => model.Color)</p>
+            <p>@Model.ProductDetail.Name - @Model.ProductDetail.Color</p>
             <hr>
         </div>
 
         <div style="width: max-content;">
-            <p>@Html.DisplayFor(model => model.Price) ₫</p>
+            <p>@Model.ProductDetail.Price ₫</p>
             <hr>
         </div>
 
@@ -60,17 +60,43 @@
             <input type="button" value="-" onclick="minusQuantity()" class="qty-btn btn-left-quantity">
             <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
             <input type="button" value="+" onclick="plusQuantity()" class="qty-btn btn-right-quantity">
-            <button class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
+            <button data-product-id="@Model.ProductDetail.Id_Category" id="add_to_cart" class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
         </div>
         <hr>
-        <p>MÔ TẢ: @Html.DisplayFor(model => model.Describe)</p>
+        <p>MÔ TẢ: @Model.ProductDetail.Describe</p>
+
+    </div>
+</div>
+<br />
+
+@* TODO: Sản phẩm liên quan *@
+<div class="row">
+    <div class="container mt-5 p-0">
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">SẢN PHẨM LIÊN QUAN</h4>
+        <div class="row">
+
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-6 col-md-3">
+                    <div class="elementProduct my-1 box_product">
+                        <img src="~/images/4.jpg" alt="">
+                        <div class="text-center text-nowrap bg-info py-1 btn_view_product">
+                            @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
+                        </div>
+                        <div class="text-nowrap text-uppercase text-center">
+                            @product.Name <br> <span style="color: black; font-size: 16px;">@product.Price ₫</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-sm-12 text-center mb-4">
+                <a href="/products?view=@Model.ProductDetail.Id_Category" type="button" class="btn btn-deep-orange">XEM THÊM @Model.ProductDetail.Category.Name</a>
+                @*<hr />*@
+            </div>
+        </div>
     </div>
 </div>
 
-
-
-
-<br /> <br />
 
 @section scripts
 {
@@ -84,4 +110,23 @@
             }
         }
     </script>
+
+    @* Thêm vào giỏ hàng *@
+    <script>
+        $("#add_to_cart").click(function (e) {
+            var button = $(e.target);
+            $.post("/api/addtocart", { Id_Product: button.attr("data-product-id"), Num: $("#quantity").val() })
+                .done(function () {
+                    //button
+                    //    .removeClass("btn-default")
+                    //    .addClass("btn-success")
+                    //    .text("Going");
+                    alert("Thêm vào giỏ hàng thành công!");
+                })
+                .fail(function () {
+                    alert("Something failed!");
+                });
+        });
+    </script>
+
 }

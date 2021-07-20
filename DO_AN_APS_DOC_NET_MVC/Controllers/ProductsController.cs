@@ -35,13 +35,23 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Products.Find(id);
-            if (product == null)
+            Product productDetail = db.Products.Find(id);
+            if (productDetail == null)
             {
                 return HttpNotFound();
             }
-            db.Entry(product).Reference(i => i.Category).Load();
-            return View(product);
+            db.Entry(productDetail).Reference(i => i.Category).Load();
+
+
+            var relatedProducts = db.Products.Where(i => i.Id_Category == productDetail.Id_Category).Take(8).ToList();
+
+            var viewModel = new ProductsViewModel
+            {
+                ProductDetail = productDetail,
+                Products = relatedProducts
+            };
+
+            return View(viewModel);
         }
     }
 }

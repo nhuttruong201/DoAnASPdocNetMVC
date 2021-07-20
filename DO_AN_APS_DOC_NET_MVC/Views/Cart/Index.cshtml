@@ -1,0 +1,92 @@
+﻿@model IEnumerable<DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Cart>
+@{
+    ViewBag.Title = "Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+
+@* Main Content *@
+<div class="row">
+    <div class="container mt-5 p-0">
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">Giỏ hàng của bạn</h4>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <span class="">Có <span class="font-weight-bold">@Model.Count() sản phẩm </span>trong giỏ hàng</span>
+            </div>
+            @if (Model.Count() > 0)
+            {
+                <div class="col-12 mt-4">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th><b>#</b></th>
+                                <th>Ảnh Sản Phẩm</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Size</th>
+                                <th>Giá</th>
+                                <th>Số Lượng</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int number = 1;}
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@number</td>
+                                    <td><a href="/Products/Details/@item.Id_Product"><img src="~/Images/ao.jpg" height="80" /></a></td>
+                                    <td>@item.Product.Name</td>
+                                    <td>@item.Product.Size</td>
+                                    <td>@item.Product.Price ₫</td>
+                                    <td>
+                                        <div class="quantity-area">
+                                            <input type="number" id="quantity" name="quantity" value="@item.Num" min="1" class="quantity-selector" style="height: 30px;">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="/cart/delete?id_product=@item.Id_Product" type="button" class="text-primary"><i class="fas fa-trash-alt"></i> Xóa</a>
+                                    </td>
+                                </tr>
+                                number++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-12 text-center">
+                    @{
+                        double total = 0;
+                        foreach (var i in Model)
+                        {
+                            total += i.Product.Price * i.Num;
+                        }
+                    }
+                    <span>Tổng thanh toán: <span class="font-weight-bold">@total ₫</span></span>
+                    <button class="btn btn-success">Thanh Toán Giỏ Hàng</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-12 text-center mt-3">
+                    <a href="/" type="button" class="btn btn-success">Tiếp Tục Mua Hàng</a>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<br />
+@section scripts
+{
+
+    <script>
+        function plusQuantity() {
+            $("#quantity").val(parseInt($("#quantity").val()) + 1);
+        }
+        function minusQuantity() {
+            if (parseInt($("#quantity").val()) > 1) {
+                $("#quantity").val(parseInt($("#quantity").val()) - 1);
+            }
+        }
+    </script>
+}
+

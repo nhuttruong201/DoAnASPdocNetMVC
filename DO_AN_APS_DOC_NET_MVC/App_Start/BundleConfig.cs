@@ -27,7 +27,6 @@ namespace DO_AN_APS_DOC_NET_MVC
                       "~/Content/site.css"));
 
 
-
             // New
             bundles.Add(new StyleBundle("~/Content/kingclothes_css").Include(
                      "~/Content/css/all.css",
@@ -40,15 +39,15 @@ namespace DO_AN_APS_DOC_NET_MVC
             bundles.Add(new ScriptBundle("~/bundles/kingclothes_js").Include(
                      "~/Content/js/bootstrap.js",
                      "~/Content/js/bootstrap.min.js",
-                     "~/Content/js/creditly.js",
-                     "~/Content/js/easing.js",
-                     "~/Content/js/easyResponsiveTabs.js",
+                     //"~/Content/js/creditly.js",
+                     //"~/Content/js/easing.js",
+                     //"~/Content/js/easyResponsiveTabs.js",
                      "~/Content/js/flickity.pkgd.js",
                      "~/Content/js/imagezoom.js",
                      "~/Content/js/jquery-2.1.4.min.js",
                      "~/Content/js/jquery-ui.js",
-                     "~/Content/js/jquery.flexisel.js",
-                     "~/Content/js/jquery.flexslider.js",
+                     //"~/Content/js/jquery.flexisel.js",
+                     //"~/Content/js/jquery.flexslider.js",
                      "~/Content/js/jquery.magnific-popup.js",
                      "~/Content/js/jquery.min.js",
                      "~/Content/js/mdb.min.js",

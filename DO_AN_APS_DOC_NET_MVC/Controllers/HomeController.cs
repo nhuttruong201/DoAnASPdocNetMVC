@@ -1,4 +1,5 @@
 ﻿using DO_AN_APS_DOC_NET_MVC.Models;
+using DO_AN_APS_DOC_NET_MVC.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,22 +17,24 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         }
         public ActionResult Index()
         {
-            var products = db.Products.ToList();
-            return View(products);
+            var products = db.Products.Take(8).ToList();
+
+            var tees = db.Products.Where(i => i.Category.Id_Category == 1).Take(8).ToList();
+            var pants = db.Products.Where(i => i.Category.Id_Category == 2).Take(8).ToList();
+            var denims = db.Products.Where(i => i.Category.Id_Category == 3).Take(8).ToList();
+            var bags = db.Products.Where(i => i.Category.Id_Category == 4).Take(8).ToList();
+            
+            var viewModel = new ProductsViewModel
+            {
+                Products = products,
+                Tees = tees,
+                Pants = pants,
+                Denims = denims,
+                Bags = bags
+            };
+
+            return View(viewModel);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

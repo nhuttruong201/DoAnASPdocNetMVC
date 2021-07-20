@@ -26,11 +26,10 @@
                 <a href="/" class="text-white-50">KINGCLOTHES.VN</a>
             </div>
             <div class="col-sm-4">
-                <form action="/Search" method="GET" class="container-4">
-                    <input type="search" id="search" name="search" placeholder="Tìm kiếm sản phẩm..." required/>
+                <form action="" method="GET" class="container-4">
+                    <input type="search" id="search" placeholder="Tìm kiếm sản phẩm..." />
                     <button class="icon"><i class="fa fa-search"></i></button>
                 </form>
-
             </div>
         </div>
         <!-- TODO: Menu -->
@@ -44,29 +43,32 @@
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a style="color: #ff7043;" href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> HOME</a>
+                                <a class="font-weight-bold text-info" href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> HOME</a>
                                 &nbsp;&nbsp;&nbsp;
                             </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ff7043;"><i class="fas fa-tshirt"></i> SẢN PHẨM</a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-item"><a href="/products?view=1">Áo Thun</a></li>
-                                    <li class="dropdown-item"><a href="/products?view=2">Quần Dài</a></li>
-                                    <li class="dropdown-item"><a href="/products?view=3">Denim</a></li>
-                                    <li class="dropdown-item"><a href="/products?view=4">Túi Đeo</a></li>
-                                </ul>
+                            @*<li class="nav-item dropdown">
+            <a href="#" class="dropdown-toggle text-info font-weight-bold" data-toggle="dropdown"><i class="fas fa-tshirt"></i> SẢN PHẨM</a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-item"><a href="/products?view=1">Áo Thun</a></li>
+                <li class="dropdown-item"><a href="/products?view=2">Quần Dài</a></li>
+                <li class="dropdown-item"><a href="/products?view=3">Denim</a></li>
+                <li class="dropdown-item"><a href="/products?view=4">Túi Đeo</a></li>
+            </ul>
+            &nbsp;&nbsp;&nbsp;
+        </li>*@
+                            <li class="nav-item">
+                                <a class="font-weight-bold text-info" href="@Url.Action("Index", "Cart")"><i class="fas fa-shopping-cart"></i> ĐƠN ĐẶT HÀNG</a>
                                 &nbsp;&nbsp;&nbsp;
                             </li>
                             <li class="nav-item">
-                                <a style="color: #ff7043;" href="@Url.Action("Index", "Cart")"><i class="fas fa-shopping-cart"></i> GIỎ HÀNG</a>
+                                <a class="font-weight-bold text-info" href="@Url.Action("Index", "Cart")"><i class="fas fa-cart-arrow-down"></i> THANH TOÁN</a>
                                 &nbsp;&nbsp;&nbsp;
                             </li>
-
                         </ul>
 
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
-                        @Html.Partial("_LoginPartial")
+                        @Html.Partial("_LoginPartial_Admin")
                     </div>
                 </nav>
             </div>

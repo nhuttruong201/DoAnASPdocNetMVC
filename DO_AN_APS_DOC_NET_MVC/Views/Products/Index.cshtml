@@ -5,9 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@* Main Content *@
 <div class="row">
     <div class="container mt-5 p-0">
-        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@Model.Heading</h4>
+        <h4 class="text-center text-uppercase p-3 font-weight-bold" style="color: #5ecfbc;">@Model.Heading</h4>
+        <br />
         <div class="row">
             @foreach (var product in Model.Products)
             {
@@ -23,6 +26,38 @@
                     </div>
                 </div>
             }
+        </div>
+    </div>
+</div>
+@* Caroucel *@
+<div class="row">
+    <div class="container mt-4 p-0">
+        <h4 class="text-center p-3" style="color: #5ecfbc;">DANH MỤC SẢN PHẨM</h4>
+        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
+            <div class="gallery-cell">
+                <a href="/products?view=1"><img src="~/images/ao.jpg" alt=""></a>
+                <div class="carousel-caption text-left">
+                    <h3>ÁO THUN</h3>
+                </div>
+            </div>
+            <div class="gallery-cell">
+                <a href="/products?view=3"><img src="~/images/denim.jpg" alt=""></a>
+                <div class="carousel-caption text-left">
+                    <h3>DENIM</h3>
+                </div>
+            </div>
+            <div class="gallery-cell">
+                <a href="/products?view=4"><img src="~/images/balo.jpg" alt=""></a>
+                <div class="carousel-caption text-left">
+                    <h3>TÚI ĐEO</h3>
+                </div>
+            </div>
+            <div class="gallery-cell">
+                <a href="/products?view=2"><img src="~/images/quan.jpg" alt=""></a>
+                <div class="carousel-caption text-left">
+                    <h3>QUẦN DÀI</h3>
+                </div>
+            </div>
         </div>
     </div>
 </div>

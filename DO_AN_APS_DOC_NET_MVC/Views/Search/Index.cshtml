@@ -1,0 +1,34 @@
+﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.ProductsViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<div class="row">
+    <div class="container mt-5 p-0">
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">KẾT QUẢ TÌM KIẾM</h4>
+        <h6 class="text-center">Từ khóa: ' @Model.strSearch ' - @Model.Products.Count() kết quả</h6>
+        <br />
+        <div class="row">
+
+            @foreach (var product in Model.Products)
+            {
+                <div class="col-6 col-md-3">
+                    <div class="elementProduct my-1 box_product">
+                        <img src="~/images/4.jpg" alt="">
+                        <div class="text-center text-nowrap bg-info py-1 btn_view_product">
+                            @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
+                        </div>
+                        <div class="text-nowrap text-uppercase text-center">
+                            @product.Name <br> <span style="color: black; font-size: 16px;">@product.Price ₫</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            @*<div class="col-sm-12 text-center">
+                <button class="btn btn-deep-orange">XEM THÊM SẢN PHẨM MỚI</button>
+                <hr />
+            </div>*@
+        </div>
+    </div>
+</div>
