@@ -15,16 +15,10 @@
     <div class="col-sm-6">
         <div class="carousel js-flickity">
             <div class="carousel-cell">
-                <img src="~/images/ao.jpg" data-imagezoom="true" alt="" />
+                <img src="@Model.ProductDetail.Image_Front" data-imagezoom="true" alt="Ảnh mặt trước" />
             </div>
             <div class="carousel-cell">
-                <img src="~/images/denim.jpg" data-imagezoom="true" alt="" />
-            </div>
-            <div class="carousel-cell">
-                <img src="~/images/quan.jpg" data-imagezoom="true" alt="" />
-            </div>
-            <div class="carousel-cell">
-                <img src="~/images/balo.jpg" data-imagezoom="true" alt="" />
+                <img src="@Model.ProductDetail.Image_Back" data-imagezoom="true" alt="Ảnh mặt sau" />
             </div>
         </div>
     </div>
@@ -32,26 +26,26 @@
 
     <div class="col-sm-6">
         <div style="width: max-content;" class="text-uppercase">
-            <p>@Model.ProductDetail.Name - @Model.ProductDetail.Color</p>
+            <p>@Model.GetProductName(Model.ProductDetail.Id_Model) - @Model.ProductDetail.Color</p>
             <hr>
         </div>
 
         <div style="width: max-content;">
-            <p>@Model.ProductDetail.Price ₫</p>
+            <p>@Model.GetProductPrice(Model.ProductDetail.Id_Model) ₫</p>
             <hr>
         </div>
 
         <div style="width: max-content;">
             <span>SIZE:</span>
             &nbsp;&nbsp;
-            <input type="radio" name="Size" id="S" value="S" />
-            <label for="S"> S</label>
+            <input type="radio" name="Size" id="Size_S" value="S" checked/>
+            <label for="Size_S"> S</label>
             &nbsp;&nbsp;
-            <input type="radio" name="Size" id="M" value="M" />
-            <label for="M"> M</label>
+            <input type="radio" name="Size" id="Size_M" value="M" />
+            <label for="Size_M"> M</label>
             &nbsp;&nbsp;
-            <input type="radio" name="Size" id="L" value="L" />
-            <label for="L"> L</label>
+            <input type="radio" name="Size" id="Size_L" value="L" />
+            <label for="Size_L"> L</label>
             <hr>
         </div>
 
@@ -60,10 +54,10 @@
             <input type="button" value="-" onclick="minusQuantity()" class="qty-btn btn-left-quantity">
             <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
             <input type="button" value="+" onclick="plusQuantity()" class="qty-btn btn-right-quantity">
-            <button data-product-id="@Model.ProductDetail.Id_Category" id="add_to_cart" class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
+            <button data-model-id="@Model.ProductDetail.Id_Model" data-product-color="@Model.ProductDetail.Color" id="add_to_cart" class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
         </div>
         <hr>
-        <p>MÔ TẢ: @Model.ProductDetail.Describe</p>
+        <p>MÔ TẢ: @Model.GetProductDescribe(Model.ProductDetail.Id_Model)</p>
 
     </div>
 </div>
@@ -79,12 +73,12 @@
             {
                 <div class="col-6 col-md-3">
                     <div class="elementProduct my-1 box_product">
-                        <img src="~/images/4.jpg" alt="">
+                        <img src="@product.Image_Front" alt="">
                         <div class="text-center text-nowrap bg-info py-1 btn_view_product">
                             @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
                         </div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @product.Name <br> <span style="color: black; font-size: 16px;">@product.Price ₫</span>
+                           @Model.GetProductName(product.Id_Model) <br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
                         </div>
                     </div>
                 </div>
@@ -115,13 +109,16 @@
     <script>
         $("#add_to_cart").click(function (e) {
             var button = $(e.target);
-            $.post("/api/addtocart", { Id_Product: button.attr("data-product-id"), Num: $("#quantity").val() })
-                .done(function () {
-                    //button
-                    //    .removeClass("btn-default")
-                    //    .addClass("btn-success")
-                    //    .text("Going");
-                    alert("Thêm vào giỏ hàng thành công!");
+            //alert("Size: " + $('input[name=Size]:checked').val() + "\nColor: " + button.attr('data-product-color') + "\nId_Model: " + button.attr('data-model-id'));
+            $.post("/api/addtocart", {
+                Id_Model: button.attr("data-model-id"),
+                Color_Product: button.attr("data-product-color"),
+                Size_Product: $('input[name=Size]:checked').val(),
+                Num: $("#quantity").val()
+            })
+                .done(function (data) {
+                    alert(data);
+                    //alert("Thêm vào giỏ hàng thành công!");
                 })
                 .fail(function () {
                     alert("Something failed!");

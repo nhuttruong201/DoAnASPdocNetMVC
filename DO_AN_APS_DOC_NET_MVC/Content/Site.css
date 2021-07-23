@@ -76,7 +76,7 @@ ul > li > a:hover {
 
 .elementProduct {
     width: 100%;
-    height: 340px;
+    height: 500px;
     overflow: hidden;
 }
 
@@ -176,28 +176,28 @@ input {
     font-weight: 600;
     font-size: 16px;
     outline: none;
-    height: 49px;
+    height: 42px;
     width: 32px;
     text-align: center;
     border-radius: 0;
     /*font-size: 20px;*/
     color: black;
 }
-.quantity-area input#quantity, .quantity-area input#quantity_quickview {
-    background: #fff;
-    font-weight: 600;
-    height: 49px;
-    padding: 0;
-    text-align: center;
-    width: 70px;
-    border: 1px solid #e1e1e1;
-    border-left: none;
-    border-right: none;
-    border-radius: 0;
-    -webkit-appearance: none;
-    /*font-size: 20px;*/
-    color: black;
-}
+    .quantity-area input, .quantity-area input#quantity_quickview {
+        background: #fff;
+        font-weight: 600;
+        height: 42px;
+        padding: 0;
+        text-align: center;
+        width: 70px;
+        border: 1px solid #e1e1e1;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        /*font-size: 20px;*/
+        color: black;
+    }
 
 
 /*  Details Caroucel */
@@ -289,3 +289,10 @@ input {
     .flickity-prev-next-button:disabled {
         display: none;
     }
+
+
+/* Table */
+table tr th {
+    font-weight: bold;
+}
+

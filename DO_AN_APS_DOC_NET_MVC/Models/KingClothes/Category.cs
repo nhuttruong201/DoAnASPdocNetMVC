@@ -12,8 +12,12 @@ namespace DO_AN_APS_DOC_NET_MVC.Models
     {
         [Key]
         public int Id_Category { get; set; }
-        [Display(Name = "Phân Loại")]
+        [Display(Name = "Danh Mục")]
         public string Name { get; set; }
+
+        [Display(Name = "Ảnh Danh Mục")]
+        public string Image_Cover { get; set; }
+
         public ICollection<Product> Products { get; set; }
     }
 }

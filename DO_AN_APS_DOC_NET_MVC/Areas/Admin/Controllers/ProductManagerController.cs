@@ -16,14 +16,14 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Admin/Products
+        // GET: Admin/ProductManager
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category);
+            var products = db.Products.Include(p => p.Category).Include(p => p.Product_Model);
             return View(products.ToList());
         }
 
-        // GET: Admin/Products/Details/5
+        // GET: Admin/ProductManager/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -38,19 +38,20 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
             return View(product);
         }
 
-        // GET: Admin/Products/Create
+        // GET: Admin/ProductManager/Create
         public ActionResult Create()
         {
             ViewBag.Id_Category = new SelectList(db.Categories, "Id_Category", "Name");
+            ViewBag.Id_Model = new SelectList(db.Product_Models, "Id_Model", "Name");
             return View();
         }
 
-        // POST: Admin/Products/Create
+        // POST: Admin/ProductManager/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id_Product,Name,Color,Size,Describe,Price,Num,Id_Category")] Product product)
+        public ActionResult Create([Bind(Include = "Id_Product,Image_Front,Image_Back,Color,Size,Num,Id_Category,Id_Model")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -60,10 +61,11 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
             }
 
             ViewBag.Id_Category = new SelectList(db.Categories, "Id_Category", "Name", product.Id_Category);
+            ViewBag.Id_Model = new SelectList(db.Product_Models, "Id_Model", "Name", product.Id_Model);
             return View(product);
         }
 
-        // GET: Admin/Products/Edit/5
+        // GET: Admin/ProductManager/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -76,15 +78,16 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.Id_Category = new SelectList(db.Categories, "Id_Category", "Name", product.Id_Category);
+            ViewBag.Id_Model = new SelectList(db.Product_Models, "Id_Model", "Name", product.Id_Model);
             return View(product);
         }
 
-        // POST: Admin/Products/Edit/5
+        // POST: Admin/ProductManager/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id_Product,Name,Color,Size,Describe,Price,Num,Id_Category")] Product product)
+        public ActionResult Edit([Bind(Include = "Id_Product,Image_Front,Image_Back,Color,Size,Num,Id_Category,Id_Model")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -93,10 +96,11 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Id_Category = new SelectList(db.Categories, "Id_Category", "Name", product.Id_Category);
+            ViewBag.Id_Model = new SelectList(db.Product_Models, "Id_Model", "Name", product.Id_Model);
             return View(product);
         }
 
-        // GET: Admin/Products/Delete/5
+        // GET: Admin/ProductManager/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,7 +115,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
             return View(product);
         }
 
-        // POST: Admin/Products/Delete/5
+        // POST: Admin/ProductManager/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

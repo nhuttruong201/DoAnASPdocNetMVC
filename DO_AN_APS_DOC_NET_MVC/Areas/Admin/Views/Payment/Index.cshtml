@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "Thanh Toán";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+@using System.Data.Entity
+
+<div class="container mb-5">
+    <h2>Thanh Toán</h2>
+    <br />
+    <hr />
+    <div class="row">
+        <div class="col-sm-7">
+            <h5>Thông tin đơn hàng</h5>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover" id="product_table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Ảnh Sản Phẩm</th>
+                                <th>Chi Tiết</th>
+                                <th>SL</th>
+                                <th>Giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @*<tr>
+                                <td>1</td>
+                                <td><img src="~/Images/ao.jpg" class="float-left" height="80" /></td>
+                                <td>
+                                    <p>Tên sản phẩm</p>
+                                    <p>Màu - Size</p>
+                                </td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><img src="~/Images/ao.jpg" class="float-left" height="80" /></td>
+                                <td>
+                                    <p>Tên sản phẩm</p>
+                                    <p>Màu - Size</p>
+                                </td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-sm-12 text-center">
+                    <hr />
+                    <div style="width: max-content; margin:auto;">
+                        <span>Tạm tính:  ₫</span>
+                        <br />
+                        <span>Phí vận chuyển: ₫</span>
+                        <hr />
+                    </div>
+                    <span>Tổng thanh toán: <span class="font-weight-bold">  ₫</span></span>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-sm-5">
+            <h5>Kết quả tìm kiếm sản phẩm</h5>
+            <div class="" style="height: 130px;" id="box_product_finded">
+                <div id="image_product_finded"> </div>
+                <div class="float-left" style="padding-left: 15px;">
+                    <p id="name_product_finded"></p>
+                    <p id="color_size_price_product_finded"></p>
+                    <input type="hidden" id="product_id_finded"/>
+                    <button class="btn btn-link text-primary" id="btn_add_bill"><i class="fas fa-plus"></i> Thêm vào đơn hàng</button>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="number" min="1" class="form-control" id="id_product" name="phoneNumber" placeholder="Mã sản phẩm" required>
+                <button type="button" class="btn btn-primary btn-block mt-2" id="find_product">Tìm sản phẩm</button>
+            </div>
+            <hr />
+            <h5>Thông tin khách hàng</h5>
+            <p id="customer_name"></p>
+            <p id="customer_phone"></p>
+            <p id="customer_email"></p>
+            <form action="/Payment/Create" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Số điện thoại" required>
+                    <button type="button" class="btn btn-primary btn-block mt-2" id="check_customer">Check</button>
+                </div>
+                <div class="form-group">
+                    <hr />
+                    <button type="submit" class="btn btn-success btn-block">THANH TOÁN</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#payment").addClass("active");
+            $("#box_product_finded").hide();
+
+            // Tìm sản phẩm cần thanh toán
+            $("#find_product").click(function () {
+                $.post("/api/findproduct", {
+                    Id_Product: $("#id_product").val()
+                })
+                    .done(function (data) {
+                        //alert("Đã cập nhật số lượng sản phẩm!");
+                        //alert("Màu: " + data.Color + ", Size: " + data.Size + ", Name: " + data.Id_Model);
+
+                        $("#image_product_finded").html('<img src="' + data.Image_Front + '" class="float-left" height="130" />');
+                        $("#name_product_finded").html(data.Name_Product);
+                        $("#color_size_price_product_finded").html(data.Color_Product + ' - ' + data.Size_Product + ' - ' + data.Price_Product + ' ₫');
+                        $("#product_id_finded").val(data.Id_Product);
+                        $("#box_product_finded").fadeIn();
+
+                        var rowCount = $('#product_table >tbody >tr').length;
+                        //alert("SL sản phẩm hóa đơn: " + rowCount);
+
+
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                        
+                    });
+            });
+
+            // Check Khách Hàng
+            $("#check_customer").click(function () {
+                $.post("/api/checkcustomer", {
+                    PhoneNumber: $("#phoneNumber").val()
+                })
+                    .done(function (data) {
+                        //alert(data.Name);
+                        $("#customer_name").html("Tên khách hàng: " + data.Name);
+                        $("#customer_phone").html("SDT: " + data.Name);
+                        $("#customer_email").html("Email: " + data.Email);
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
+            });
+
+            // Thêm sản phẩm vào hóa đơn
+            $("#btn_add_bill").click(function () {
+                $.post("/api/addtobill", {
+                    Id_Product: $("#product_id_finded").val()
+                })
+                    .done(function (data) {
+                        $('#product_table >tbody >tr').html("");
+                        for (var i = 0; i < data.length; i++) {
+                            var img = '<img src="' + data[i].Image_Front + '" class="float-left" height="60" />';
+                            var detail = '<p>' + data[i].Name + '</p><p>' + data[i].Color + ' - ' + data[i].Size + '</p>';
+                            var num = data[i].Num;
+                            var price = data[i].Price;
+                            $('#product_table >tbody').append(
+                                '<tr> <td>' + (i + 1) + '</td><td>' + img + '</td><td>' + detail + '</td><td>' + num + '</td><td>' + price+'</td></tr>'
+                            );
+                        }
+                    })
+                    .fail(function () {
+                        alert("Sản phẩm đã tồn tại trong đơn hàng!");
+                    });
+            });
+        });
+    </script>
+}

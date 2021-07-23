@@ -20,11 +20,15 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         public ActionResult Index(int view)
         {
             var products = db.Products.Where(i => i.Id_Category == view).ToList();
+            // load category
+            var categories = db.Categories.ToList();
             var viewModel = new ProductsViewModel
             {
+                Categories =categories,
                 Products = products,
                 Heading = db.Categories.Find(view).Name
             };
+
             return View(viewModel);
         }
 
@@ -42,8 +46,8 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             }
             db.Entry(productDetail).Reference(i => i.Category).Load();
 
-
-            var relatedProducts = db.Products.Where(i => i.Id_Category == productDetail.Id_Category).Take(8).ToList();
+            // Sản phẩm liên quan
+            var relatedProducts = db.Products.Where(i => i.Id_Category == productDetail.Id_Category && i.Id_Product != id).Take(8).ToList();
 
             var viewModel = new ProductsViewModel
             {

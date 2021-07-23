@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using DO_AN_APS_DOC_NET_MVC.Models.KingClothes;
 using Microsoft.AspNet.Identity;
+using DO_AN_APS_DOC_NET_MVC.ViewModels;
 
 namespace DO_AN_APS_DOC_NET_MVC.Controllers
 {
@@ -23,8 +24,13 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         {
             var userId = User.Identity.GetUserId();
             var carts = db.Carts.Where(i => i.Id_Customer == userId).Include(i => i.Product).ToList();
-                
-            return View(carts);
+
+            var viewModel = new CartsViewModel
+            {
+                Carts = carts
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult Delete(int? id_product)

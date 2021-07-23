@@ -178,38 +178,88 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\API\AddToBillController.cs" />
+    <Compile Include="Areas\Admin\Controllers\API\CheckCustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\API\FindProductController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PaymentController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductManagerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductModelManagerController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AddToCartController.cs" />
+    <Compile Include="Controllers\API\UpdateNumController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="DTO\CustomerDTO.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202107171318567_InitFullDb.cs" />
-    <Compile Include="Migrations\202107171318567_InitFullDb.Designer.cs">
-      <DependentUpon>202107171318567_InitFullDb.cs</DependentUpon>
+    <Compile Include="Migrations\202107211531267_InitFullDb.cs" />
+    <Compile Include="Migrations\202107211531267_InitFullDb.Designer.cs">
+      <DependentUpon>202107211531267_InitFullDb.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202107171526455_AddNameColumnToApplicationUser.cs" />
-    <Compile Include="Migrations\202107171526455_AddNameColumnToApplicationUser.Designer.cs">
-      <DependentUpon>202107171526455_AddNameColumnToApplicationUser.cs</DependentUpon>
+    <Compile Include="Migrations\202107211533522_FixDB.cs" />
+    <Compile Include="Migrations\202107211533522_FixDB.Designer.cs">
+      <DependentUpon>202107211533522_FixDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107220624327_ChangeDB.cs" />
+    <Compile Include="Migrations\202107220624327_ChangeDB.Designer.cs">
+      <DependentUpon>202107220624327_ChangeDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107221452546_ChangeTableOrder.cs" />
+    <Compile Include="Migrations\202107221452546_ChangeTableOrder.Designer.cs">
+      <DependentUpon>202107221452546_ChangeTableOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107221500054_ChangeTableOrder1.cs" />
+    <Compile Include="Migrations\202107221500054_ChangeTableOrder1.Designer.cs">
+      <DependentUpon>202107221500054_ChangeTableOrder1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107221508117_ChangeTableOrder2.cs" />
+    <Compile Include="Migrations\202107221508117_ChangeTableOrder2.Designer.cs">
+      <DependentUpon>202107221508117_ChangeTableOrder2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107230553003_ChangeTableCategory.cs" />
+    <Compile Include="Migrations\202107230553003_ChangeTableCategory.Designer.cs">
+      <DependentUpon>202107230553003_ChangeTableCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107231126134_ChangeTableOrder3.cs" />
+    <Compile Include="Migrations\202107231126134_ChangeTableOrder3.Designer.cs">
+      <DependentUpon>202107231126134_ChangeTableOrder3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107231523178_AddModelBillTemp.cs" />
+    <Compile Include="Migrations\202107231523178_AddModelBillTemp.Designer.cs">
+      <DependentUpon>202107231523178_AddModelBillTemp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107231524359_FixDB1.cs" />
+    <Compile Include="Migrations\202107231524359_FixDB1.Designer.cs">
+      <DependentUpon>202107231524359_FixDB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107231620349_ChangeModelBillTemp.cs" />
+    <Compile Include="Migrations\202107231620349_ChangeModelBillTemp.Designer.cs">
+      <DependentUpon>202107231620349_ChangeModelBillTemp.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\KingClothes\Bill.cs" />
     <Compile Include="Models\KingClothes\Bill_Detail.cs" />
+    <Compile Include="Models\KingClothes\Bill_Temp.cs" />
     <Compile Include="Models\KingClothes\Cart.cs" />
     <Compile Include="Models\KingClothes\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KingClothes\Order.cs" />
     <Compile Include="Models\KingClothes\Product.cs" />
+    <Compile Include="Models\KingClothes\Product_Model.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CartsViewModel.cs" />
+    <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ProductsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -251,7 +301,11 @@
     <Content Include="Images\5.jpg" />
     <Content Include="Images\6.jpg" />
     <Content Include="Images\ao.jpg" />
-    <Content Include="Images\balo.jpg" />
+    <Content Include="Images\Categories\ao_thun.jpg" />
+    <Content Include="Images\Categories\denim.jpg" />
+    <Content Include="Images\Categories\quan_dai.jpg" />
+    <Content Include="Images\Categories\tui_deo.jpg" />
+    <Content Include="Images\tui_deo.jpg" />
     <Content Include="Images\denim.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\quan.jpg" />
@@ -259,12 +313,29 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_Layout_Admin.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LoginPartial_Admin.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductModelManager\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductModelManager\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductModelManager\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductModelManager\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductModelManager\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManager\Create.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManager\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManager\Details.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManager\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\ProductManager\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_LoginPartial_Admin.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryManager\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryManager\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryManager\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryManager\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CategoryManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Payment\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\NewOrder.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -287,8 +358,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -315,10 +384,12 @@
     <Content Include="Views\Manage\ChangeDisplayName.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\ViewModelAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -334,11 +405,38 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202107171318567_InitFullDb.resx">
-      <DependentUpon>202107171318567_InitFullDb.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202107211531267_InitFullDb.resx">
+      <DependentUpon>202107211531267_InitFullDb.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202107171526455_AddNameColumnToApplicationUser.resx">
-      <DependentUpon>202107171526455_AddNameColumnToApplicationUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202107211533522_FixDB.resx">
+      <DependentUpon>202107211533522_FixDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107220624327_ChangeDB.resx">
+      <DependentUpon>202107220624327_ChangeDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107221452546_ChangeTableOrder.resx">
+      <DependentUpon>202107221452546_ChangeTableOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107221500054_ChangeTableOrder1.resx">
+      <DependentUpon>202107221500054_ChangeTableOrder1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107221508117_ChangeTableOrder2.resx">
+      <DependentUpon>202107221508117_ChangeTableOrder2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107230553003_ChangeTableCategory.resx">
+      <DependentUpon>202107230553003_ChangeTableCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107231126134_ChangeTableOrder3.resx">
+      <DependentUpon>202107231126134_ChangeTableOrder3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107231523178_AddModelBillTemp.resx">
+      <DependentUpon>202107231523178_AddModelBillTemp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107231524359_FixDB1.resx">
+      <DependentUpon>202107231524359_FixDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107231620349_ChangeModelBillTemp.resx">
+      <DependentUpon>202107231620349_ChangeModelBillTemp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

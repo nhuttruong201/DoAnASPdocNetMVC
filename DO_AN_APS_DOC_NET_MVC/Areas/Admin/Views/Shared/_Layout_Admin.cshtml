@@ -17,65 +17,58 @@
 <body>
     <div class="container-fluid">
         <!-- TODO: Contact -->
-        <div class="row bg-dark py-1 flex-center">
-            <div class="col-sm-4 text-center text-white-50">
-                <a href="mailto: kingclothes@gmail.com" class="text-white-50">kingclothes@gmail.com</a> |
-                <a href="tel:033133233" class="text-white-50">Hotline: 033.133.233</a>
+        <div class="row bg-dark flex-center">
+            <div class="col-sm-4">
+                @*<nav class="navbar navbar-expand-md navbar-light">
+                    @Html.Partial("_LoginPartial_Admin")
+                </nav>*@
+                <a href="" class="text-white-50 text-uppercase">&nbsp;&nbsp;<i class="fas fa-user-cog"></i> administrators</a>
+                <span class="text-white-50"></span>
             </div>
             <div class="col-sm-4 text-center text-white-50">
                 <a href="/" class="text-white-50">KINGCLOTHES.VN</a>
             </div>
             <div class="col-sm-4">
-                <form action="" method="GET" class="container-4">
-                    <input type="search" id="search" placeholder="Tìm kiếm sản phẩm..." />
-                    <button class="icon"><i class="fa fa-search"></i></button>
-                </form>
-            </div>
-        </div>
-        <!-- TODO: Menu -->
-        <div class="row">
-            <div class="col-sm-12">
-                <nav class="navbar navbar-expand-md navbar-light shadow-none">
-                    <a class="navbar-brand" href="/"><img src="~/images/logo.png" alt="" height="60"></a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="font-weight-bold text-info" href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> HOME</a>
-                                &nbsp;&nbsp;&nbsp;
-                            </li>
-                            @*<li class="nav-item dropdown">
-            <a href="#" class="dropdown-toggle text-info font-weight-bold" data-toggle="dropdown"><i class="fas fa-tshirt"></i> SẢN PHẨM</a>
-            <ul class="dropdown-menu">
-                <li class="dropdown-item"><a href="/products?view=1">Áo Thun</a></li>
-                <li class="dropdown-item"><a href="/products?view=2">Quần Dài</a></li>
-                <li class="dropdown-item"><a href="/products?view=3">Denim</a></li>
-                <li class="dropdown-item"><a href="/products?view=4">Túi Đeo</a></li>
-            </ul>
-            &nbsp;&nbsp;&nbsp;
-        </li>*@
-                            <li class="nav-item">
-                                <a class="font-weight-bold text-info" href="@Url.Action("Index", "Cart")"><i class="fas fa-shopping-cart"></i> ĐƠN ĐẶT HÀNG</a>
-                                &nbsp;&nbsp;&nbsp;
-                            </li>
-                            <li class="nav-item">
-                                <a class="font-weight-bold text-info" href="@Url.Action("Index", "Cart")"><i class="fas fa-cart-arrow-down"></i> THANH TOÁN</a>
-                                &nbsp;&nbsp;&nbsp;
-                            </li>
-                        </ul>
-
-                    </div>
-                    <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
+                <div class="float-right">
+                    <nav class="navbar navbar-expand-md navbar-light shadow-none">
                         @Html.Partial("_LoginPartial_Admin")
-                    </div>
-                </nav>
+                    </nav>
+                </div>
             </div>
         </div>
 
-      
-        @RenderBody()
+        <div class="row">
+            <div class="col-sm-3 shadow pt-3">
+                <div class="text-center">
+                    <a class="" href="/"><img src="~/images/logo.png" alt="" height="80"></a>
+                </div>
+                
+                <ul class="nav nav-pills flex-column mt-3 mb-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/Payment" id="payment"><i class="fas fa-chevron-right"></i> Thanh Toán</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/OrderManager/NewOrder" id="new_order"><i class="fas fa-chevron-right"></i> Đơn Hàng Mới</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/OrderManager" id="order_manager"><i class="fas fa-chevron-right"></i> Quản Lý Đơn Hàng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/CategoryManager" id="category_manager"><i class="fas fa-chevron-right"></i> Quản Lý Danh Mục</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/ProductModelManager" id="product_model_manager"><i class="fas fa-chevron-right"></i> Quản Lý Mẫu Sản Phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Admin/ProductManager" id="product_manager"><i class="fas fa-chevron-right"></i> Quản Lý Sản Phẩm</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9 pt-5">
+                @RenderBody()
+            </div>
+        </div>
+
     </div>
 
     <!-- TODO Footer -->

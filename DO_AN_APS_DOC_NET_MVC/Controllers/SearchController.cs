@@ -26,7 +26,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var results = db.Products.Where(i => i.Name.Contains(search)).ToList();
+            var results = db.Products.Where(i => i.Product_Model.Name.Contains(search)).ToList();
             var viewModel = new ProductsViewModel
             { 
                 Products = results,

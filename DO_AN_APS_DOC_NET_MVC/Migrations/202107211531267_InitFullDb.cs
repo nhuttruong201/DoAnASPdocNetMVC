@@ -39,6 +39,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 255),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -97,17 +98,19 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
                 c => new
                     {
                         Id_Product = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Image_Front = c.String(),
+                        Image_Back = c.String(),
                         Color = c.String(),
                         Size = c.String(),
-                        Describe = c.String(),
-                        Price = c.Double(nullable: false),
                         Num = c.Int(nullable: false),
                         Id_Category = c.Int(nullable: false),
+                        Id_Model = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id_Product)
                 .ForeignKey("dbo.Categories", t => t.Id_Category, cascadeDelete: true)
-                .Index(t => t.Id_Category);
+                .ForeignKey("dbo.Product_Model", t => t.Id_Model, cascadeDelete: true)
+                .Index(t => t.Id_Category)
+                .Index(t => t.Id_Model);
             
             CreateTable(
                 "dbo.Carts",
@@ -116,6 +119,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
                         Id_Customer = c.String(nullable: false, maxLength: 128),
                         Id_Product = c.Int(nullable: false),
                         Num = c.Int(nullable: false),
+                        Id_Size = c.Int(nullable: false),
                         Customer_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.Id_Customer, t.Id_Product })
@@ -152,6 +156,17 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
                 .Index(t => t.Customer_Id);
             
             CreateTable(
+                "dbo.Product_Model",
+                c => new
+                    {
+                        Id_Model = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Describe = c.String(),
+                        Price = c.Double(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id_Model);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -166,6 +181,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Products", "Id_Model", "dbo.Product_Model");
             DropForeignKey("dbo.Orders", "Id_Product", "dbo.Products");
             DropForeignKey("dbo.Orders", "Customer_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Products", "Id_Category", "dbo.Categories");
@@ -182,6 +198,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
             DropIndex("dbo.Orders", new[] { "Id_Product" });
             DropIndex("dbo.Carts", new[] { "Customer_Id" });
             DropIndex("dbo.Carts", new[] { "Id_Product" });
+            DropIndex("dbo.Products", new[] { "Id_Model" });
             DropIndex("dbo.Products", new[] { "Id_Category" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
@@ -192,6 +209,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
             DropIndex("dbo.Bill_Detail", new[] { "Id_Product" });
             DropIndex("dbo.Bill_Detail", new[] { "Id_Bill" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Product_Model");
             DropTable("dbo.Orders");
             DropTable("dbo.Categories");
             DropTable("dbo.Carts");

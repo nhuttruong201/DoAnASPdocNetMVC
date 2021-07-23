@@ -1,0 +1,95 @@
+﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "NewOrder";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+@using System.Data.Entity;
+
+<div class="container">
+    <h2>Đơn Hàng Mới - @Model.Orders.Count()</h2>
+    <br />
+    <table class="table table-hover">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Khách Hàng
+            </th>
+            <th>
+                Ảnh SP
+            </th>
+            <th>
+                Chi Tiết SP
+            </th>
+            <th>
+                Ngày Đặt
+            </th>
+            <th>
+                Địa Chỉ
+            </th>
+            <th>
+                SDT
+            </th>
+            <th>
+                Lời Nhắn
+            </th>
+            <th class="text-center">
+                Thao Tác
+            </th>
+        </tr>
+
+        @{ int stt = 0; }
+        @foreach (var item in Model.Orders)
+        {
+            stt++;
+            <tr>
+                <td>
+                    @stt
+                </td>
+                <td>
+                   @Model.GetCustomerName(item.Id_Customer)
+                </td>
+                <td>
+                    <img src="@Html.DisplayFor(modelItem => item.Product.Image_Front)" height="60" />
+                </td>
+                <td>
+                    <p>@Model.GetProductName(item.Product.Id_Model)</p>
+                    <p>
+                        @Html.DisplayFor(modelItem => item.Product.Color) - 
+                        @Html.DisplayFor(modelItem => item.Product.Size)
+                    </p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+
+                </td>
+                <td class="text-center">
+                    <a href="/Admin/OrderManager/ConfirmOrder/@item.Id_Order" class="text-primary">Xác nhận</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#new_order").addClass("active");
+        });
+    </script>
+}
+
+

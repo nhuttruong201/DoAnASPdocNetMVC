@@ -1,8 +1,9 @@
-﻿@model IEnumerable<DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Cart>
+﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.CartsViewModel
 @{
     ViewBag.Title = "Giỏ Hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <br />
 
 @* Main Content *@
@@ -11,9 +12,9 @@
         <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">Giỏ hàng của bạn</h4>
         <div class="row">
             <div class="col-sm-12 text-center">
-                <span class="">Có <span class="font-weight-bold">@Model.Count() sản phẩm </span>trong giỏ hàng</span>
+                <span class="">Có <span class="font-weight-bold">@Model.Carts.Count() sản phẩm </span>trong giỏ hàng</span>
             </div>
-            @if (Model.Count() > 0)
+            @if (Model.Carts.Count() > 0)
             {
                 <div class="col-12 mt-4">
                     <table class="table table-hover">
@@ -25,25 +26,25 @@
                                 <th>Size</th>
                                 <th>Giá</th>
                                 <th>Số Lượng</th>
-                                <th>Thao Tác</th>
+                                <th class="text-center">Thao Tác</th>
                             </tr>
                         </thead>
                         <tbody>
                             @{ int number = 1;}
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Carts)
                             {
                                 <tr>
                                     <td>@number</td>
                                     <td><a href="/Products/Details/@item.Id_Product"><img src="~/Images/ao.jpg" height="80" /></a></td>
-                                    <td>@item.Product.Name</td>
+                                    <td>@Model.GetProductName(item.Product.Id_Model)</td>
                                     <td>@item.Product.Size</td>
-                                    <td>@item.Product.Price ₫</td>
+                                    <td>@Model.GetProductPrice(item.Product.Id_Model) ₫</td>
                                     <td>
                                         <div class="quantity-area">
-                                            <input type="number" id="quantity" name="quantity" value="@item.Num" min="1" class="quantity-selector" style="height: 30px;">
+                                            <input type="number" onchange="UpdateNum(@item.Id_Product)" id="@item.Id_Product" name="quantity" value="@item.Num" min="1" class="quantity-selector" style="height: 30px;">
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <a href="/cart/delete?id_product=@item.Id_Product" type="button" class="text-primary"><i class="fas fa-trash-alt"></i> Xóa</a>
                                     </td>
                                 </tr>
@@ -55,13 +56,14 @@
                 <div class="col-12 text-center">
                     @{
                         double total = 0;
-                        foreach (var i in Model)
+                        foreach (var i in Model.Carts)
                         {
-                            total += i.Product.Price * i.Num;
+                            total += Model.GetProductPrice(i.Product.Id_Model) * i.Num;
                         }
                     }
                     <span>Tổng thanh toán: <span class="font-weight-bold">@total ₫</span></span>
-                    <button class="btn btn-success">Thanh Toán Giỏ Hàng</button>
+                    <br />
+                    <a href="/Order" type="button" class="btn btn-success mt-4">ĐẶT MUA ONLINE</a>
                 </div>
             }
             else
@@ -79,14 +81,25 @@
 {
 
     <script>
-        function plusQuantity() {
-            $("#quantity").val(parseInt($("#quantity").val()) + 1);
+        function UpdateNum(id_product) {
+            //alert("Số lượng hiện tại: " + $("#" + id_product).val());
+            $.post("/api/updatenum", {
+                Id_Product: id_product,
+                Num: $("#" + id_product).val()
+            })
+                .done(function () {
+                    alert("Đã cập nhật số lượng sản phẩm!");
+                })
+                .fail(function () {
+                    alert("Something failed!");
+                });
         }
-        function minusQuantity() {
-            if (parseInt($("#quantity").val()) > 1) {
-                $("#quantity").val(parseInt($("#quantity").val()) - 1);
-            }
-        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            
+        });
     </script>
 }
 

@@ -82,7 +82,13 @@ namespace DO_AN_APS_DOC_NET_MVC.Models
 
         [Required]
         [StringLength(255)]
+        [Display(Name = "Fullname")]
         public string Name { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
     }
 
     public class ResetPasswordViewModel

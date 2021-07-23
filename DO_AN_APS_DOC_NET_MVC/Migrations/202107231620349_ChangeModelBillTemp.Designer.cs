@@ -7,13 +7,13 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddNameColumnToApplicationUser : IMigrationMetadata
+    public sealed partial class ChangeModelBillTemp : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddNameColumnToApplicationUser));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangeModelBillTemp));
         
         string IMigrationMetadata.Id
         {
-            get { return "202107171526455_AddNameColumnToApplicationUser"; }
+            get { return "202107231620349_ChangeModelBillTemp"; }
         }
         
         string IMigrationMetadata.Source

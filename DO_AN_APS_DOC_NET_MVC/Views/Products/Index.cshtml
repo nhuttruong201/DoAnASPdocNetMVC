@@ -9,19 +9,19 @@
 @* Main Content *@
 <div class="row">
     <div class="container mt-5 p-0">
-        <h4 class="text-center text-uppercase p-3 font-weight-bold" style="color: #5ecfbc;">@Model.Heading</h4>
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@Model.Heading</h4>
         <br />
         <div class="row">
             @foreach (var product in Model.Products)
             {
                 <div class="col-6 col-md-3">
                     <div class="elementProduct my-1 box_product">
-                        <img src="~/images/4.jpg" alt="">
+                        <img src="@product.Image_Front" alt="">
                         <div class="text-center text-nowrap bg-info py-1 btn_view_product">
                             @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
                         </div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @product.Name <br> <span style="color: black; font-size: 16px;">@product.Price ₫</span>
+                            @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
                         </div>
                     </div>
                 </div>
@@ -29,35 +29,20 @@
         </div>
     </div>
 </div>
-@* Caroucel *@
+<!-- TODO: Carousel Category-->
 <div class="row">
     <div class="container mt-4 p-0">
         <h4 class="text-center p-3" style="color: #5ecfbc;">DANH MỤC SẢN PHẨM</h4>
         <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
-            <div class="gallery-cell">
-                <a href="/products?view=1"><img src="~/images/ao.jpg" alt=""></a>
-                <div class="carousel-caption text-left">
-                    <h3>ÁO THUN</h3>
+            @foreach (var item in Model.Categories)
+            {
+                <div class="gallery-cell">
+                    <a href="/products?view=@item.Id_Category"><img src="@item.Image_Cover" alt="Ảnh phân loại"></a>
+                    <div class="carousel-caption text-center">
+                        <h2>@item.Name</h2>
+                    </div>
                 </div>
-            </div>
-            <div class="gallery-cell">
-                <a href="/products?view=3"><img src="~/images/denim.jpg" alt=""></a>
-                <div class="carousel-caption text-left">
-                    <h3>DENIM</h3>
-                </div>
-            </div>
-            <div class="gallery-cell">
-                <a href="/products?view=4"><img src="~/images/balo.jpg" alt=""></a>
-                <div class="carousel-caption text-left">
-                    <h3>TÚI ĐEO</h3>
-                </div>
-            </div>
-            <div class="gallery-cell">
-                <a href="/products?view=2"><img src="~/images/quan.jpg" alt=""></a>
-                <div class="carousel-caption text-left">
-                    <h3>QUẦN DÀI</h3>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>

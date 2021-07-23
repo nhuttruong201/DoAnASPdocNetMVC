@@ -7,13 +7,13 @@ namespace DO_AN_APS_DOC_NET_MVC.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitFullDb : IMigrationMetadata
+    public sealed partial class ChangeTableCategory : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitFullDb));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangeTableCategory));
         
         string IMigrationMetadata.Id
         {
-            get { return "202107171318567_InitFullDb"; }
+            get { return "202107230553003_ChangeTableCategory"; }
         }
         
         string IMigrationMetadata.Source

@@ -19,18 +19,22 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         {
             var products = db.Products.Take(8).ToList();
 
-            var tees = db.Products.Where(i => i.Category.Id_Category == 1).Take(8).ToList();
-            var pants = db.Products.Where(i => i.Category.Id_Category == 2).Take(8).ToList();
-            var denims = db.Products.Where(i => i.Category.Id_Category == 3).Take(8).ToList();
-            var bags = db.Products.Where(i => i.Category.Id_Category == 4).Take(8).ToList();
-            
+            //var tees = db.Products.Where(i => i.Category.Id_Category == 1).Take(4).ToList();
+            //var denims = db.Products.Where(i => i.Category.Id_Category == 2).Take(4).ToList();
+            //var pants = db.Products.Where(i => i.Category.Id_Category == 3).Take(4).ToList();
+            //var bags = db.Products.Where(i => i.Category.Id_Category == 4).Take(4).ToList();
+
+            // load category
+            var categories = db.Categories.ToList();
+
             var viewModel = new ProductsViewModel
             {
-                Products = products,
-                Tees = tees,
-                Pants = pants,
-                Denims = denims,
-                Bags = bags
+                Categories = categories,
+                Products = products
+                //Tees = tees,
+                //Pants = pants,
+                //Denims = denims,
+                //Bags = bags
             };
 
             return View(viewModel);
