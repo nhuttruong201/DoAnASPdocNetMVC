@@ -16,13 +16,9 @@
 </head>
 <body>
     <div class="container-fluid">
-        <!-- TODO: Contact -->
         <div class="row bg-dark flex-center">
             <div class="col-sm-4">
-                @*<nav class="navbar navbar-expand-md navbar-light">
-                    @Html.Partial("_LoginPartial_Admin")
-                </nav>*@
-                <a href="" class="text-white-50 text-uppercase">&nbsp;&nbsp;<i class="fas fa-user-cog"></i> administrators</a>
+                <a href="/admin" class="text-white-50 text-uppercase">&nbsp;&nbsp;<i class="fas fa-user-cog"></i> administrators</a>
                 <span class="text-white-50"></span>
             </div>
             <div class="col-sm-4 text-center text-white-50">
@@ -45,22 +41,19 @@
                 
                 <ul class="nav nav-pills flex-column mt-3 mb-4">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Admin/Payment" id="payment"><i class="fas fa-chevron-right"></i> Thanh Toán</a>
+                        <a class="nav-link" href="/Admin/Payment" id="payment">Thanh Toán</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Admin/OrderManager/NewOrder" id="new_order"><i class="fas fa-chevron-right"></i> Đơn Hàng Mới</a>
+                        <a class="nav-link" href="/Admin/OrderManager/NewOrder" id="new_order">Đơn Hàng Mới</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Admin/OrderManager" id="order_manager"><i class="fas fa-chevron-right"></i> Quản Lý Đơn Hàng</a>
+                        <a class="nav-link" href="/Admin/CategoryManager" id="category_manager">Quản Lý Danh Mục</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Admin/CategoryManager" id="category_manager"><i class="fas fa-chevron-right"></i> Quản Lý Danh Mục</a>
+                        <a class="nav-link" href="/Admin/ProductModelManager" id="product_model_manager">Quản Lý Mẫu Sản Phẩm</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Admin/ProductModelManager" id="product_model_manager"><i class="fas fa-chevron-right"></i> Quản Lý Mẫu Sản Phẩm</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/Admin/ProductManager" id="product_manager"><i class="fas fa-chevron-right"></i> Quản Lý Sản Phẩm</a>
+                        <a class="nav-link" href="/Admin/ProductManager" id="product_manager">Quản Lý Sản Phẩm</a>
                     </li>
                 </ul>
             </div>

@@ -27,7 +27,7 @@
             </div>
             <div class="col-sm-4">
                 <form action="/Search" method="GET" class="container-4">
-                    <input type="search" id="search" name="search" placeholder="Tìm kiếm sản phẩm..." required/>
+                    <input type="search" id="search" name="search" placeholder="Tìm kiếm sản phẩm..." required />
                     <button class="icon"><i class="fa fa-search"></i></button>
                 </form>
 
@@ -50,10 +50,12 @@
                             <li class="nav-item dropdown">
                                 <a href="#" class="dropdown-toggle text-info" data-toggle="dropdown"><i class="fas fa-tshirt"></i> SẢN PHẨM</a>
                                 <ul class="dropdown-menu">
-                                    <li class="dropdown-item"><a href="/products?view=1">Áo Thun</a></li>
-                                    <li class="dropdown-item"><a href="/products?view=2">Denim</a></li>
-                                    <li class="dropdown-item"><a href="/products?view=3">Quần Dài</a></li>
-                                    <li class="dropdown-item"><a href="/products?view=4">Túi Đeo</a></li>
+                                    <li class="dropdown-item"><a href="/products/all">Tất cả sản phẩm</a></li>
+                                    @foreach (var item in LoadCategory())
+                                    {
+                                        <li class="dropdown-item"><a href="/products?view=@item.Id_Category">@item.Name</a></li>
+                                    }
+                                
                                 </ul>
                                 &nbsp;&nbsp;&nbsp;
                             </li>
@@ -72,7 +74,7 @@
             </div>
         </div>
 
-      
+
         @RenderBody()
     </div>
 
@@ -83,7 +85,18 @@
         </div>
     </div>
 
-
     @RenderSection("scripts", required: false)
+
+    @using System.Data.Entity
+    @{ 
+        List<DO_AN_APS_DOC_NET_MVC.Models.Category> LoadCategory()
+        {
+            DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext db = new DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext();
+            var categories = db.Categories.ToList();
+            return categories;
+        }
+    }
+
+
 </body>
 </html>

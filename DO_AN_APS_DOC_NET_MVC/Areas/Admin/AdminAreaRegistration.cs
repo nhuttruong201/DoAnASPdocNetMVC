@@ -17,7 +17,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", controller = "ProductManager", id = UrlParameter.Optional }
+                new { action = "Index", controller = "Payment", id = UrlParameter.Optional }
             );
         }
     }

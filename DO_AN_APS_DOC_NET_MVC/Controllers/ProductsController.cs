@@ -32,6 +32,20 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             return View(viewModel);
         }
 
+        public ActionResult All()
+        {
+            var products = db.Products.ToList();
+            var categories = db.Categories.ToList();
+            var viewModel = new ProductsViewModel
+            {
+                Categories = categories,
+                Products = products,
+                Heading = "Tất cả sản phẩm"
+            };
+            return View(viewModel);
+        }
+
+
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {

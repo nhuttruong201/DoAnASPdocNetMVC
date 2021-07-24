@@ -45,8 +45,38 @@
                 </div>
             }
             <div class="col-sm-12 text-center mb-5">
-                <a href="" type="button" class="btn btn-deep-orange">XEM THÊM TẤT CẢ SẢN PHẨM</a>
+                <a href="/products/all" type="button" class="btn btn-deep-orange">XEM THÊM TẤT CẢ SẢN PHẨM</a>
             </div>
         </div>
     </div>
 </div>
+<!-- TODO Hiện thị sản phẩm theo từng danh mục -->
+@foreach (var category in Model.Categories)
+{
+    <div class="row">
+        <div class="container p-0">
+            <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@category.Name</h4>
+            <br />
+            <div class="row">
+                @foreach (var product in Model.Products)
+                {
+                    if (product.Id_Category == category.Id_Category)
+                    {
+                        <div class="col-6 col-md-3">
+                            <div class="elementProduct box_product">
+                                <img src="@product.Image_Front" alt="">
+                                <div class="text-center text-nowrap bg-info py-1 btn_view_product">
+                                    @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
+                                </div>
+                                <div class="text-nowrap text-uppercase text-center">
+                                    @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}
+

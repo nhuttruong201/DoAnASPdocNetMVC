@@ -5,98 +5,102 @@
 }
 @using System.Data.Entity
 
-<div class="container mb-5">
-    <h2>Thanh Toán</h2>
-    <br />
-    <hr />
-    <div class="row">
-        <div class="col-sm-7">
-            <h5>Thông tin đơn hàng</h5>
-            <div class="row">
-                <div class="col-sm-12">
-                    <table class="table table-hover" id="product_table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Ảnh Sản Phẩm</th>
-                                <th>Chi Tiết</th>
-                                <th>SL</th>
-                                <th>Giá</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @*<tr>
-                                <td>1</td>
-                                <td><img src="~/Images/ao.jpg" class="float-left" height="80" /></td>
-                                <td>
-                                    <p>Tên sản phẩm</p>
-                                    <p>Màu - Size</p>
-                                </td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><img src="~/Images/ao.jpg" class="float-left" height="80" /></td>
-                                <td>
-                                    <p>Tên sản phẩm</p>
-                                    <p>Màu - Size</p>
-                                </td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>*@
-                        </tbody>
-                    </table>
+    <div class="container mb-5">
+        <h2>Thanh Toán</h2>
+        <br />
+       
+        <div class="row">
+            <div class="col-sm-12">
+                <h5>Thông tin khách hàng</h5>
+            </div>
+            <div class="col-sm-7">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tên KH</th>
+                            <th>SDT</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span id="customer_name"></span></td>
+                            <td><span id="customer_phone"></span></td>
+                            <td><span id="customer_email"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-5">
+                <p>Kiểm tra thông tin khách hàng</p>
+                <div class="form-group">
+                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Số điện thoại" required>
+                    <button type="button" class="btn btn-primary btn-block mt-2" id="check_customer"><i class="fas fa-check"></i> Check</button>
                 </div>
-                <div class="col-sm-12 text-center">
-                    <hr />
-                    <div style="width: max-content; margin:auto;">
-                        <span>Tạm tính:  ₫</span>
-                        <br />
-                        <span>Phí vận chuyển: ₫</span>
-                        <hr />
+            </div>
+        </div>
+        <hr style="width: 100px;" />
+        <hr style="width: 100px;" />
+        <div class="row" id="row_product_info">
+            <div class="col-sm-12">
+                <h5>Thông tin đơn hàng</h5>
+            </div>
+            <div class="col-sm-7">
+                <button class="btn btn-link text-primary" id="btn_clear_table"><i class="fas fa-eraser"></i> Làm Mới Đơn Hàng</button>
+                <span class="text-success" id="noti_clear_success"><i class="fas fa-check"></i> Đã làm mới!</span>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-hover" id="product_table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Ảnh SP</th>
+                                    <th>Chi Tiết</th>
+                                    <th>SL</th>
+                                    <th>Giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
-                    <span>Tổng thanh toán: <span class="font-weight-bold">  ₫</span></span>
+                    <div class="col-sm-12 text-center">
+                        <hr style="width: 50%;" />
+                        <div style="width: 50%; margin:auto;">
+                            <span>Tạm tính: <span id="total_price">0</span> ₫</span>
+                            <br />
+                            <span>Phí vận chuyển: <span id="ship_cost">0</span> ₫</span>
+                            <hr />
+                        </div>
+                        <span>Tổng thanh toán: <span class="font-weight-bold" id="total_pay">0 ₫</span></span>
+                    </div>
                 </div>
             </div>
+            <div class="col-sm-5">
+                <p>Kết quả tìm kiếm sản phẩm</p>
+                <div class="" style="height: 130px;" id="box_product_finded">
+                    <div id="image_product_finded"> </div>
+                    <div class="float-left" style="padding-left: 15px;">
+                        <p id="name_product_finded"></p>
+                        <p id="color_size_price_product_finded"></p>
+                        <input type="hidden" id="product_id_finded" />
+                        <button class="btn btn-link text-primary" id="btn_add_bill"><i class="fas fa-plus"></i> Thêm vào đơn hàng</button>
+                    </div>
+                </div>
 
-
+                <div class="form-group mt-3">
+                    <input type="number" min="1" class="form-control" id="id_product" name="phoneNumber" placeholder="Mã sản phẩm" required>
+                    <button type="button" class="btn btn-primary btn-block mt-2" id="find_product"><i class="fas fa-search"></i> Tìm sản phẩm</button>
+                </div>
+                <hr />
+                <form action="/Payment/Pay" method="post"> 
+                    <input type="hidden" id="customer_id" name="id_customer" value="" required/>
+                    <button type="submit" class="btn btn-success btn-block" id="btn_pay"><i class="fas fa-cart-arrow-down"></i> THANH TOÁN</button>
+                </form>
+            </div>
         </div>
-        <div class="col-sm-5">
-            <h5>Kết quả tìm kiếm sản phẩm</h5>
-            <div class="" style="height: 130px;" id="box_product_finded">
-                <div id="image_product_finded"> </div>
-                <div class="float-left" style="padding-left: 15px;">
-                    <p id="name_product_finded"></p>
-                    <p id="color_size_price_product_finded"></p>
-                    <input type="hidden" id="product_id_finded"/>
-                    <button class="btn btn-link text-primary" id="btn_add_bill"><i class="fas fa-plus"></i> Thêm vào đơn hàng</button>
-                </div>
-            </div>
 
-            <div class="form-group mt-3">
-                <input type="number" min="1" class="form-control" id="id_product" name="phoneNumber" placeholder="Mã sản phẩm" required>
-                <button type="button" class="btn btn-primary btn-block mt-2" id="find_product">Tìm sản phẩm</button>
-            </div>
-            <hr />
-            <h5>Thông tin khách hàng</h5>
-            <p id="customer_name"></p>
-            <p id="customer_phone"></p>
-            <p id="customer_email"></p>
-            <form action="/Payment/Create" method="post">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Số điện thoại" required>
-                    <button type="button" class="btn btn-primary btn-block mt-2" id="check_customer">Check</button>
-                </div>
-                <div class="form-group">
-                    <hr />
-                    <button type="submit" class="btn btn-success btn-block">THANH TOÁN</button>
-                </div>
-            </form>
-        </div>
     </div>
-
-</div>
 
 
 @section Scripts
@@ -105,7 +109,9 @@
         $(document).ready(function () {
             $("#payment").addClass("active");
             $("#box_product_finded").hide();
-
+            $("#row_product_info").hide();
+            $("#btn_pay").hide();
+            $("#noti_clear_success").hide();
             // Tìm sản phẩm cần thanh toán
             $("#find_product").click(function () {
                 $.post("/api/findproduct", {
@@ -121,10 +127,6 @@
                         $("#product_id_finded").val(data.Id_Product);
                         $("#box_product_finded").fadeIn();
 
-                        var rowCount = $('#product_table >tbody >tr').length;
-                        //alert("SL sản phẩm hóa đơn: " + rowCount);
-
-
                     })
                     .fail(function () {
                         alert("Something failed!");
@@ -139,9 +141,14 @@
                 })
                     .done(function (data) {
                         //alert(data.Name);
-                        $("#customer_name").html("Tên khách hàng: " + data.Name);
-                        $("#customer_phone").html("SDT: " + data.Name);
-                        $("#customer_email").html("Email: " + data.Email);
+                        $("#customer_name").html(data.Name);
+                        $("#customer_phone").html(data.PhoneNumber);
+                        $("#customer_email").html(data.Email);
+
+                        $("#row_product_info").fadeIn();
+
+                        // gán vào form post
+                        $("#customer_id").val(data.Id);
                     })
                     .fail(function () {
                         alert("Something failed!");
@@ -150,23 +157,55 @@
 
             // Thêm sản phẩm vào hóa đơn
             $("#btn_add_bill").click(function () {
+                $("#noti_clear_success").hide(100);
                 $.post("/api/addtobill", {
                     Id_Product: $("#product_id_finded").val()
                 })
                     .done(function (data) {
                         $('#product_table >tbody >tr').html("");
+                        var total_price = 0;
+                        var ship_cost = 15000;
+                        var total_pay = 0;
                         for (var i = 0; i < data.length; i++) {
                             var img = '<img src="' + data[i].Image_Front + '" class="float-left" height="60" />';
                             var detail = '<p>' + data[i].Name + '</p><p>' + data[i].Color + ' - ' + data[i].Size + '</p>';
                             var num = data[i].Num;
                             var price = data[i].Price;
                             $('#product_table >tbody').append(
-                                '<tr> <td>' + (i + 1) + '</td><td>' + img + '</td><td>' + detail + '</td><td>' + num + '</td><td>' + price+'</td></tr>'
+                                '<tr> <td>' + (i + 1) + '</td><td>' + img + '</td><td>' + detail + '</td><td>' + num + '</td><td>' + price +' ₫</td></tr>'
                             );
+
+                            // Tính giá
+                            total_price += data[i].Price;
+                        }
+                        total_pay = total_price + ship_cost;
+                        $("#total_price").html(total_price);
+                        $("#ship_cost").html(ship_cost);
+                        $("#total_pay").html(total_pay + ' ₫');
+
+                        var rowCount = data.length;
+                        //alert("SL sản phẩm hóa đơn: " + rowCount);
+                        if (rowCount > 0) {
+                            $("#btn_pay").fadeIn();
                         }
                     })
                     .fail(function () {
                         alert("Sản phẩm đã tồn tại trong đơn hàng!");
+                    });
+            });
+
+            // Clear Table
+            $("#btn_clear_table").click(function () {
+                $.post("/api/ClearTable")
+                    .done(function () {
+                        $('#product_table >tbody >tr').html("");
+                        $("#total_price").html('0');
+                        $("#ship_cost").html('0');
+                        $("#total_pay").html('0 ₫');
+                        $("#noti_clear_success").show(100);
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
                     });
             });
         });

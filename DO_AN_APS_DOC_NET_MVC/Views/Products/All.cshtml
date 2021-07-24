@@ -1,19 +1,21 @@
 ﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.ProductsViewModel
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = @Model.Heading;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
+
+
+@* Main Content *@
 <div class="row">
     <div class="container mt-5 p-0">
-        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">KẾT QUẢ TÌM KIẾM</h4>
-        <h6 class="text-center">Từ khóa: ' @Model.strSearch ' - @Model.Products.Count() kết quả</h6>
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@Model.Heading</h4>
         <br />
         <div class="row">
             @foreach (var product in Model.Products)
             {
                 <div class="col-6 col-md-3">
-                    <div class="elementProduct box_product">
+                    <div class="elementProduct my-1 box_product">
                         <img src="@product.Image_Front" alt="">
                         <div class="text-center text-nowrap bg-info py-1 btn_view_product">
                             @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
@@ -24,7 +26,23 @@
                     </div>
                 </div>
             }
-        
+        </div>
+    </div>
+</div>
+<!-- TODO: Carousel Category-->
+<div class="row">
+    <div class="container mt-4 p-0">
+        <h4 class="text-center p-3" style="color: #5ecfbc;">DANH MỤC SẢN PHẨM</h4>
+        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
+            @foreach (var item in Model.Categories)
+            {
+                <div class="gallery-cell">
+                    <a href="/products?view=@item.Id_Category"><img src="@item.Image_Cover" alt="Ảnh phân loại"></a>
+                    <div class="carousel-caption text-center">
+                        <h2>@item.Name</h2>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

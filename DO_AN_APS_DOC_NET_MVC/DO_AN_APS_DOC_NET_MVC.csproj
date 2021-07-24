@@ -180,6 +180,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\API\AddToBillController.cs" />
     <Compile Include="Areas\Admin\Controllers\API\CheckCustomerController.cs" />
+    <Compile Include="Areas\Admin\Controllers\API\ClearTableController.cs" />
     <Compile Include="Areas\Admin\Controllers\API\FindProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderManagerController.cs" />
@@ -385,6 +386,7 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Products\All.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
