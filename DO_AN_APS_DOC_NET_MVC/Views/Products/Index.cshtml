@@ -29,20 +29,3 @@
         </div>
     </div>
 </div>
-<!-- TODO: Carousel Category-->
-<div class="row">
-    <div class="container mt-4 p-0">
-        <h4 class="text-center p-3" style="color: #5ecfbc;">DANH MỤC SẢN PHẨM</h4>
-        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
-            @foreach (var item in Model.Categories)
-            {
-                <div class="gallery-cell">
-                    <a href="/products?view=@item.Id_Category"><img src="@item.Image_Cover" alt="Ảnh phân loại"></a>
-                    <div class="carousel-caption text-center">
-                        <h2>@item.Name</h2>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</div>

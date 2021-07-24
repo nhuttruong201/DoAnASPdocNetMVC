@@ -1,18 +1,17 @@
-﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.ProductsViewModel
-
+﻿@model PagedList.IPagedList<DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = @Model.Heading;
+    ViewBag.Title = "Tất Cả Sản Phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 @* Main Content *@
 <div class="row">
     <div class="container mt-5 p-0">
-        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@Model.Heading</h4>
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">Tất cả sản phẩm</h4>
         <br />
         <div class="row">
-            @foreach (var product in Model.Products)
+            @foreach (var product in Model)
             {
                 <div class="col-6 col-md-3">
                     <div class="elementProduct my-1 box_product">
@@ -21,7 +20,7 @@
                             @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
                         </div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
+                            @GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@GetProductPrice(product.Id_Model) ₫</span>
                         </div>
                     </div>
                 </div>
@@ -29,20 +28,46 @@
         </div>
     </div>
 </div>
-<!-- TODO: Carousel Category-->
+@* Phân Trang *@
 <div class="row">
-    <div class="container mt-4 p-0">
-        <h4 class="text-center p-3" style="color: #5ecfbc;">DANH MỤC SẢN PHẨM</h4>
-        <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
-            @foreach (var item in Model.Categories)
+    <div class="container">
+        <ul class="pagination">
+            @{ int page = Convert.ToInt32(Url.Action().Substring(Url.Action().Length - 1, 1));}
+            @if (page > 1)
             {
-                <div class="gallery-cell">
-                    <a href="/products?view=@item.Id_Category"><img src="@item.Image_Cover" alt="Ảnh phân loại"></a>
-                    <div class="carousel-caption text-center">
-                        <h2>@item.Name</h2>
-                    </div>
-                </div>
+                <li class="page-item"><a class="page-link" href="/products/all?page=@(page-1)">Previous</a></li>
             }
-        </div>
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                if (i == page)
+                {
+                    <li class="page-item active"><a class="page-link" href="/products/all?page=@i">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link" href="/products/all?page=@i">@i</a></li>
+                }
+            }
+            @if (page != Model.PageCount)
+            {
+                <li class="page-item"><a class="page-link" href="/products/all?page=@(page+1)">Next</a></li>
+            }
+
+        </ul>
     </div>
 </div>
+
+@{ 
+    string GetProductName(int id_model)
+    {
+        DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext db = new DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext();
+        DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product_Model product_Model = db.Product_Models.Find(id_model);
+        return product_Model.Name;
+    }
+    double GetProductPrice(int id_model)
+    {
+        DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext db = new DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext();
+        DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product_Model product_Model = db.Product_Models.Find(id_model);
+        return product_Model.Price;
+    }
+}

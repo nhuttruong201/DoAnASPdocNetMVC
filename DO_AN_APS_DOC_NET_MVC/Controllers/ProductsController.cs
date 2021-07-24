@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using DO_AN_APS_DOC_NET_MVC.Models;
 using DO_AN_APS_DOC_NET_MVC.Models.KingClothes;
 using DO_AN_APS_DOC_NET_MVC.ViewModels;
+using PagedList;
 
 namespace DO_AN_APS_DOC_NET_MVC.Controllers
 {
@@ -32,17 +33,22 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             return View(viewModel);
         }
 
-        public ActionResult All()
+        public ActionResult All(int? page)
         {
+            if (page == null) page = 1;
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
             var products = db.Products.ToList();
             var categories = db.Categories.ToList();
             var viewModel = new ProductsViewModel
             {
                 Categories = categories,
                 Products = products,
-                Heading = "Tất cả sản phẩm"
+                Heading = "Tất cả sản phẩm",
             };
-            return View(viewModel);
+            return View(products.ToPagedList(pageNumber, pageSize));
+            //return View(viewModel.Products.ToPagedList(pageNumber, pageSize));
         }
 
 

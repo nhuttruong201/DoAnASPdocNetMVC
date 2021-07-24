@@ -50,7 +50,7 @@
                             <li class="nav-item dropdown">
                                 <a href="#" class="dropdown-toggle text-info" data-toggle="dropdown"><i class="fas fa-tshirt"></i> SẢN PHẨM</a>
                                 <ul class="dropdown-menu">
-                                    <li class="dropdown-item"><a href="/products/all">Tất cả sản phẩm</a></li>
+                                    <li class="dropdown-item"><a href="/products/all?page=1">Tất cả sản phẩm</a></li>
                                     @foreach (var item in LoadCategory())
                                     {
                                         <li class="dropdown-item"><a href="/products?view=@item.Id_Category">@item.Name</a></li>
