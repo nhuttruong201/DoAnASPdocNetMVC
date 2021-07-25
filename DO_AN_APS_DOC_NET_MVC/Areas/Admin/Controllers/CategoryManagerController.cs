@@ -18,7 +18,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         // GET: Admin/CategoryManager
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            return View(db.Categories.OrderByDescending(p => p.Id_Category).ToList());
         }
 
         // GET: Admin/CategoryManager/Details/5
@@ -47,8 +47,18 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id_Category,Name,Image_Cover")] Category category)
+        public ActionResult Create([Bind(Include = "Id_Category,Name")] Category category, HttpPostedFileBase Image_Cover)
         {
+            if(Image_Cover != null && Image_Cover.ContentLength > 0)
+            {
+                byte[] byteImage = new byte[Image_Cover.ContentLength];
+                Image_Cover.InputStream.Read(byteImage, 0, Image_Cover.ContentLength);
+                string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + Image_Cover.FileName);
+                string urlImage = Server.MapPath("~/Images/Categories/" + fileName);
+                Image_Cover.SaveAs(urlImage);
+                category.Image_Cover = "/Images/Categories/" + fileName;
+            }
+
             if (ModelState.IsValid)
             {
                 db.Categories.Add(category);
@@ -79,11 +89,25 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id_Category,Name,Image_Cover")] Category category)
+        public ActionResult Edit([Bind(Include = "Id_Category,Name")] Category category, HttpPostedFileBase EditImage)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
+                Category modifyCategory = db.Categories.Find(category.Id_Category);
+                if (modifyCategory != null)
+                {
+                    if (EditImage != null && EditImage.ContentLength > 0)
+                    {
+                        byte[] byteImage = new byte[EditImage.ContentLength];
+                        EditImage.InputStream.Read(byteImage, 0, EditImage.ContentLength);
+                        string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + EditImage.FileName);
+                        string urlImage = Server.MapPath("~/Images/Categories/" + fileName);
+                        EditImage.SaveAs(urlImage);
+
+                        modifyCategory.Image_Cover = "/Images/Categories/" + fileName;
+                    }
+                }
+                db.Entry(modifyCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

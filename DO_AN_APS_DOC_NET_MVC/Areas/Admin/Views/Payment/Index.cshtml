@@ -33,6 +33,10 @@
             </div>
             <div class="col-sm-5">
                 <p>Kiểm tra thông tin khách hàng</p>
+                <div id="box_noti_check_customer" class="mb-1">
+                    <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Không tìm thấy khách hàng!</span>
+                    <a href="/Account/Register" target="_blank" class="text-primary"><i class="fas fa-hand-point-right"></i> Tạo tài khoản!</a>
+                </div>
                 <div class="form-group">
                     <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Số điện thoại" required>
                     <button type="button" class="btn btn-primary btn-block mt-2" id="check_customer"><i class="fas fa-check"></i> Check</button>
@@ -58,6 +62,7 @@
                                     <th>Chi Tiết</th>
                                     <th>SL</th>
                                     <th>Giá</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,7 +70,8 @@
                         </table>
                     </div>
                     <div class="col-sm-12 text-center">
-                        <hr style="width: 50%;" />
+                        @*<hr style="width: 50%;" />*@
+                        <br />
                         <div style="width: 50%; margin:auto;">
                             <span>Tạm tính: <span id="total_price">0</span> ₫</span>
                             <br />
@@ -78,23 +84,32 @@
             </div>
             <div class="col-sm-5">
                 <p>Kết quả tìm kiếm sản phẩm</p>
-                <div class="" style="height: 130px;" id="box_product_finded">
+                <div class=""id="box_product_finded">
                     <div id="image_product_finded"> </div>
-                    <div class="float-left" style="padding-left: 15px;">
-                        <p id="name_product_finded"></p>
-                        <p id="color_size_price_product_finded"></p>
+                    <div class="text-center" style="padding-left: 15px;">
+                        <span id="name_product_finded"></span><br />
+                        <span id="color_size_price_product_finded"></span>
                         <input type="hidden" id="product_id_finded" />
+                        <br /><br />
+                        <label>Số lượng: </label>
+                        <input type="number" value="1" min="1" id="numProductAddBill" style="width: 50px; border: none; border-bottom: solid 0.5px #000; border-right: solid 0.5px #000;"/>
                         <button class="btn btn-link text-primary" id="btn_add_bill"><i class="fas fa-plus"></i> Thêm vào đơn hàng</button>
                     </div>
                 </div>
 
                 <div class="form-group mt-3">
-                    <input type="number" min="1" class="form-control" id="id_product" name="phoneNumber" placeholder="Mã sản phẩm" required>
+                    <div id="box_noti_check_product" class="mb-1">
+                        <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Không tìm thấy sản phẩm!</span>
+                    </div>
+                    <input type="number" min="1" class="form-control" id="id_product" name="" placeholder="Mã sản phẩm" required>
                     <button type="button" class="btn btn-primary btn-block mt-2" id="find_product"><i class="fas fa-search"></i> Tìm sản phẩm</button>
                 </div>
-                <hr />
-                <form action="/Payment/Pay" method="post"> 
-                    <input type="hidden" id="customer_id" name="id_customer" value="" required/>
+               
+            </div>
+            <div class="col-sm-7">
+                <br />
+                <form action="/Payment/Pay" method="post">
+                    <input type="hidden" id="customer_id" name="id_customer" value="" required />
                     <button type="submit" class="btn btn-success btn-block" id="btn_pay"><i class="fas fa-cart-arrow-down"></i> THANH TOÁN</button>
                 </form>
             </div>
@@ -112,6 +127,17 @@
             $("#row_product_info").hide();
             $("#btn_pay").hide();
             $("#noti_clear_success").hide();
+            $("#box_noti_check_customer").hide();
+            $("#box_noti_check_product").hide();
+
+            // hide noti check customer
+            $("#phoneNumber").focusin(function () {
+                $("#box_noti_check_customer").hide();
+            });
+            $("#id_product").focusin(function () {
+                $("#box_noti_check_product").hide();
+            });
+
             // Tìm sản phẩm cần thanh toán
             $("#find_product").click(function () {
                 $.post("/api/findproduct", {
@@ -121,7 +147,8 @@
                         //alert("Đã cập nhật số lượng sản phẩm!");
                         //alert("Màu: " + data.Color + ", Size: " + data.Size + ", Name: " + data.Id_Model);
 
-                        $("#image_product_finded").html('<img src="' + data.Image_Front + '" class="float-left" height="130" />');
+                        $("#numProductAddBill").val(1);
+                        $("#image_product_finded").html('<img src="' + data.Image_Front + '" class="float-left" height="130" width="120"  />');
                         $("#name_product_finded").html(data.Name_Product);
                         $("#color_size_price_product_finded").html(data.Color_Product + ' - ' + data.Size_Product + ' - ' + data.Price_Product + ' ₫');
                         $("#product_id_finded").val(data.Id_Product);
@@ -129,7 +156,8 @@
 
                     })
                     .fail(function () {
-                        alert("Something failed!");
+
+                        $("#box_noti_check_product").show(100);
                         
                     });
             });
@@ -151,7 +179,8 @@
                         $("#customer_id").val(data.Id);
                     })
                     .fail(function () {
-                        alert("Something failed!");
+                        //alert("Something failed!");
+                        $("#box_noti_check_customer").show(100);
                     });
             });
 
@@ -159,35 +188,11 @@
             $("#btn_add_bill").click(function () {
                 $("#noti_clear_success").hide(100);
                 $.post("/api/addtobill", {
-                    Id_Product: $("#product_id_finded").val()
+                    Id_Product: $("#product_id_finded").val(),
+                    Num: $("#numProductAddBill").val()
                 })
                     .done(function (data) {
-                        $('#product_table >tbody >tr').html("");
-                        var total_price = 0;
-                        var ship_cost = 15000;
-                        var total_pay = 0;
-                        for (var i = 0; i < data.length; i++) {
-                            var img = '<img src="' + data[i].Image_Front + '" class="float-left" height="60" />';
-                            var detail = '<p>' + data[i].Name + '</p><p>' + data[i].Color + ' - ' + data[i].Size + '</p>';
-                            var num = data[i].Num;
-                            var price = data[i].Price;
-                            $('#product_table >tbody').append(
-                                '<tr> <td>' + (i + 1) + '</td><td>' + img + '</td><td>' + detail + '</td><td>' + num + '</td><td>' + price +' ₫</td></tr>'
-                            );
-
-                            // Tính giá
-                            total_price += data[i].Price;
-                        }
-                        total_pay = total_price + ship_cost;
-                        $("#total_price").html(total_price);
-                        $("#ship_cost").html(ship_cost);
-                        $("#total_pay").html(total_pay + ' ₫');
-
-                        var rowCount = data.length;
-                        //alert("SL sản phẩm hóa đơn: " + rowCount);
-                        if (rowCount > 0) {
-                            $("#btn_pay").fadeIn();
-                        }
+                        LoadDataTable(data);
                     })
                     .fail(function () {
                         alert("Sản phẩm đã tồn tại trong đơn hàng!");
@@ -203,11 +208,56 @@
                         $("#ship_cost").html('0');
                         $("#total_pay").html('0 ₫');
                         $("#noti_clear_success").show(100);
+
+                        $("#btn_pay").fadeOut();
                     })
                     .fail(function () {
                         alert("Something failed!");
                     });
             });
         });
+
+        function LoadDataTable(data) {
+            $('#product_table >tbody >tr').html("");
+            var total_price = 0;
+            var ship_cost = 15000;
+            var total_pay = 0;
+            for (var i = 0; i < data.length; i++) {
+                var img = '<img src="' + data[i].Image_Front + '" class="float-left" height="60" width="60" />';
+                var detail = '<p>' + data[i].Name + '</p><p>' + data[i].Color + ' - ' + data[i].Size + '</p>';
+                var num = data[i].Num;
+                var price = data[i].Price;
+                var btn_del = '<button class="btn btn-link text-primary" onClick="DelRow(' + data[i].Id_Product + ')"><i class="fas fa-trash-alt"></i></button>';
+                $('#product_table >tbody').append(
+                    '<tr> <td>' + (i + 1) + '</td><td>' + img + '</td><td>' + detail + '</td><td>' + num + '</td><td>' + price + ' ₫</td><td>' + btn_del + '</td></tr>'
+                );
+
+                // Tính giá
+                total_price += data[i].Price;
+            }
+            total_pay = total_price + ship_cost;
+            $("#total_price").html(total_price);
+            $("#ship_cost").html(ship_cost);
+            $("#total_pay").html(total_pay + ' ₫');
+
+            var rowCount = data.length;
+            //alert("SL sản phẩm hóa đơn: " + rowCount);
+            if (rowCount > 0) {
+                $("#btn_pay").fadeIn();
+            }
+        }
+
+        function DelRow(id_product) {
+            $.post("/api/DelRow", {
+                Id_Product: id_product
+            })
+                .done(function (data) {
+                    LoadDataTable(data);
+                })
+                .fail(function () {
+                    alert("Something failed!");
+                });
+        }
+      
     </script>
 }

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product_Model>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản Lý Mẫu Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 }
 
@@ -40,8 +40,8 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id_Model }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id_Model })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id_Model }, new { @class = "text-primary" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id_Model }, new { @class = "text-primary" })
                 </td>
             </tr>
         }

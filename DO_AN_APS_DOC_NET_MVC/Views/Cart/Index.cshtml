@@ -35,13 +35,14 @@
                             {
                                 <tr>
                                     <td>@number</td>
-                                    <td><a href="/Products/Details/@item.Id_Product"><img src="~/Images/ao.jpg" height="80" /></a></td>
+                                    <td><a href="/Products/Details/@item.Id_Product"><img src="@item.Product.Image_Front" height="80" width="80" /></a></td>
                                     <td>@Model.GetProductName(item.Product.Id_Model)</td>
                                     <td>@item.Product.Size</td>
                                     <td>@Model.GetProductPrice(item.Product.Id_Model) ₫</td>
                                     <td>
                                         <div class="quantity-area">
                                             <input type="number" onchange="UpdateNum(@item.Id_Product)" id="@item.Id_Product" name="quantity" value="@item.Num" min="1" class="quantity-selector" style="height: 30px;">
+                                            
                                         </div>
                                     </td>
                                     <td class="text-center">

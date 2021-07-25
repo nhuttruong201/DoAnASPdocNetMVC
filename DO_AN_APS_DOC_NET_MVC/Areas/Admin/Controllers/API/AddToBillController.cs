@@ -37,7 +37,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers.API
                 Color = product.Color,
                 Size = product.Size,
                 Price = product.Product_Model.Price,
-                Num = 1
+                Num = productDTO.Num
             };
             db.Bill_Temps.Add(bill_Temp);
             db.SaveChanges();

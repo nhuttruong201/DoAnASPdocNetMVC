@@ -40,33 +40,40 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             string message)
         {
             var userId = User.Identity.GetUserId();
-
             var carts = db.Carts.Where(i => i.Id_Customer == userId).ToList();
 
-            foreach(Cart i in carts)
+            // lập phiếu order
+            Order order = new Order
             {
-                Order order = new Order
+                Id_Customer = userId,
+                PhoneNumber = phoneNumber,
+                Address = addressDetail + ", " + ward + ", " + district + ", Tp.HCM",
+                Message = message,
+                Date = DateTime.Now.ToString("dd/MM/yyyy"),
+                IsCheck = false
+            };
+            db.Orders.Add(order);
+            db.SaveChanges();
+
+            // Xử lý chi tiết phiểu order
+            // Lấy id phiếu order vừa tạo ở trên
+            int id_order_current = db.Orders.Max(m => m.Id_Order);
+            // Lấy thông tin sản phẩm cần order
+            foreach (Cart item in carts)
+            {
+                Order_Detail order_Detail = new Order_Detail
                 {
-                    Id_Customer = userId,
-                    Id_Product = i.Id_Product,
-                    Num = i.Num,
-                    PhoneNumber = phoneNumber,
-                    Address = addressDetail + ", " + ward + ", " + district + ", Tp.HCM",
-                    Message = message,
-                    Date = DateTime.Now.ToString("dd/MM/yyyy"),
-                    IsCheck = false
+                    Id_Order = id_order_current,
+                    Id_Product = item.Id_Product,
+                    Num = item.Num
                 };
-
-                db.Orders.Add(order);
+                db.Order_Details.Add(order_Detail);
                 db.SaveChanges();
             }
 
-            // Xóa sản phẩm trong giỏ hàng (Đã mua)
-            foreach(Cart i in carts)
-            {
-                db.Carts.Remove(i);
-                db.SaveChanges();
-            }
+            // Xóa tất cả sản phẩm trong giỏ hàng (Đã mua)
+            db.Carts.RemoveRange(db.Carts);
+            db.SaveChanges();
 
             return RedirectToAction("Index", "Cart");
         }

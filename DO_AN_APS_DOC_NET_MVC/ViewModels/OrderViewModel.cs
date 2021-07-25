@@ -15,6 +15,7 @@ namespace DO_AN_APS_DOC_NET_MVC.ViewModels
             db = new ApplicationDbContext();
         }
         public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<Order_Detail> Order_Details { get; set; }
 
         public string GetCustomerName(string customer_id)
         {
@@ -22,11 +23,19 @@ namespace DO_AN_APS_DOC_NET_MVC.ViewModels
             return customerName.Name.ToString();
         }
 
+        public Order Order { get; set; }
+
 
         public string GetProductName(int id_model)
         {
             var product_model = db.Product_Models.Find(id_model);
             return product_model.Name;
+        }
+
+        public double GetProductPrice(int id_model)
+        {
+            var product_model = db.Product_Models.Find(id_model);
+            return product_model.Price;
         }
     }
 }

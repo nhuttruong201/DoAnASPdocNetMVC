@@ -19,7 +19,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         // GET: Admin/ProductModelManager
         public ActionResult Index()
         {
-            return View(db.Product_Models.ToList());
+            return View(db.Product_Models.OrderByDescending(p => p.Id_Model).ToList());
         }
 
         // GET: Admin/ProductModelManager/Details/5

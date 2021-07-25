@@ -13,6 +13,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Models
         [Key]
         public int Id_Category { get; set; }
         [Display(Name = "Danh Mục")]
+        [Required(ErrorMessage = "Không được bỏ trống!")]
         public string Name { get; set; }
 
         [Display(Name = "Ảnh Danh Mục")]

@@ -15,10 +15,10 @@
     <div class="col-sm-6">
         <div class="carousel js-flickity">
             <div class="carousel-cell">
-                <img src="@Model.ProductDetail.Image_Front" data-imagezoom="true" alt="Ảnh mặt trước" />
+                <img src="@Model.ProductDetail.Image_Front" data-imagezoom="true" alt="Ảnh mặt trước" height="100%" width="100%"/>
             </div>
             <div class="carousel-cell">
-                <img src="@Model.ProductDetail.Image_Back" data-imagezoom="true" alt="Ảnh mặt sau" />
+                <img src="@Model.ProductDetail.Image_Back" data-imagezoom="true" alt="Ảnh mặt sau" height="100%" width="100%" />
             </div>
         </div>
     </div>
@@ -38,14 +38,20 @@
         <div style="width: max-content;">
             <span>SIZE:</span>
             &nbsp;&nbsp;
-            <input type="radio" name="Size" id="Size_S" value="S" checked/>
-            <label for="Size_S"> S</label>
-            &nbsp;&nbsp;
-            <input type="radio" name="Size" id="Size_M" value="M" />
-            <label for="Size_M"> M</label>
-            &nbsp;&nbsp;
-            <input type="radio" name="Size" id="Size_L" value="L" />
-            <label for="Size_L"> L</label>
+            @foreach (var item in Model.GetSize(Model.ProductDetail.Id_Product))
+            {
+                <input type="radio" name="Size" id="Size_@item" value="@item" checked />
+                <label for="Size_@item"> @item&nbsp;&nbsp;</label>
+            }
+            @*&nbsp;&nbsp;
+        <input type="radio" name="Size" id="Size_S" value="S" checked/>
+        <label for="Size_S"> S</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="Size" id="Size_M" value="M" />
+        <label for="Size_M"> M</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="Size" id="Size_L" value="L" />
+        <label for="Size_L"> L</label>*@
             <hr>
         </div>
 

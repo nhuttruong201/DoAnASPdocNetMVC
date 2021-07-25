@@ -19,7 +19,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         // GET: Admin/ProductManager
         public ActionResult Index()
         {
-            var products = db.Products.Include(p => p.Category).Include(p => p.Product_Model);
+            var products = db.Products.Include(p => p.Category).Include(p => p.Product_Model).OrderByDescending(p => p.Id_Product);
             return View(products.ToList());
         }
 
@@ -51,8 +51,28 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id_Product,Image_Front,Image_Back,Color,Size,Num,Id_Category,Id_Model")] Product product)
+        public ActionResult Create([Bind(Include = "Id_Product,Color,Size,Num,Id_Category,Id_Model")] Product product, HttpPostedFileBase Image_Front, HttpPostedFileBase Image_Back)
         {
+            if(Image_Front != null && Image_Front.ContentLength > 0)
+            {
+                byte[] byteImage = new byte[Image_Front.ContentLength];
+                Image_Front.InputStream.Read(byteImage, 0, Image_Front.ContentLength);
+                string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + Image_Front.FileName);
+                string urlImage = Server.MapPath("~/Images/Products/" + fileName);
+                Image_Front.SaveAs(urlImage);
+                product.Image_Front = "/Images/Products/" + fileName;
+            }
+
+            if (Image_Back != null && Image_Back.ContentLength > 0)
+            {
+                byte[] byteImage = new byte[Image_Back.ContentLength];
+                Image_Back.InputStream.Read(byteImage, 0, Image_Back.ContentLength);
+                string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + Image_Back.FileName);
+                string urlImage = Server.MapPath("~/Images/Products/" + fileName);
+                Image_Back.SaveAs(urlImage);
+                product.Image_Back = "/Images/Products/" + fileName;
+            }
+
             if (ModelState.IsValid)
             {
                 db.Products.Add(product);
@@ -87,11 +107,35 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id_Product,Image_Front,Image_Back,Color,Size,Num,Id_Category,Id_Model")] Product product)
+        public ActionResult Edit([Bind(Include = "Id_Product,Color,Size,Num,Id_Category,Id_Model")] 
+            Product product, HttpPostedFileBase EditImageFront, HttpPostedFileBase EditImageBack)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+                Product modifyProduct = db.Products.Find(product.Id_Product);
+                if(modifyProduct != null)
+                {
+                    if (EditImageFront != null && EditImageFront.ContentLength > 0)
+                    {
+                        byte[] byteImage = new byte[EditImageFront.ContentLength];
+                        EditImageFront.InputStream.Read(byteImage, 0, EditImageFront.ContentLength);
+                        string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + EditImageFront.FileName);
+                        string urlImage = Server.MapPath("~/Images/Products/" + fileName);
+                        EditImageFront.SaveAs(urlImage);
+                        modifyProduct.Image_Front = "/Images/Products/" + fileName;
+                    }
+
+                    if (EditImageBack != null && EditImageBack.ContentLength > 0)
+                    {
+                        byte[] byteImage = new byte[EditImageBack.ContentLength];
+                        EditImageBack.InputStream.Read(byteImage, 0, EditImageBack.ContentLength);
+                        string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + EditImageBack.FileName);
+                        string urlImage = Server.MapPath("~/Images/Products/" + fileName);
+                        EditImageBack.SaveAs(urlImage);
+                        modifyProduct.Image_Back = "/Images/Products/" + fileName;
+                    }
+                }
+                db.Entry(modifyProduct).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

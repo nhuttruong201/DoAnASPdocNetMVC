@@ -1,83 +1,66 @@
-﻿@model DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Order
-
+﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.OrderViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.Image_Front)
-        </dt>
+<div class="container">
+    <h2>Chi Tiết Đơn Hàng</h2>
+    <div class="row mt-5">
+        <div class="col-sm-5">
+            <h5>Thông tin khách hàng:</h5>
+            <br />
+            <p>Tên khách hàng: @Model.GetCustomerName(Model.Order.Id_Customer)</p>
+            <p>SDT: @Model.Order.PhoneNumber</p>
+            <p>Ngày Đặt: @Model.Order.Date</p>
+            <p>Địa Chỉ: @Model.Order.Address</p>
+            <p>Lời Nhắn: @Model.Order.Message</p>
+        </div>
+        <div class="col-sm-7">
+            <h5>Thông tin sản phẩm:</h5>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Ảnh Sản Phẩm</th>
+                        <th>Chi Tiết Sản Phẩm</th>
+                        <th>Số Lượng</th>
+                        <th>Giá</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ int stt = 0; }
+                    @foreach (var item in Model.Order_Details)
+                    {
+                        stt++;
+                        <tr>
+                            <td>@stt</td>
+                            <td><img src="@item.Product.Image_Front" height="60" width="60" /></td>
+                            <td>
+                                <span>@Model.GetProductName(item.Product.Id_Model)</span>
+                                <br />
+                                <span>@item.Product.Color - @item.Product.Size</span>
+                            </td>
+                            <td>
+                                @item.Num
+                            </td>
+                            <td>
+                                @Model.GetProductPrice(item.Product.Id_Model)
+                            </td>
+                        </tr>
+                    }
 
-        <dd>
-            @Html.DisplayFor(model => model.Product.Image_Front)
-        </dd>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-12 mb-4">
+            <hr />
+            <a type="button" href="/Admin/OrderManager/ConfirmOrder/@Model.Order.Id_Order" class="btn btn-info">Xác nhận đơn hàng</a>
+            <br /><br />
+            <a href="/Admin/OrderManager/NewOrder">Quay lại danh sách</a>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Num)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Num)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Message)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Message)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Id_Customer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Id_Customer)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsCheck)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsCheck)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Order }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

@@ -11,6 +11,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Models.KingClothes
         [Key]
         public int Id_Bill { get; set; }
         [Display(Name = "Ngày Lập")]
+        [Required]
         public string Date { get; set; }
         public string Id_Customer { get; set; }
         public ApplicationUser Customer { get; set; }

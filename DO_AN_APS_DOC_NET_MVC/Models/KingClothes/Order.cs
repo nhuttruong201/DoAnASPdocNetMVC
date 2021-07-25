@@ -11,17 +11,18 @@ namespace DO_AN_APS_DOC_NET_MVC.Models.KingClothes
     {
         [Key]
         public int Id_Order { get; set; }
-        [Display(Name = "Số Lượng")]
-        public int Num { get; set; }
 
         [Display(Name = "Số Điện Thoại")]
+        [Required]
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Ngày Đặt")]
+        [Required]
         public string Date { get; set; }
         [Display(Name = "Lời Nhắn")]
         public string Message { get; set; }
         [Display(Name = "Địa Chỉ")]
+        [Required]
         public string Address { get; set; }
        
         public string Id_Customer { get; set; }
@@ -29,7 +30,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Models.KingClothes
 
         public bool IsCheck { get; set; }
 
-        public int Id_Product { get; set; }
-        public Product Product { get; set; }
+
+        public ICollection<Order_Detail> Order_Details { get; set; }
     }
 }

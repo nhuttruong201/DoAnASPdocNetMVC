@@ -187,6 +187,7 @@
     <Compile Include="Areas\Admin\Controllers\API\AddToBillController.cs" />
     <Compile Include="Areas\Admin\Controllers\API\CheckCustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\API\ClearTableController.cs" />
+    <Compile Include="Areas\Admin\Controllers\API\DelRowController.cs" />
     <Compile Include="Areas\Admin\Controllers\API\FindProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrderManagerController.cs" />
@@ -251,6 +252,22 @@
     <Compile Include="Migrations\202107231620349_ChangeModelBillTemp.Designer.cs">
       <DependentUpon>202107231620349_ChangeModelBillTemp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107251316494_UpdateDB.cs" />
+    <Compile Include="Migrations\202107251316494_UpdateDB.Designer.cs">
+      <DependentUpon>202107251316494_UpdateDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107251326005_UpdateDB1.cs" />
+    <Compile Include="Migrations\202107251326005_UpdateDB1.Designer.cs">
+      <DependentUpon>202107251326005_UpdateDB1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107251327297_UpdateDB2.cs" />
+    <Compile Include="Migrations\202107251327297_UpdateDB2.Designer.cs">
+      <DependentUpon>202107251327297_UpdateDB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107251501484_AddModelOrderDetail.cs" />
+    <Compile Include="Migrations\202107251501484_AddModelOrderDetail.Designer.cs">
+      <DependentUpon>202107251501484_AddModelOrderDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\KingClothes\Bill.cs" />
@@ -260,6 +277,7 @@
     <Compile Include="Models\KingClothes\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KingClothes\Order.cs" />
+    <Compile Include="Models\KingClothes\Order_Detail.cs" />
     <Compile Include="Models\KingClothes\Product.cs" />
     <Compile Include="Models\KingClothes\Product_Model.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -338,12 +356,8 @@
     <Content Include="Areas\Admin\Views\CategoryManager\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CategoryManager\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Payment\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderManager\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderManager\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderManager\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderManager\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderManager\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManager\NewOrder.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\Details.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -394,11 +408,14 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Products\All.cshtml" />
+    <Content Include="Views\Account\NotiSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\ViewModelAdmin\" />
+    <Folder Include="Areas\Admin\Views\Account\" />
+    <Folder Include="Images\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -446,6 +463,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107231620349_ChangeModelBillTemp.resx">
       <DependentUpon>202107231620349_ChangeModelBillTemp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107251316494_UpdateDB.resx">
+      <DependentUpon>202107251316494_UpdateDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107251326005_UpdateDB1.resx">
+      <DependentUpon>202107251326005_UpdateDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107251327297_UpdateDB2.resx">
+      <DependentUpon>202107251327297_UpdateDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107251501484_AddModelOrderDetail.resx">
+      <DependentUpon>202107251501484_AddModelOrderDetail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

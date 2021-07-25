@@ -46,6 +46,25 @@ namespace DO_AN_APS_DOC_NET_MVC.ViewModels
             return product_Model.Describe;
         }
 
+        public List<string> GetSize(int id_product)
+        {
+            List<string> listSize = new List<string>();
+
+            var products = db.Products.ToList();
+            
+            var productGetSize = db.Products.Find(id_product);
+
+            foreach(Product item in products)
+            {
+                if(productGetSize.Id_Model == item.Id_Model && productGetSize.Color.Equals(item.Color))
+                {
+                    listSize.Add(item.Size);
+                }
+            }
+
+            return listSize;
+        }
+
         //
         public string Name { get; set; }
         public double price { get; set; }

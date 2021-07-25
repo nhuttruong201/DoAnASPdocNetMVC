@@ -32,6 +32,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Models
         public DbSet<Product_Model> Product_Models { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Order_Detail> Order_Details { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Bill_Detail> Bill_Details { get; set; }
         public DbSet<Bill_Temp> Bill_Temps { get; set; }

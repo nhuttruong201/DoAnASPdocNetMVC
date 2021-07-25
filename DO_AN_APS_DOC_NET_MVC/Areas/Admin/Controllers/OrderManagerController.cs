@@ -20,14 +20,14 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         // GET: Admin/Order
         public ActionResult Index()
         {
-            var orders = db.Orders.Include(o => o.Product);
+            var orders = db.Orders;
             return View(orders.ToList());
         }
 
 
         public ActionResult NewOrder()
         {
-            var orders = db.Orders.Where(i => i.IsCheck == false).Include(i => i.Product).Include(i => i.Customer).ToList();
+            var orders = db.Orders.Where(i => i.IsCheck == false).Include(i => i.Customer).OrderByDescending(p => p.Id_Order).ToList();
 
             var viewModel = new OrderViewModel
             {
@@ -38,12 +38,12 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
 
         public ActionResult ConfirmOrder(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Order order = db.Orders.Find(id);
-            if(order == null)
+            if (order == null)
             {
                 return HttpNotFound();
             }
@@ -59,105 +59,16 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            var order = db.Orders.Find(id);
+            var orderDetail = db.Order_Details.Where(p => p.Id_Order == id).Include(i => i.Product).Include(i => i.Order).ToList();
+
+            var viewModel = new OrderViewModel
             {
-                return HttpNotFound();
-            }
-            return View(order);
+                Order_Details = orderDetail,
+                Order = order
+            };
+            return View(viewModel);
         }
 
-        // GET: Admin/Order/Create
-        public ActionResult Create()
-        {
-            ViewBag.Id_Product = new SelectList(db.Products, "Id_Product", "Image_Front");
-            return View();
-        }
-
-        // POST: Admin/Order/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id_Order,Num,PhoneNumber,Date,Message,Address,Id_Customer,IsCheck,Id_Product")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.Id_Product = new SelectList(db.Products, "Id_Product", "Image_Front", order.Id_Product);
-            return View(order);
-        }
-
-        // GET: Admin/Order/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Id_Product = new SelectList(db.Products, "Id_Product", "Image_Front", order.Id_Product);
-            return View(order);
-        }
-
-        // POST: Admin/Order/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id_Order,Num,PhoneNumber,Date,Message,Address,Id_Customer,IsCheck,Id_Product")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Id_Product = new SelectList(db.Products, "Id_Product", "Image_Front", order.Id_Product);
-            return View(order);
-        }
-
-        // GET: Admin/Order/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Order order = db.Orders.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            return View(order);
-        }
-
-        // POST: Admin/Order/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

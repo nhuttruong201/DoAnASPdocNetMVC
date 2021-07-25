@@ -18,7 +18,6 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers.API
             db = new ApplicationDbContext();
         }
 
-
         [HttpPost]
         public IHttpActionResult CheckCustomer(CustomerDTO customerDTO)
         {

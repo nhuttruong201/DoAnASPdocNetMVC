@@ -20,6 +20,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Models.KingClothes
         public Product Product { get; set; }
 
         [Display(Name = "Số Lượng")]
+        [Required]
         public int Num { get; set; }
     }
 }

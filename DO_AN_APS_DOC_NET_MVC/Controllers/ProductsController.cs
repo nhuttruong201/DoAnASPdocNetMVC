@@ -24,7 +24,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             if (page == null) page = 1;
             int pageSize = 4;
             int pageNumber = (page ?? 1); // If(page == null) pageNumber = 1;
-            var products = db.Products.Where(i => i.Id_Category == view).ToList();
+            var products = db.Products.Where(i => i.Id_Category == view).OrderByDescending(p => p.Id_Product).ToList();
 
             ViewBag.Title = db.Categories.Find(view).Name;
             ViewBag.UrlPageSelect = "/products?view=" + view + "&?page=";
@@ -41,7 +41,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             int pageNumber = (page ?? 1);
 
             //var products = db.Products.Select(p => new { p.Id_Model, p.Color }).Distinct().ToList();
-            var products = db.Products.ToList();
+            var products = db.Products.OrderByDescending(p => p.Id_Product).ToList();
 
             ViewBag.Title = "Tất Cả Sản Phẩm";
             ViewBag.UrlPageSelect = "/products/all?page=";
