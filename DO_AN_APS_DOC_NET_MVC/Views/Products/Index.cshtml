@@ -1,18 +1,29 @@
-﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.ProductsViewModel
-
+﻿@model PagedList.IPagedList<DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product>
 @{
-    ViewBag.Title = @Model.Heading;
+    ViewBag.Title = ViewBag.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
+    string GetProductName(int id_model)
+    {
+        DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext db = new DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext();
+        DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product_Model product_Model = db.Product_Models.Find(id_model);
+        return product_Model.Name;
+    }
+    double GetProductPrice(int id_model)
+    {
+        DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext db = new DO_AN_APS_DOC_NET_MVC.Models.ApplicationDbContext();
+        DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product_Model product_Model = db.Product_Models.Find(id_model);
+        return product_Model.Price;
+    }
+}
 
 @* Main Content *@
 <div class="row">
     <div class="container mt-5 p-0">
-        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@Model.Heading</h4>
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@ViewBag.Title</h4>
         <br />
         <div class="row">
-            @foreach (var product in Model.Products)
+            @foreach (var product in Model)
             {
                 <div class="col-6 col-md-3">
                     <div class="elementProduct my-1 box_product">
@@ -21,11 +32,43 @@
                             @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
                         </div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
+                            @GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@GetProductPrice(product.Id_Model) ₫</span>
                         </div>
                     </div>
                 </div>
             }
         </div>
+    </div>
+</div>
+
+@* Phân Trang *@
+<div class="row">
+    <div class="container">
+        <ul class="pagination">
+            @{
+                string url = Url.Action();
+                //int page = Convert.ToInt32(url[(url.Length - 1)]);
+                int page = Convert.ToInt32(Url.Action().Substring(Url.Action().Length - 1, 1));
+            }
+            @if (page > 1)
+            {
+                <li class="page-item"><a class="page-link" href="@ViewBag.UrlPagePrevious">Previous</a></li>
+            }
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                if (i == page)
+                {
+                    <li class="page-item active"><a class="page-link" href="@ViewBag.UrlPageSelect@i">@i</a></li>
+                }
+                else
+                {
+                    <li class="page-item"><a class="page-link" href="@ViewBag.UrlPageSelect@i">@i</a></li>
+                }
+            }
+            @if (page != Model.PageCount)
+            {
+                <li class="page-item"><a class="page-link" href="@ViewBag.UrlPageNext">Next</a></li>
+            }
+        </ul>
     </div>
 </div>

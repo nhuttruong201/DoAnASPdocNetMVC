@@ -30,7 +30,6 @@
                     <input type="search" id="search" name="search" placeholder="Tìm kiếm sản phẩm..." required />
                     <button class="icon"><i class="fa fa-search"></i></button>
                 </form>
-
             </div>
         </div>
         <!-- TODO: Menu -->
@@ -53,7 +52,7 @@
                                     <li class="dropdown-item"><a href="/products/all?page=1">Tất cả sản phẩm</a></li>
                                     @foreach (var item in LoadCategory())
                                     {
-                                        <li class="dropdown-item"><a href="/products?view=@item.Id_Category">@item.Name</a></li>
+                                        <li class="dropdown-item"><a href="/products?view=@item.Id_Category&?page=1">@item.Name</a></li>
                                     }
                                 
                                 </ul>
@@ -63,9 +62,7 @@
                                 <a class="text-info" href="@Url.Action("Index", "Cart")"><i class="fas fa-shopping-cart"></i> GIỎ HÀNG</a>
                                 &nbsp;&nbsp;&nbsp;
                             </li>
-
                         </ul>
-
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
                         @Html.Partial("_LoginPartial")
@@ -73,8 +70,6 @@
                 </nav>
             </div>
         </div>
-
-
         @RenderBody()
     </div>
 
