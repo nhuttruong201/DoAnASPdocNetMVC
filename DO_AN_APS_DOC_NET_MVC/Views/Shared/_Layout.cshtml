@@ -54,14 +54,19 @@
                                     {
                                         <li class="dropdown-item"><a href="/products?view=@item.Id_Category&?page=1">@item.Name</a></li>
                                     }
-                                
+
                                 </ul>
+                                &nbsp;&nbsp;&nbsp;
+                            </li>
+                            <li class="nav-item">
+                                <a class="text-info" href="@Url.Action("CheckOrder", "Order")"><i class="fas fa-check-circle"></i> KIỂM TRA ĐƠN HÀNG</a>
                                 &nbsp;&nbsp;&nbsp;
                             </li>
                             <li class="nav-item">
                                 <a class="text-info" href="@Url.Action("Index", "Cart")"><i class="fas fa-shopping-cart"></i> GIỎ HÀNG</a>
                                 &nbsp;&nbsp;&nbsp;
                             </li>
+
                         </ul>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">

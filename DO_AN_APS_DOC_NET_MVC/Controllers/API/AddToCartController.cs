@@ -41,7 +41,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers.API
             Cart cartCheck = db.Carts.FirstOrDefault(p => p.Id_Product == product.Id_Product && p.Id_Customer == userId);
             if (cartCheck != null)
             {
-                return Ok("Sản phẩm đã có trong giỏ hàng!");
+                return Ok(false);
             }
 
             // Nếu chưa tồn tại thì tạo mới
@@ -55,7 +55,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers.API
             db.Carts.Add(cart);
             db.SaveChanges();
 
-            return Ok("Thêm vào giỏ hàng thành công!");
+            return Ok(true);
         }
     }
 }

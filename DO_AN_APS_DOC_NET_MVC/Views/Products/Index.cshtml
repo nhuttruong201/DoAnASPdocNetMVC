@@ -15,6 +15,29 @@
         DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product_Model product_Model = db.Product_Models.Find(id_model);
         return product_Model.Price;
     }
+    // Format Price
+    string FormatPrice(double price)
+    {
+        string strPrice = price.ToString();
+        string result = "";
+        List<char> listChar = new List<char>();
+        int point = 1;
+        for (int i = strPrice.Length - 1; i >= 0; i--)
+        {
+            if (point == 4)
+            {
+                point = 1;
+                listChar.Add(',');
+            }
+            listChar.Add(strPrice[i]);
+            point++;
+        }
+        for (int i = listChar.Count - 1; i >= 0; i--)
+        {
+            result += listChar[i];
+        }
+        return result;
+    }
 }
 
 @* Main Content *@
@@ -32,7 +55,7 @@
                             @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
                         </div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@GetProductPrice(product.Id_Model) ₫</span>
+                            @GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@FormatPrice(GetProductPrice(product.Id_Model)) ₫</span>
                         </div>
                     </div>
                 </div>

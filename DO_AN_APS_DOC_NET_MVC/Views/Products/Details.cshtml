@@ -15,10 +15,10 @@
     <div class="col-sm-6">
         <div class="carousel js-flickity">
             <div class="carousel-cell">
-                <img src="@Model.ProductDetail.Image_Front" data-imagezoom="true" alt="Ảnh mặt trước" height="100%" width="100%"/>
+                <img src="@Model.ProductDetail.Image_Front" data-imagezoom="true" alt="Ảnh mặt trước" height="90%" />
             </div>
             <div class="carousel-cell">
-                <img src="@Model.ProductDetail.Image_Back" data-imagezoom="true" alt="Ảnh mặt sau" height="100%" width="100%" />
+                <img src="@Model.ProductDetail.Image_Back" data-imagezoom="true" alt="Ảnh mặt sau" height="90%" />
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         </div>
 
         <div style="width: max-content;">
-            <p>@Model.GetProductPrice(Model.ProductDetail.Id_Model) ₫</p>
+            <p>@Model.FormatPrice(Model.GetProductPrice(Model.ProductDetail.Id_Model)) ₫</p>
             <hr>
         </div>
 
@@ -43,15 +43,6 @@
                 <input type="radio" name="Size" id="Size_@item" value="@item" checked />
                 <label for="Size_@item"> @item&nbsp;&nbsp;</label>
             }
-            @*&nbsp;&nbsp;
-        <input type="radio" name="Size" id="Size_S" value="S" checked/>
-        <label for="Size_S"> S</label>
-        &nbsp;&nbsp;
-        <input type="radio" name="Size" id="Size_M" value="M" />
-        <label for="Size_M"> M</label>
-        &nbsp;&nbsp;
-        <input type="radio" name="Size" id="Size_L" value="L" />
-        <label for="Size_L"> L</label>*@
             <hr>
         </div>
 
@@ -60,7 +51,11 @@
             <input type="button" value="-" onclick="minusQuantity()" class="qty-btn btn-left-quantity">
             <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
             <input type="button" value="+" onclick="plusQuantity()" class="qty-btn btn-right-quantity">
-            <button data-model-id="@Model.ProductDetail.Id_Model" data-product-color="@Model.ProductDetail.Color" id="add_to_cart" class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
+            <button data-model-id="@Model.ProductDetail.Id_Model" data-product-color="@Model.ProductDetail.Color" id="btn_add_to_cart" class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
+            <div class="text-center mt-2">
+                <span id="noti_add_to_cart"></span>
+            </div>
+            
         </div>
         <hr>
         <p>MÔ TẢ: @Model.GetProductDescribe(Model.ProductDetail.Id_Model)</p>
@@ -68,6 +63,7 @@
     </div>
 </div>
 <br />
+
 
 @* TODO: Sản phẩm liên quan *@
 <div class="row">
@@ -84,7 +80,7 @@
                             @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
                         </div>
                         <div class="text-nowrap text-uppercase text-center">
-                           @Model.GetProductName(product.Id_Model) <br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
+                            @Model.GetProductName(product.Id_Model) <br> <span style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
                         </div>
                     </div>
                 </div>
@@ -113,7 +109,7 @@
 
     @* Thêm vào giỏ hàng *@
     <script>
-        $("#add_to_cart").click(function (e) {
+        $("#btn_add_to_cart").click(function (e) {
             var button = $(e.target);
             //alert("Size: " + $('input[name=Size]:checked').val() + "\nColor: " + button.attr('data-product-color') + "\nId_Model: " + button.attr('data-model-id'));
             $.post("/api/addtocart", {
@@ -123,11 +119,19 @@
                 Num: $("#quantity").val()
             })
                 .done(function (data) {
-                    alert(data);
-                    //alert("Thêm vào giỏ hàng thành công!");
+                    if (data) {
+                        $("#noti_add_to_cart").removeClass("text-warning");
+                        $("#noti_add_to_cart").addClass("text-success");
+                        $("#noti_add_to_cart").html('<i class="fas fa-check"></i> Đã thêm sản phẩm vào giỏ hàng!');
+                    } else {
+                        $("#noti_add_to_cart").removeClass("text-success");
+                        $("#noti_add_to_cart").addClass("text-warning");
+                        $("#noti_add_to_cart").html('<i class="fas fa-exclamation-triangle"></i> Sản phẩm đã có trong giỏ hàng!');
+                    }
+                    
                 })
                 .fail(function () {
-                    alert("Something failed!");
+                    alert("Sản phẩm đã hết!");
                 });
         });
     </script>

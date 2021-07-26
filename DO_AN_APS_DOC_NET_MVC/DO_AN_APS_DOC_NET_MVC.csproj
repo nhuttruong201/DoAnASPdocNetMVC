@@ -268,6 +268,10 @@
     <Compile Include="Migrations\202107251501484_AddModelOrderDetail.Designer.cs">
       <DependentUpon>202107251501484_AddModelOrderDetail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107260730016_AddColIsPayedInModelBill.cs" />
+    <Compile Include="Migrations\202107260730016_AddColIsPayedInModelBill.Designer.cs">
+      <DependentUpon>202107260730016_AddColIsPayedInModelBill.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\KingClothes\Bill.cs" />
@@ -325,7 +329,8 @@
     <Content Include="Images\3.jpg" />
     <Content Include="Images\4.jpg" />
     <Content Include="Images\5.jpg" />
-    <Content Include="Images\6.jpg" />
+    <Content Include="Images\Banner\banner.jpg" />
+    <Content Include="Images\Alert\new.png" />
     <Content Include="Images\ao.jpg" />
     <Content Include="Images\Categories\ao_thun.jpg" />
     <Content Include="Images\Categories\denim.jpg" />
@@ -358,6 +363,7 @@
     <Content Include="Areas\Admin\Views\Payment\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManager\NewOrder.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManager\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Payment\Waiting.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -409,12 +415,12 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Products\All.cshtml" />
     <Content Include="Views\Account\NotiSuccess.cshtml" />
+    <Content Include="Views\Order\CheckOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\ViewModelAdmin\" />
-    <Folder Include="Areas\Admin\Views\Account\" />
     <Folder Include="Images\Products\" />
   </ItemGroup>
   <ItemGroup>
@@ -475,6 +481,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107251501484_AddModelOrderDetail.resx">
       <DependentUpon>202107251501484_AddModelOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107260730016_AddColIsPayedInModelBill.resx">
+      <DependentUpon>202107260730016_AddColIsPayedInModelBill.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

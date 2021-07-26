@@ -14,6 +14,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Models.KingClothes
         [Required]
         public string Date { get; set; }
         public string Id_Customer { get; set; }
+        public bool IsPayed { get; set; }
         public ApplicationUser Customer { get; set; }
         public ICollection<Bill_Detail> Bill_Details { get; set; }
     }

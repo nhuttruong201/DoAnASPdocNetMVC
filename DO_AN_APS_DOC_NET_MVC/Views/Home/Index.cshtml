@@ -1,10 +1,14 @@
 ﻿@model DO_AN_APS_DOC_NET_MVC.ViewModels.ProductsViewModel
 @{
     ViewBag.Title = "Trang Chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+  
+
 }
 <!-- TODO: Banner -->
 <div class="row">
-    <img src="~/images/6.jpg" alt="" width="100%">
+    <img src="~/images/Banner/banner.jpg" alt="" width="100%">
 </div>
 
 <!-- TODO: Carousel Category-->
@@ -25,7 +29,7 @@
     </div>
 </div>
 
-<!-- TODO Sản phẩm hot -->
+<!-- TODO Sản phẩm mới -->
 <div class="row">
     <div class="container mt-5 p-0">
         <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">Sản phẩm mới</h4>
@@ -34,12 +38,16 @@
             {
                 <div class="col-6 col-md-3">
                     <div class="elementProduct box_product">
+                        <div style="height: 50px; width: 80px;" id="noti_new">
+                            <img src="~/Images/Alert/new.png" height="100%" width="100%" />
+                        </div>
+                        
                         <img src="@product.Image_Front" alt="">
                         <div class="text-center text-nowrap bg-info py-1 btn_view_product">
                             @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
                         </div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
+                            @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
                         </div>
                     </div>
                 </div>
@@ -69,7 +77,7 @@
                                     @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
                                 </div>
                                 <div class="text-nowrap text-uppercase text-center">
-                                    @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
+                                    @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
                                 </div>
                             </div>
                         </div>

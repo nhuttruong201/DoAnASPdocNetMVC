@@ -150,7 +150,7 @@
                         $("#numProductAddBill").val(1);
                         $("#image_product_finded").html('<img src="' + data.Image_Front + '" class="float-left" height="130" width="120"  />');
                         $("#name_product_finded").html(data.Name_Product);
-                        $("#color_size_price_product_finded").html(data.Color_Product + ' - ' + data.Size_Product + ' - ' + data.Price_Product + ' ₫');
+                        $("#color_size_price_product_finded").html(data.Color_Product + ' - ' + data.Size_Product + ' - ' + FormatPrice(data.Price_Product) + ' ₫');
                         $("#product_id_finded").val(data.Id_Product);
                         $("#box_product_finded").fadeIn();
 
@@ -226,7 +226,7 @@
                 var img = '<img src="' + data[i].Image_Front + '" class="float-left" height="60" width="60" />';
                 var detail = '<p>' + data[i].Name + '</p><p>' + data[i].Color + ' - ' + data[i].Size + '</p>';
                 var num = data[i].Num;
-                var price = data[i].Price;
+                var price = FormatPrice(data[i].Price);
                 var btn_del = '<button class="btn btn-link text-primary" onClick="DelRow(' + data[i].Id_Product + ')"><i class="fas fa-trash-alt"></i></button>';
                 $('#product_table >tbody').append(
                     '<tr> <td>' + (i + 1) + '</td><td>' + img + '</td><td>' + detail + '</td><td>' + num + '</td><td>' + price + ' ₫</td><td>' + btn_del + '</td></tr>'
@@ -236,9 +236,9 @@
                 total_price += data[i].Price;
             }
             total_pay = total_price + ship_cost;
-            $("#total_price").html(total_price);
-            $("#ship_cost").html(ship_cost);
-            $("#total_pay").html(total_pay + ' ₫');
+            $("#total_price").html(FormatPrice(total_price));
+            $("#ship_cost").html(FormatPrice(ship_cost));
+            $("#total_pay").html(FormatPrice(total_pay) + ' ₫');
 
             var rowCount = data.length;
             //alert("SL sản phẩm hóa đơn: " + rowCount);
@@ -257,6 +257,26 @@
                 .fail(function () {
                     alert("Something failed!");
                 });
+        }
+
+        function FormatPrice(price) {
+            var strPrice = String(price);
+            var result = "";
+            var point = 1;
+            for (var i = strPrice.length-1; i >= 0; i--) {
+                if (point == 4) {
+                    point = 1;
+                    result += ",";
+                }
+                result += strPrice[i];
+                point++;
+            }
+            var formatPrice = "";
+            for (var i = result.length-1; i >= 0; i--) {
+                formatPrice += result[i];
+            }
+
+            return formatPrice;
         }
       
     </script>

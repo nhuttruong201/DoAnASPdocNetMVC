@@ -8,7 +8,7 @@
 <div class="container">
     <h2>Chi Tiết Đơn Hàng</h2>
     <div class="row mt-5">
-        <div class="col-sm-5">
+        <div class="col-sm-4">
             <h5>Thông tin khách hàng:</h5>
             <br />
             <p>Tên khách hàng: @Model.GetCustomerName(Model.Order.Id_Customer)</p>
@@ -17,7 +17,7 @@
             <p>Địa Chỉ: @Model.Order.Address</p>
             <p>Lời Nhắn: @Model.Order.Message</p>
         </div>
-        <div class="col-sm-7">
+        <div class="col-sm-8">
             <h5>Thông tin sản phẩm:</h5>
             <table class="table table-hover">
                 <thead>
@@ -25,18 +25,20 @@
                         <th>#</th>
                         <th>Ảnh Sản Phẩm</th>
                         <th>Chi Tiết Sản Phẩm</th>
-                        <th>Số Lượng</th>
+                        <th>SL</th>
                         <th>Giá</th>
+                        <th>Tổng</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @{ int stt = 0; }
+                    @{ int stt = 0; double total = 0; }
                     @foreach (var item in Model.Order_Details)
                     {
                         stt++;
+                        total += Model.GetProductPrice(item.Product.Id_Model) * @item.Num;
                         <tr>
                             <td>@stt</td>
-                            <td><img src="@item.Product.Image_Front" height="60" width="60" /></td>
+                            <td><img src="@item.Product.Image_Front" height="80" width="80" /></td>
                             <td>
                                 <span>@Model.GetProductName(item.Product.Id_Model)</span>
                                 <br />
@@ -46,13 +48,19 @@
                                 @item.Num
                             </td>
                             <td>
-                                @Model.GetProductPrice(item.Product.Id_Model)
+                                @Model.FormatPrice(Model.GetProductPrice(item.Product.Id_Model)) ₫
+                            </td>
+                            <td>
+                                @Model.FormatPrice(Model.GetProductPrice(item.Product.Id_Model) * @item.Num) ₫
                             </td>
                         </tr>
                     }
 
                 </tbody>
             </table>
+            <div class="text-center">
+                <span>Tổng giá trị: <span class="font-weight-bold">@Model.FormatPrice(total) ₫</span></span>
+            </div>
         </div>
         <div class="col-sm-12 mb-4">
             <hr />

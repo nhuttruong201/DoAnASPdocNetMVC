@@ -3,6 +3,30 @@
 @{
     ViewBag.Title = "Quản Lý Mẫu Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+
+    // Format Price
+    string FormatPrice(double price)
+    {
+        string strPrice = price.ToString();
+        string result = "";
+        List<char> listChar = new List<char>();
+        int point = 1;
+        for (int i = strPrice.Length - 1; i >= 0; i--)
+        {
+            if (point == 4)
+            {
+                point = 1;
+                listChar.Add(',');
+            }
+            listChar.Add(strPrice[i]);
+            point++;
+        }
+        for (int i = listChar.Count - 1; i >= 0; i--)
+        {
+            result += listChar[i];
+        }
+        return result;
+    }
 }
 
 
@@ -37,7 +61,8 @@
                     @Html.DisplayFor(modelItem => item.Describe)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Price)
+                    @*@Html.DisplayFor(modelItem => item.Price) ₫*@
+                    @FormatPrice(item.Price) ₫
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id_Model }, new { @class = "text-primary" }) |

@@ -31,6 +31,23 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             return View(viewModel);
         }
 
+        public ActionResult CheckOrder()
+        {
+            var userId = User.Identity.GetUserId();
+            var listOrder = db.Orders.Where(i => i.Id_Customer == userId).OrderByDescending(i => i.Id_Order).ToList();
+
+            int OrderWaiting = 0;
+            foreach(var item in listOrder)
+            {
+                if (item.IsCheck == false)
+                {
+                    OrderWaiting++;
+                }
+            }
+            ViewBag.OrderWaiting = OrderWaiting;
+            return View(listOrder);
+        }
+
         [HttpPost]
         public ActionResult Create(
             string phoneNumber, 
@@ -75,7 +92,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             db.Carts.RemoveRange(db.Carts);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "Cart");
+            return RedirectToAction("Index", "CheckOrder");
         }
     }
 }

@@ -68,5 +68,29 @@ namespace DO_AN_APS_DOC_NET_MVC.ViewModels
         //
         public string Name { get; set; }
         public double price { get; set; }
+
+        // Format Price
+        public string FormatPrice(double price)
+        {
+            string strPrice = price.ToString();
+            string result = "";
+            List<char> listChar = new List<char>();
+            int point = 1;
+            for (int i = strPrice.Length - 1; i >= 0; i--)
+            {
+                if (point == 4)
+                {
+                    point = 1;
+                    listChar.Add(',');
+                }
+                listChar.Add(strPrice[i]);
+                point++;
+            }
+            for (int i = listChar.Count - 1; i >= 0; i--)
+            {
+                result += listChar[i];
+            }
+            return result;
+        }
     }
 }

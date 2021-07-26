@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
 {
@@ -21,6 +22,26 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult Waiting()
+        {
+            var listBillWaiting = db.Bills.Include(i => i.Customer).OrderByDescending(p => p.Id_Bill).Where(p => p.IsPayed == false).ToList();
+            return View(listBillWaiting);
+        }
+        [HttpPost]
+        public ActionResult PayWait(int idBill)
+        {
+            Bill bill = db.Bills.Find(idBill);
+            if(bill == null)
+            {
+                return HttpNotFound();
+            }
+
+            bill.IsPayed = true;
+            db.SaveChanges();
+
+            return RedirectToAction("Waiting", "Payment");
+        }
+
 
         [HttpPost]
         public ActionResult Pay(string id_customer)
@@ -29,7 +50,8 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
             Bill bill = new Bill
             {
                 Date = DateTime.Now.ToString("dd/MM/yyyy"),
-                Id_Customer = id_customer
+                Id_Customer = id_customer,
+                IsPayed = true
             };
             db.Bills.Add(bill);
             db.SaveChanges();
