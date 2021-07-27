@@ -3,8 +3,6 @@
     ViewBag.Title = "Trang Chủ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-  
-
 }
 <!-- TODO: Banner -->
 <div class="row">
@@ -44,7 +42,9 @@
                         <div class="btn_view_product" style="height: 5px;"></div>
                         <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @Model.GetProductName(product.Id_Model) - @product.Color<br> <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                            @Model.GetProductName(product.Id_Model) - @product.Color
+                            <br> 
+                            <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
                         </div>
                     </div>
                 </div>

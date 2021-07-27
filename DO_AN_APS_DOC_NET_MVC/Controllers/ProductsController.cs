@@ -24,14 +24,27 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             if (page == null) page = 1;
             int pageSize = 4;
             int pageNumber = (page ?? 1); // If(page == null) pageNumber = 1;
-            var products = db.Products.Where(i => i.Id_Category == view).OrderByDescending(p => p.Id_Product).ToList();
+            var products = db.Products.Where(i => i.Id_Category == view).OrderByDescending(p => p.Id_Model).ToList();
+            // Loại bỏ các sản phẩm cùng loại cùng màu (chỉ khác size)
+            var productDistinct = products;
+            for (int i = 0; i < products.Count - 1; i++)
+            {
+                for (int j = i + 1; j < products.Count; j++)
+                {
+                    // cùng mẫu && cùng màu
+                    if (products[i].Id_Model == products[j].Id_Model && products[i].Color.Equals(products[j].Color))
+                    {
+                        productDistinct.Remove(products[j]);
+                    }
+                }
+            }
 
             ViewBag.Title = db.Categories.Find(view).Name;
             ViewBag.UrlPageSelect = "/products?view=" + view + "&?page=";
             ViewBag.UrlPagePrevious = "/products?view=" + view + "&?page=" + (page - 1);
             ViewBag.UrlPageNext = "/products?view=" + view + "&?page=" + (page + 1);
 
-            return View(products.ToPagedList(pageNumber, pageSize));
+            return View(productDistinct.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult All(int? page)
@@ -41,14 +54,27 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             int pageNumber = (page ?? 1);
 
             //var products = db.Products.Select(p => new { p.Id_Model, p.Color }).Distinct().ToList();
-            var products = db.Products.OrderByDescending(p => p.Id_Product).ToList();
+            var products = db.Products.OrderByDescending(p => p.Id_Model).ToList();
+            // Loại bỏ các sản phẩm cùng loại cùng màu (chỉ khác size)
+            var productDistinct = products;
+            for (int i = 0; i < products.Count - 1; i++)
+            {
+                for (int j = i + 1; j < products.Count; j++)
+                {
+                    // cùng mẫu && cùng màu
+                    if (products[i].Id_Model == products[j].Id_Model && products[i].Color.Equals(products[j].Color))
+                    {
+                        productDistinct.Remove(products[j]);
+                    }
+                }
+            }
 
             ViewBag.Title = "Tất Cả Sản Phẩm";
             ViewBag.UrlPageSelect = "/products/all?page=";
             ViewBag.UrlPagePrevious = "/products/all?page=" + (page - 1);
             ViewBag.UrlPageNext = "/products/all?page=" + (page + 1);
 
-            return View(products.ToPagedList(pageNumber, pageSize));
+            return View(productDistinct.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Products/Details/5

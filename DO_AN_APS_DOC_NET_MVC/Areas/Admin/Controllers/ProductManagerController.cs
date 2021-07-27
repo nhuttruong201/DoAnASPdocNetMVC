@@ -122,6 +122,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
                         string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + EditImageFront.FileName);
                         string urlImage = Server.MapPath("~/Images/Products/" + fileName);
                         EditImageFront.SaveAs(urlImage);
+                        // cập nhật Image_Front
                         modifyProduct.Image_Front = "/Images/Products/" + fileName;
                     }
 
@@ -132,9 +133,17 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
                         string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + EditImageBack.FileName);
                         string urlImage = Server.MapPath("~/Images/Products/" + fileName);
                         EditImageBack.SaveAs(urlImage);
+
+                        // cập nhật Image_Back
                         modifyProduct.Image_Back = "/Images/Products/" + fileName;
                     }
                 }
+                // Cập nhật thông tin sản phẩm còn lại
+                modifyProduct.Color = product.Color;
+                modifyProduct.Size = product.Size;
+                modifyProduct.Num = product.Num;
+                modifyProduct.Id_Category = product.Id_Category;
+                modifyProduct.Id_Model = product.Id_Model;
                 db.Entry(modifyProduct).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

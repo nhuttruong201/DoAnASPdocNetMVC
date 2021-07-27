@@ -103,10 +103,12 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
                         string fileName = System.IO.Path.GetFileName(DateTime.Now.ToString("yyyyMMdd_HHmmss") + "_" + EditImage.FileName);
                         string urlImage = Server.MapPath("~/Images/Categories/" + fileName);
                         EditImage.SaveAs(urlImage);
-
+                        // cập nhật ảnh minh họa danh mục
                         modifyCategory.Image_Cover = "/Images/Categories/" + fileName;
                     }
                 }
+                // Cập nhật thông tin danh mục còn lại
+                modifyCategory.Name = category.Name;
                 db.Entry(modifyCategory).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
