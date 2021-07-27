@@ -70,7 +70,6 @@
                         </table>
                     </div>
                     <div class="col-sm-12 text-center">
-                        @*<hr style="width: 50%;" />*@
                         <br />
                         <div style="width: 50%; margin:auto;">
                             <span>Tạm tính: <span id="total_price">0</span> ₫</span>
@@ -84,7 +83,7 @@
             </div>
             <div class="col-sm-5">
                 <p>Kết quả tìm kiếm sản phẩm</p>
-                <div class=""id="box_product_finded">
+                <div class="" id="box_product_finded">
                     <div id="image_product_finded"> </div>
                     <div class="text-center" style="padding-left: 15px;">
                         <span id="name_product_finded"></span><br />
@@ -92,19 +91,24 @@
                         <input type="hidden" id="product_id_finded" />
                         <br /><br />
                         <label>Số lượng: </label>
-                        <input type="number" value="1" min="1" id="numProductAddBill" style="width: 50px; border: none; border-bottom: solid 0.5px #000; border-right: solid 0.5px #000;"/>
+                        <input type="number" value="1" min="1" id="numProductAddBill" style="width: 50px; border: none; border-bottom: solid 0.5px #000; border-right: solid 0.5px #000;" />
                         <button class="btn btn-link text-primary" id="btn_add_bill"><i class="fas fa-plus"></i> Thêm vào đơn hàng</button>
+
                     </div>
                 </div>
-
-                <div class="form-group mt-3">
-                    <div id="box_noti_check_product" class="mb-1">
+                <div class="text-right mb-2" id="box_noti_exist_in_table">
+                    <span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Sản phẩm đã có trong đơn hàng!</span>
+                </div>
+              
+                <div class="form-group mt-1">
+                    <div id="box_noti_check_product">
                         <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Không tìm thấy sản phẩm!</span>
                     </div>
+
                     <input type="number" min="1" class="form-control" id="id_product" name="" placeholder="Mã sản phẩm" required>
                     <button type="button" class="btn btn-primary btn-block mt-2" id="find_product"><i class="fas fa-search"></i> Tìm sản phẩm</button>
                 </div>
-               
+
             </div>
             <div class="col-sm-7">
                 <br />
@@ -129,7 +133,7 @@
             $("#noti_clear_success").hide();
             $("#box_noti_check_customer").hide();
             $("#box_noti_check_product").hide();
-
+            $("#box_noti_exist_in_table").hide();
             // hide noti check customer
             $("#phoneNumber").focusin(function () {
                 $("#box_noti_check_customer").hide();
@@ -153,6 +157,7 @@
                         $("#color_size_price_product_finded").html(data.Color_Product + ' - ' + data.Size_Product + ' - ' + FormatPrice(data.Price_Product) + ' ₫');
                         $("#product_id_finded").val(data.Id_Product);
                         $("#box_product_finded").fadeIn();
+                        $("#box_noti_exist_in_table").fadeOut();
 
                     })
                     .fail(function () {
@@ -195,7 +200,8 @@
                         LoadDataTable(data);
                     })
                     .fail(function () {
-                        alert("Sản phẩm đã tồn tại trong đơn hàng!");
+                        //alert("Sản phẩm đã tồn tại trong đơn hàng!");
+                        $("#box_noti_exist_in_table").fadeIn();
                     });
             });
 
@@ -210,6 +216,7 @@
                         $("#noti_clear_success").show(100);
 
                         $("#btn_pay").fadeOut();
+                        $("#box_noti_exist_in_table").fadeOut();
                     })
                     .fail(function () {
                         alert("Something failed!");
@@ -219,6 +226,7 @@
 
         function LoadDataTable(data) {
             $('#product_table >tbody >tr').html("");
+            $("#box_noti_exist_in_table").fadeOut();
             var total_price = 0;
             var ship_cost = 15000;
             var total_pay = 0;
@@ -233,7 +241,7 @@
                 );
 
                 // Tính giá
-                total_price += data[i].Price;
+                total_price += data[i].Price * data[i].Num;
             }
             total_pay = total_price + ship_cost;
             $("#total_price").html(FormatPrice(total_price));

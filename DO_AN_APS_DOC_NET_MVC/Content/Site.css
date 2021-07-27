@@ -35,13 +35,7 @@ ul > li > a:hover {
     font-family: Tahoma !important;
 }
 
-.btn_view_product{
-    width: 0;
-    transition: 1s;
-}
-.box_product:hover .btn_view_product {
-    width: 100%;
-}
+
 
 .gallery {
     background: #EEE;
@@ -79,21 +73,35 @@ ul > li > a:hover {
     }*/
 
 
+.btn_view_product {
+    /*position: relative;
+    left: 0;
+    bottom: 0;*/
+    width: 0;
+    transition: 1s;
+}
 
+.box_product:hover .btn_view_product {
+    width: 100%;
+}
 .elementProduct {
     width: 100%;
-    height: 500px;
+    height: 400px;
     overflow: hidden;
 }
 
-.elementProduct img {
-    height: 70%;
+.image_product_cover {
+    height: 300px;
     width: 100%;
+    transition: 1s;
 }
-
-
+/*.image_product_cover:hover {
+    margin-top: -20%;
+    margin-left: -5%;
+    height: 80%;
+    width: 110%;
+}*/
 /* TODO SEARCH */
-
 input {
     outline: none;
 }

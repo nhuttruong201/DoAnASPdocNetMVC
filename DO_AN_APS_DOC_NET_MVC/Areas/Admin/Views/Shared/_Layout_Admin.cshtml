@@ -44,10 +44,10 @@
                         <a class="nav-link" href="/Admin/Payment" id="payment">Thanh Toán</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Admin/Payment/Waiting" id="wait_payment">Chờ Thanh Toán</a>
+                        <a class="nav-link" href="/Admin/OrderManager/NewOrder" id="new_order">Đơn Hàng Mới</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Admin/OrderManager/NewOrder" id="new_order">Đơn Hàng Mới</a>
+                        <a class="nav-link" href="/Admin/Payment/Waiting" id="wait_payment">Chờ Thanh Toán</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/Admin/CategoryManager" id="category_manager">Quản Lý Danh Mục</a>
@@ -68,9 +68,37 @@
     </div>
 
     <!-- TODO Footer -->
-    <div class="container-fluid p-0">
-        <div class="jumbotron text-center bg-light shadow-none" style="margin-bottom:0">
-            <p>&copy; @DateTime.Now.Year - King Clothes</p>
+    <div class="container-fluid p-0 m-0" style="overflow:hidden;">
+        <div class="row py-5" style="background-color: #232323;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h5 class="text-white text-left">🔥 Giới thiệu</h5>
+                        <br />
+                        <p class="text-white-50">King Clothes là shop thời trang...</p>
+                        <img src="~/Images/logo.png" width="100%" height="250" style="border: solid 2px #0094ff;" />
+                    </div>
+                    <div class="col-sm-4">
+                        <h5 class="text-white text-center">🔥 Thông tin liên hệ</h5>
+                        <br />
+                        <p class="text-white-50"><i class="fas fa-map-marker-alt"></i> Phường Tân Phú, Quận 9, Thành phố Hồ Chí Minh, Việt Nam</p>
+                        <p class="text-white-50"><i class="fas fa-envelope"></i> <a href="mailto: kingclothes@gmail.com" class="text-white-50">kingclothes@gmail.com</a></p>
+                        <p class="text-white-50"><i class="fas fa-phone-square"></i> <a href="tel:033133233" class="text-white-50">033.133.233</a></p>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <h5 class="text-white text-right">🔥 Thông tin địa điểm</h5>
+                        <br />
+                        <p class="text-white-50">Vị trí trên Google Map</p>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.4276421675927!2d106.78318431432112!3d10.85504269226818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317527c3debb5aad%3A0x5fb58956eb4194d0!2zxJDhuqFpIEjhu41jIEh1dGVjaCBLaHUgRQ!5e0!3m2!1svi!2s!4v1627367207781!5m2!1svi!2s" width="100%" height="250px" style="border: solid 2px #0094ff;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="height: 60px; line-height: 60px; overflow:hidden; background-color: #000000; ">
+            <div class="col-sm-12">
+                <p class="text-white-50 text-center">&copy; @DateTime.Now.Year - King Clothes</p>
+            </div>
         </div>
     </div>
 

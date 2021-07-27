@@ -92,7 +92,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             db.Carts.RemoveRange(db.Carts);
             db.SaveChanges();
 
-            return RedirectToAction("Index", "CheckOrder");
+            return RedirectToAction("CheckOrder", "Order");
         }
     }
 }

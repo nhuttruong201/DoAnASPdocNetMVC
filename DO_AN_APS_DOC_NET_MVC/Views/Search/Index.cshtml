@@ -7,22 +7,25 @@
 <div class="row">
     <div class="container mt-5 p-0">
         <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">KẾT QUẢ TÌM KIẾM</h4>
-        <h6 class="text-center">Từ khóa: ' @Model.strSearch ' - @Model.Products.Count() kết quả</h6>
+        <div class="text-center mb-3">
+            <span>Từ khóa: <span class="font-weight-bold">@Model.strSearch</span> - <span class="font-weight-bold">@Model.Products.Count() kết quả</span></span>
+        </div>
         <br />
         <div class="row">
             @foreach (var product in Model.Products)
             {
-                <div class="col-6 col-md-3">
-                    <div class="elementProduct box_product">
-                        <img src="@product.Image_Front" alt="">
-                        <div class="text-center text-nowrap bg-info py-1 btn_view_product">
-                            @Html.ActionLink("XEM NGAY", "Details", "Products", new { id = product.Id_Product }, new { @class = "text-white text-decoration-none" })
-                        </div>
-                        <div class="text-nowrap text-uppercase text-center">
-                            @Model.GetProductName(product.Id_Model) - @product.Color<br> <span style="color: black; font-size: 16px;">@Model.GetProductPrice(product.Id_Model) ₫</span>
-                        </div>
+            <div class="col-6 col-md-3">
+                <div class="elementProduct box_product">
+                    <a href="/Products/Details/@product.Id_Product">
+                        <img src="@product.Image_Front" alt="" class="image_product_cover" />
+                    </a>
+                    <div class="btn_view_product" style="height: 5px;"></div>
+                    <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
+                    <div class="text-nowrap text-uppercase text-center">
+                        @Model.GetProductName(product.Id_Model) - @product.Color<br> <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
                     </div>
                 </div>
+            </div>
             }
         
         </div>

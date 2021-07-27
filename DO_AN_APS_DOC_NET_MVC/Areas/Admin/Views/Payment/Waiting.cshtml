@@ -29,7 +29,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Tên Khách Hàng</th>
+                        <th>ID Bill</th>
+                        <th>Khách Hàng</th>
                         <th>Email</th>
                         <th>Ngày Đặt</th>
                         <th>Trạng Thái</th>
@@ -43,10 +44,11 @@
                         stt++;
                     <tr>
                         <td>@stt</td>
+                        <td>@item.Id_Bill</td>
                         <td>@GetCustomerName(item.Id_Customer)</td>
                         <td>@GetEmail(item.Id_Customer)</td>
                         <td>@item.Date</td>
-                        <td class="text-warning">Chờ Thanh Toán</td>
+                        <td class="text-warning font-weight-bold">Chờ Thanh Toán</td>
                         <td>
                             <form action="/Admin/Payment/PayWait" method="post">
                                 <input type="hidden" value="@item.Id_Bill" name="idBill" />
