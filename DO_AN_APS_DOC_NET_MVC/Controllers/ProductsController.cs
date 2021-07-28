@@ -21,6 +21,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         // GET: Products
         public ActionResult Index(int view, int? page)
         {
+            
             if (page == null) page = 1;
             int pageSize = 4;
             int pageNumber = (page ?? 1); // If(page == null) pageNumber = 1;
@@ -38,11 +39,12 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
                     }
                 }
             }
+            ViewBag.Page = page;
 
             ViewBag.Title = db.Categories.Find(view).Name;
-            ViewBag.UrlPageSelect = "/products?view=" + view + "&?page=";
-            ViewBag.UrlPagePrevious = "/products?view=" + view + "&?page=" + (page - 1);
-            ViewBag.UrlPageNext = "/products?view=" + view + "&?page=" + (page + 1);
+            ViewBag.UrlPageSelect = "/products?view=" + view + "&page=";
+            ViewBag.UrlPagePrevious = "/products?view=" + view + "&page=" + (page - 1);
+            ViewBag.UrlPageNext = "/products?view=" + view + "&page=" + (page + 1);
 
             return View(productDistinct.ToPagedList(pageNumber, pageSize));
         }
@@ -50,10 +52,9 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         public ActionResult All(int? page)
         {
             if (page == null) page = 1;
-            int pageSize = 4;
+            int pageSize = 8;
             int pageNumber = (page ?? 1);
 
-            //var products = db.Products.Select(p => new { p.Id_Model, p.Color }).Distinct().ToList();
             var products = db.Products.OrderByDescending(p => p.Id_Model).ToList();
             // Loại bỏ các sản phẩm cùng loại cùng màu (chỉ khác size)
             var productDistinct = products;
@@ -68,7 +69,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
                     }
                 }
             }
-
+            ViewBag.Page = page;
             ViewBag.Title = "Tất Cả Sản Phẩm";
             ViewBag.UrlPageSelect = "/products/all?page=";
             ViewBag.UrlPagePrevious = "/products/all?page=" + (page - 1);

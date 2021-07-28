@@ -91,15 +91,14 @@
                         <input type="hidden" id="product_id_finded" />
                         <br /><br />
                         <label>Số lượng: </label>
-                        <input type="number" value="1" min="1" id="numProductAddBill" style="width: 50px; border: none; border-bottom: solid 0.5px #000; border-right: solid 0.5px #000;" />
+                        <input type="number" value="1" min="1" id="numProductAddBill" onchange="ClearNotiAddTable()" style="width: 50px; border: none; border-bottom: solid 0.5px #000; border-right: solid 0.5px #000;" />
                         <button class="btn btn-link text-primary" id="btn_add_bill"><i class="fas fa-plus"></i> Thêm vào đơn hàng</button>
 
                     </div>
                 </div>
-                <div class="text-right mb-2" id="box_noti_exist_in_table">
-                    <span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Sản phẩm đã có trong đơn hàng!</span>
+                <div class="text-right mb-2" id="box_noti_add_table_fail">
+                    
                 </div>
-              
                 <div class="form-group mt-1">
                     <div id="box_noti_check_product">
                         <span class="text-danger"><i class="fas fa-exclamation-triangle"></i> Không tìm thấy sản phẩm!</span>
@@ -133,7 +132,8 @@
             $("#noti_clear_success").hide();
             $("#box_noti_check_customer").hide();
             $("#box_noti_check_product").hide();
-            $("#box_noti_exist_in_table").hide();
+            $("#box_noti_add_table_fail").hide();
+            
             // hide noti check customer
             $("#phoneNumber").focusin(function () {
                 $("#box_noti_check_customer").hide();
@@ -157,7 +157,7 @@
                         $("#color_size_price_product_finded").html(data.Color_Product + ' - ' + data.Size_Product + ' - ' + FormatPrice(data.Price_Product) + ' ₫');
                         $("#product_id_finded").val(data.Id_Product);
                         $("#box_product_finded").fadeIn();
-                        $("#box_noti_exist_in_table").fadeOut();
+                        $("#box_noti_add_table_fail").fadeOut();
 
                     })
                     .fail(function () {
@@ -197,11 +197,20 @@
                     Num: $("#numProductAddBill").val()
                 })
                     .done(function (data) {
-                        LoadDataTable(data);
+                        if (!data) {
+                            //alert("Hến hàng");
+                            var noti = '<span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Không đủ sản phẩm trong kho!</span>';
+                            $("#box_noti_add_table_fail").html(noti);
+                            $("#box_noti_add_table_fail").fadeIn();
+                        } else {
+                            LoadDataTable(data);
+                        }
                     })
                     .fail(function () {
                         //alert("Sản phẩm đã tồn tại trong đơn hàng!");
-                        $("#box_noti_exist_in_table").fadeIn();
+                        var noti = '<span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Sản phẩm đã có trong đơn hàng!</span>';
+                        $("#box_noti_add_table_fail").html(noti);
+                        $("#box_noti_add_table_fail").fadeIn();
                     });
             });
 
@@ -223,6 +232,10 @@
                     });
             });
         });
+
+        function ClearNotiAddTable() {
+            $("#box_noti_add_table_fail").fadeOut();
+        }
 
         function LoadDataTable(data) {
             $('#product_table >tbody >tr').html("");

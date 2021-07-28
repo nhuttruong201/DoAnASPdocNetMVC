@@ -46,10 +46,16 @@
             <hr>
         </div>
 
+        <div style="width: max-content;">
+            <span>HIỆN CÒN <span class="font-weight-bold">@Model.ProductDetail.Num</span> SẢN PHẨM</span>
+            <input type="hidden" value="@Model.ProductDetail.Num" id="totalProduct" />
+            <hr />
+        </div>
+
         <div class="quantity-area">
             <span>SỐ LƯỢNG:</span>
             <input type="button" value="-" onclick="minusQuantity()" class="qty-btn btn-left-quantity">
-            <input type="text" id="quantity" name="quantity" value="1" min="1" class="quantity-selector">
+            <input type="text" id="quantity" name="quantity" value="1" min="1" disabled class="quantity-selector">
             <input type="button" value="+" onclick="plusQuantity()" class="qty-btn btn-right-quantity">
             <button data-model-id="@Model.ProductDetail.Id_Model" data-product-color="@Model.ProductDetail.Color" id="btn_add_to_cart" class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
             <div class="text-center mt-2">
@@ -99,7 +105,10 @@
 {
     <script>
         function plusQuantity() {
-            $("#quantity").val(parseInt($("#quantity").val()) + 1);
+            if (parseInt($("#quantity").val()) < $("#totalProduct").val()) {
+                $("#quantity").val(parseInt($("#quantity").val()) + 1);
+            }
+            
         }
         function minusQuantity() {
             if (parseInt($("#quantity").val()) > 1) {

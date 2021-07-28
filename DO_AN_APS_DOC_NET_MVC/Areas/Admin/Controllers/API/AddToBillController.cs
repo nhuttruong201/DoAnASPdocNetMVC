@@ -29,6 +29,15 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers.API
 
             Product product = db.Products.Find(productDTO.Id_Product);
             db.Entry(product).Reference(p => p.Product_Model).Load();
+
+            // Kiểm tra sl sản phẩm trong kho phải lớn hơn sl sản phẩm cần thanh toán
+            int totalProduct = db.Products.Find(productDTO.Id_Product).Num;
+            if(productDTO.Num > totalProduct)
+            {
+                return Ok(false);
+            }
+            
+
             Bill_Temp bill_Temp = new Bill_Temp
             {
                 Id_Product = product.Id_Product,

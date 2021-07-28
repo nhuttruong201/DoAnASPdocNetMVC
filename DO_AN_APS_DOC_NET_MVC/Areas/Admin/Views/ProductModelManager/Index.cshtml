@@ -32,11 +32,14 @@
 
 <div class="container">
     <h2>Quản Lý Mẫu Sản Phẩm</h2>
+    <span>Hiện có <span class="font-weight-bold">@Model.Count() mẫu sản phẩm.</span> </span>
+    <br /><br />
     <p>
         @Html.ActionLink("Thêm Mẫu Sản Phẩm", "Create")
     </p>
     <table class="table table-hover">
         <tr>
+            <th>#</th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -50,10 +53,12 @@
                 Thao Tác
             </th>
         </tr>
-
+        @{ int stt = 0;}
         @foreach (var item in Model)
         {
+            stt++;
             <tr>
+                <td>@stt</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>

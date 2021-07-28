@@ -6,42 +6,47 @@
 }
 
 
-<div class="container">
-    <h2>Quản Lý Danh Mục</h2>
-    <p>
-        @Html.ActionLink("Thêm Danh Mục", "Create")
-    </p>
-    <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image_Cover)
-            </th>
-            <th>
-                Thao Tác
-            </th>
-        </tr>
+    <div class="container">
+        <h2>Quản Lý Danh Mục</h2>
+        <span>Hiện có <span class="font-weight-bold">@Model.Count() danh mục.</span> </span>
+        <br /><br />
+        <p>
+            @Html.ActionLink("Thêm Danh Mục", "Create")
+        </p>
+        <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image_Cover)
+                </th>
+                <th>
+                    Thao Tác
+                </th>
+            </tr>
+            @{ int stt = 0;}
+            @foreach (var item in Model)
+            {
+                stt++;
+                <tr>
+                    <td>@stt</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.Image_Cover)" height="60" width="60" />
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id_Category }, new { @class = "text-primary" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id_Category }, new { @class = "text-primary" })
+                    </td>
+                </tr>
+            }
 
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.Image_Cover)" height="60" width="60"/>
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id_Category}, new { @class = "text-primary" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id_Category }, new { @class = "text-primary" })
-            </td>
-        </tr>
-        }
-
-    </table>
-</div>
+        </table>
+    </div>
 @section Scripts
 {
     <script>

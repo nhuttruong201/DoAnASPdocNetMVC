@@ -61,7 +61,21 @@ namespace DO_AN_APS_DOC_NET_MVC.ViewModels
                     listSize.Add(item.Size);
                 }
             }
-
+            // sắp xếp size S M L XL
+            int i, j;
+            int l = listSize.Count();
+            for (i = 0; i < l; i++)
+            {
+                for (j = 0; j < l - 1; j++)
+                {
+                    if (listSize[j].CompareTo(listSize[j + 1]) < 0)
+                    {
+                        var temp = listSize[j];
+                        listSize[j] = listSize[j + 1];
+                        listSize[j + 1] = temp;
+                    }
+                }
+            }
             return listSize;
         }
 

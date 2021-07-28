@@ -6,72 +6,77 @@
 }
 
 
-<div class="container">
-    <h2>Quản Lý Sản Phẩm</h2>
-    <p>
-        @Html.ActionLink("Thêm Sản Phẩm", "Create")
-    </p>
-    <table class="table table-hover">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Category.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Product_Model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image_Front)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image_Back)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Size)
-            </th>
-            <th>
-                SL
-            </th>
-            <th>
-                Thao Tác
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    <div class="container">
+        <h2>Quản Lý Sản Phẩm</h2>
+        <span>Hiện có <span class="font-weight-bold">@Model.Count() sản phẩm.</span> </span>
+        <br /><br />
+        <p>
+            @Html.ActionLink("Thêm Sản Phẩm", "Create")
+        </p>
+        <table class="table table-hover">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product_Model.Name)
-                </td>
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.Image_Front)" alt="Ảnh mặt trước" height="80" width="80"/>
-                </td>
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.Image_Back)" alt="Ảnh mặt sau" height="80" width="80"/>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Color)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Size)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Num)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id_Product }, new { @class="text-primary" }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id_Product }, new { @class = "text-primary" })
-                </td>
+                <th>#</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product_Model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image_Front)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image_Back)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Color)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Size)
+                </th>
+                <th>
+                    SL
+                </th>
+                <th>
+                    Thao Tác
+                </th>
             </tr>
-        }
+            @{ int stt = 0;}
+            @foreach (var item in Model)
+            {
+                stt++;
+                <tr>
+                    <td>@stt</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product_Model.Name)
+                    </td>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.Image_Front)" alt="Ảnh mặt trước" height="80" width="80" />
+                    </td>
+                    <td>
+                        <img src="@Html.DisplayFor(modelItem => item.Image_Back)" alt="Ảnh mặt sau" height="80" width="80" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Size)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Num)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id_Product }, new { @class = "text-primary" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id_Product }, new { @class = "text-primary" })
+                    </td>
+                </tr>
+            }
 
-    </table>
-</div>
+        </table>
+    </div>
 
 @section Scripts
 {

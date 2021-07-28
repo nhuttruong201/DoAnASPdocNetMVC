@@ -17,7 +17,7 @@
             @foreach (var item in Model.Categories)
             {
                 <div class="gallery-cell">
-                    <a href="/products?view=@item.Id_Category"><img src="@item.Image_Cover" alt="Ảnh phân loại"></a>
+                    <a href="/products?view=@item.Id_Category&page=1"><img src="@item.Image_Cover" alt="Ảnh phân loại"></a>
                     <div class="carousel-caption text-center">
                         <h2>@item.Name</h2>
                     </div>
@@ -30,27 +30,32 @@
 <!-- TODO Sản phẩm mới -->
 <div class="row">
     <div class="container mt-5 p-0">
-        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">Sản phẩm mới</h4>
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">🔥 Mẫu mới</h4>
         <div class="row">
+            @{ int stt = 1;}
             @foreach (var product in Model.Products)
             {
-                <div class="col-6 col-md-3">
-                    <div class="elementProduct box_product">
-                        <a href="/Products/Details/@product.Id_Product">
-                            <img src="@product.Image_Front" alt="" class="image_product_cover" />
-                        </a>
-                        <div class="btn_view_product" style="height: 5px;"></div>
-                        <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
-                        <div class="text-nowrap text-uppercase text-center">
-                            @Model.GetProductName(product.Id_Model) - @product.Color
-                            <br> 
-                            <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                if (stt <= 8)
+                {
+                    <div class="col-6 col-md-3">
+                        <div class="elementProduct box_product">
+                            <a href="/Products/Details/@product.Id_Product">
+                                <img src="@product.Image_Front" alt="" class="image_product_cover" />
+                            </a>
+                            <div class="btn_view_product" style="height: 5px;"></div>
+                            <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
+                            <div class="text-nowrap text-uppercase text-center">
+                                @Model.GetProductName(product.Id_Model) - @product.Color
+                                <br>
+                                <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                stt++;
             }
             <div class="col-sm-12 text-center mb-5">
-                <a href="/products/all?page=1" type="button" class="btn btn-deep-orange">XEM TẤT CẢ SẢN PHẨM</a>
+                <a href="/products/all?page=1" type="button" class="btn btn-deep-orange"><i class="fas fa-hand-point-right"></i> XEM TẤT CẢ SẢN PHẨM</a>
             </div>
         </div>
     </div>
@@ -60,7 +65,7 @@
 {
     <div class="row">
         <div class="container p-0">
-            <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@category.Name</h4>
+            <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">🔥 @category.Name</h4>
             <br />
             <div class="row">
                 @foreach (var product in Model.Products)
@@ -82,7 +87,7 @@
                     }
                 }
                 <div class="col-sm-12 text-center mb-5">
-                    <a href="/products?view=@category.Id_Category&page=1" type="button" class="btn btn-deep-orange text-uppercase">Xem thêm @category.Name</a>
+                    <a href="/products?view=@category.Id_Category&page=1" type="button" class="btn btn-deep-orange text-uppercase"><i class="fas fa-hand-point-right"></i> Xem thêm @category.Name</a>
                 </div>
             </div>
         </div>

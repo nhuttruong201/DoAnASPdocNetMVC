@@ -69,7 +69,7 @@
 <div class="row">
     <div class="container">
         <ul class="pagination">
-            @{ int page = Convert.ToInt32(Url.Action().Substring(Url.Action().Length - 1, 1));}
+            @{ int page = Convert.ToInt32(ViewBag.Page);}
             @if (page > 1)
             {
                 <li class="page-item"><a class="page-link" href="@ViewBag.UrlPagePrevious">Previous</a></li>

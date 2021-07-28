@@ -31,6 +31,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers.API
             // Cập nhật số lượng sản phẩm trong giỏ hàng
             cart.Num = productDTO.Num;
             db.SaveChanges();
+
             return Ok();
         }
     }

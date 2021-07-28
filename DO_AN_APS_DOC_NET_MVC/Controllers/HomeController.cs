@@ -18,7 +18,17 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         }
         public ActionResult Index()
         {
-            var products = db.Products.OrderByDescending(p => p.Id_Model).Take(8).ToList();
+            // load category carousel
+            var categories = db.Categories.ToList();
+            List<Product> products = new List<Product>();
+            foreach(var item in categories)
+            {
+                var productTemp = db.Products.Where(i => i.Id_Category == item.Id_Category).OrderByDescending(p => p.Id_Model).Take(4).ToList();
+                foreach(var pTemp in productTemp)
+                {
+                    products.Add(pTemp);
+                }
+            }
 
             // Loại bỏ các sản phẩm cùng loại cùng màu (chỉ khác size)
             var productDistinct = products;
@@ -34,8 +44,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
                 }
             }
 
-            // load category
-            var categories = db.Categories.ToList();
+         
 
             var viewModel = new ProductsViewModel
             {
