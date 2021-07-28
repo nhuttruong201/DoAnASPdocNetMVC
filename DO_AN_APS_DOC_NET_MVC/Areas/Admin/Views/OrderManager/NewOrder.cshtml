@@ -5,66 +5,67 @@
 }
 @using System.Data.Entity;
 
-<div class="container">
-    <h2>Đơn Hàng Mới - @Model.Orders.Count()</h2>
-    <br />
-    <table class="table table-hover">
-        <tr>
-            <th>
-                #
-            </th>
-            <th>
-                Mã ĐH
-            </th>
-            <th>
-                Khách Hàng
-            </th>
-            <th>
-                Ngày Đặt
-            </th>
-            <th>
-                Địa Chỉ
-            </th>
-            <th>
-                SDT
-            </th>
-            <th class="text-center">
-                Thao Tác
-            </th>
-        </tr>
-
-        @{ int stt = 0; }
-        @foreach (var item in Model.Orders)
-        {
-            stt++;
+    <div class="container">
+        <h2>Đơn Hàng Mới</h2>
+        <span>Hiện có <span class="font-weight-bold">@Model.Orders.Count() đơn hàng mới.</span></span>
+        <br /><br />
+        <table class="table table-hover">
             <tr>
-                <td>
-                    @stt
-                </td>
-                <td>
-                    @item.Id_Order
-                </td>
-                <td>
-                    @Model.GetCustomerName(item.Id_Customer)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-
-                </td>
-                <td class="text-center">
-                    <a href="/Admin/OrderManager/Details/@item.Id_Order" class="text-primary">Chi Tiết</a>
-                </td>
+                <th>
+                    #
+                </th>
+                <th>
+                    Mã ĐH
+                </th>
+                <th>
+                    Khách Hàng
+                </th>
+                <th>
+                    Ngày Đặt
+                </th>
+                <th>
+                    Địa Chỉ
+                </th>
+                <th>
+                    SDT
+                </th>
+                <th class="text-center">
+                    Thao Tác
+                </th>
             </tr>
-        }
 
-    </table>
-</div>
+            @{ int stt = 0; }
+            @foreach (var item in Model.Orders)
+            {
+                stt++;
+                <tr>
+                    <td>
+                        @stt
+                    </td>
+                    <td>
+                        @item.Id_Order
+                    </td>
+                    <td>
+                        @Model.GetCustomerName(item.Id_Customer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+
+                    </td>
+                    <td class="text-center">
+                        <a href="/Admin/OrderManager/Details/@item.Id_Order" class="text-primary">Chi Tiết</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 
 @section Scripts
 {

@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Bill> 
 @{
-    ViewBag.Title = "Waiting";
+    ViewBag.Title = "Chờ Thanh Toán";
     Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
 
 
@@ -20,48 +20,49 @@
 
 }
 
-<div class="container">
-    <h2>Chờ Thanh Toán</h2>
-    <br />
-    <div class="row">
-        <div class="col-sm-12">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>ID Bill</th>
-                        <th>Khách Hàng</th>
-                        <th>Email</th>
-                        <th>Ngày Đặt</th>
-                        <th>Trạng Thái</th>
-                        <th>Thao Tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @{ int stt = 0;}
-                    @foreach (var item in Model)
-                    {
-                        stt++;
-                    <tr>
-                        <td>@stt</td>
-                        <td>@item.Id_Bill</td>
-                        <td>@GetCustomerName(item.Id_Customer)</td>
-                        <td>@GetEmail(item.Id_Customer)</td>
-                        <td>@item.Date</td>
-                        <td class="text-warning font-weight-bold">Chờ Thanh Toán</td>
-                        <td>
-                            <form action="/Admin/Payment/PayWait" method="post">
-                                <input type="hidden" value="@item.Id_Bill" name="idBill" />
-                                <button type="submit" class="btn btn-link text-primary" style="top: -18px;"><i class="fas fa-cart-arrow-down"></i> Thanh Toán</button>
-                            </form>
-                        </td>
-                    </tr>
-                    }
+    <div class="container">
+        <h2>Chờ Thanh Toán</h2>
+        <span>Đang chờ thanh toán <span class="font-weight-bold">@Model.Count() hóa đơn.</span>
+            <br /><br />
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID Bill</th>
+                                <th>Khách Hàng</th>
+                                <th>Email</th>
+                                <th>Ngày Đặt</th>
+                                <th>Trạng Thái</th>
+                                <th>Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ int stt = 0;}
+                            @foreach (var item in Model)
+                            {
+                                stt++;
+                                <tr>
+                                    <td>@stt</td>
+                                    <td>@item.Id_Bill</td>
+                                    <td>@GetCustomerName(item.Id_Customer)</td>
+                                    <td>@GetEmail(item.Id_Customer)</td>
+                                    <td>@item.Date</td>
+                                    <td class="text-warning font-weight-bold">Chờ Thanh Toán</td>
+                                    <td>
+                                        <form action="/Admin/Payment/PayWait" method="post">
+                                            <input type="hidden" value="@item.Id_Bill" name="idBill" />
+                                            <button type="submit" class="btn btn-link text-primary" style="top: -18px;"><i class="fas fa-cart-arrow-down"></i> Thanh Toán</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
 
-                </tbody>
-            </table>
-        </div>
-    </div>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 </div>
 
 

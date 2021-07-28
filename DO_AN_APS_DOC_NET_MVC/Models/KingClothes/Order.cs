@@ -18,7 +18,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Models.KingClothes
 
         [Display(Name = "Ngày Đặt")]
         [Required]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         [Display(Name = "Lời Nhắn")]
         public string Message { get; set; }
         [Display(Name = "Địa Chỉ")]

@@ -272,6 +272,14 @@
     <Compile Include="Migrations\202107260730016_AddColIsPayedInModelBill.Designer.cs">
       <DependentUpon>202107260730016_AddColIsPayedInModelBill.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107281251288_ChangeDateFromStringToDateTime.cs" />
+    <Compile Include="Migrations\202107281251288_ChangeDateFromStringToDateTime.Designer.cs">
+      <DependentUpon>202107281251288_ChangeDateFromStringToDateTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107281254201_ChangeDateFromStringToDateTime1.cs" />
+    <Compile Include="Migrations\202107281254201_ChangeDateFromStringToDateTime1.Designer.cs">
+      <DependentUpon>202107281254201_ChangeDateFromStringToDateTime1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\KingClothes\Bill.cs" />
@@ -364,6 +372,7 @@
     <Content Include="Areas\Admin\Views\OrderManager\NewOrder.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManager\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Payment\Waiting.cshtml" />
+    <Content Include="Areas\Admin\Views\Payment\History.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -484,6 +493,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107260730016_AddColIsPayedInModelBill.resx">
       <DependentUpon>202107260730016_AddColIsPayedInModelBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107281251288_ChangeDateFromStringToDateTime.resx">
+      <DependentUpon>202107281251288_ChangeDateFromStringToDateTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107281254201_ChangeDateFromStringToDateTime1.resx">
+      <DependentUpon>202107281254201_ChangeDateFromStringToDateTime1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

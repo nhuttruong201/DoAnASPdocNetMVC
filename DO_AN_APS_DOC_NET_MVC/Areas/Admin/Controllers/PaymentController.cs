@@ -49,7 +49,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
             // Lập hóa đơn thanh toán
             Bill bill = new Bill
             {
-                Date = DateTime.Now.ToString("dd/MM/yyyy"),
+                Date = DateTime.Now,
                 Id_Customer = id_customer,
                 IsPayed = true
             };
@@ -84,6 +84,12 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
 
 
             return RedirectToAction("Index", "Admin");
+        }
+
+        public ActionResult History()
+        {
+            var Bills = db.Bills.Where(p => p.IsPayed == true).OrderByDescending(p => p.Id_Bill).ToList();
+            return View(Bills);
         }
     }
 }

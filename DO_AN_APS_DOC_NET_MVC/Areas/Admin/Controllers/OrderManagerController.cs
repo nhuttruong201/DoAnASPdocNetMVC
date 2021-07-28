@@ -54,7 +54,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
             // Lập bill mới
             Bill bill = new Bill
             {
-                Date = DateTime.Now.ToString("dd/MM/yyyy"),
+                Date = DateTime.Now,
                 Id_Customer = order.Id_Customer,
                 // chờ thanh toán
                 IsPayed = false

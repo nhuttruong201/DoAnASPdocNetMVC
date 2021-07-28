@@ -12,7 +12,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Models.KingClothes
         public int Id_Bill { get; set; }
         [Display(Name = "Ngày Lập")]
         [Required]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         public string Id_Customer { get; set; }
         public bool IsPayed { get; set; }
         public ApplicationUser Customer { get; set; }

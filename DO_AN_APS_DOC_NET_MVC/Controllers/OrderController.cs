@@ -66,7 +66,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
                 PhoneNumber = phoneNumber,
                 Address = addressDetail + ", " + ward + ", " + district + ", Tp.HCM",
                 Message = message,
-                Date = DateTime.Now.ToString("dd/MM/yyyy"),
+                Date = DateTime.Now,
                 IsCheck = false
             };
             db.Orders.Add(order);
