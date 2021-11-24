@@ -28,7 +28,7 @@
             if (point == 4)
             {
                 point = 1;
-                listChar.Add(',');
+                listChar.Add('.');
             }
             listChar.Add(strPrice[i]);
             point++;
@@ -46,18 +46,34 @@
     <div class="container mt-5 p-0">
         <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">@ViewBag.Title</h4>
         <br />
-        <div class="row">
+        <div class="row" id="list-product">
             @foreach (var product in Model)
             {
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-md-3 mt-4">
                     <div class="elementProduct box_product">
+                        @if (product.Product_Model.Sale > 0)
+                        {
+                            <div class="lable_sale">
+                                <span class="px-1"> - @product.Product_Model.Sale %</span>
+                            </div>
+                        }
                         <a href="/Products/Details/@product.Id_Product">
                             <img src="@product.Image_Front" alt="" class="image_product_cover" />
                         </a>
                         <div class="btn_view_product" style="height: 5px;"></div>
                         <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @GetProductName(product.Id_Model) - @product.Color<br> <span class="font-weight-bold" style="color: black; font-size: 16px;">@FormatPrice(GetProductPrice(product.Id_Model)) ₫</span>
+                            <span class="product_category">@product.Category.Name</span>
+                            <br />
+                            <span class="product-name">@GetProductName(product.Id_Model)</span>
+                            <span> - </span>
+                            <span class="product_color">@product.Color</span>
+                            <br>
+                            @if (product.Product_Model.Sale > 0)
+                            {
+                                <span class="price-marketing" style="color: black; text-decoration: line-through; font-size: 16px;">@FormatPrice(GetProductPrice(product.Id_Model)) ₫</span>
+                            }
+                            <span class="product-price font-weight-bold" style="color: black; font-size: 16px;">@FormatPrice(GetProductPrice(product.Id_Model) - GetProductPrice(product.Id_Model) * product.Product_Model.Sale / 100) ₫</span>
                         </div>
                     </div>
                 </div>

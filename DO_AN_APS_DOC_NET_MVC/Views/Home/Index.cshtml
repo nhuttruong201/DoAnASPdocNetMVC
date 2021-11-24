@@ -5,12 +5,12 @@
 
 }
 <!-- TODO: Banner -->
-<div class="row">
+<div data-wow-delay="0.5s" class="row wow fadeIn">
     <img src="~/images/Banner/banner.jpg" alt="" width="100%">
 </div>
 
 <!-- TODO: Carousel Category-->
-<div class="row">
+<div data-wow-delay="1.5s" class="row wow fadeIn">
     <div class="container mt-4 p-0">
         <h4 class="text-center p-3" style="color: #5ecfbc;">DANH MỤC SẢN PHẨM</h4>
         <div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true }'>
@@ -27,10 +27,10 @@
     </div>
 </div>
 
-<!-- TODO Sản phẩm mới -->
-<div class="row">
+<!-- TODO HOT -->
+<div data-wow-delay="0.5s" class="row wow fadeIn">
     <div class="container mt-5 p-0">
-        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">🔥 Mẫu mới</h4>
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">🔥 HOT NHẤT</h4>
         <div class="row">
             @{ int stt = 1;}
             @foreach (var product in Model.Products)
@@ -39,15 +39,29 @@
                 {
                     <div class="col-6 col-md-3">
                         <div class="elementProduct box_product">
+                            @if (product.Product_Model.Sale > 0)
+                            {
+                                <div class="lable_sale">
+                                    <span class="px-1"> - @product.Product_Model.Sale %</span>
+                                </div>
+                            }
                             <a href="/Products/Details/@product.Id_Product">
                                 <img src="@product.Image_Front" alt="" class="image_product_cover" />
                             </a>
                             <div class="btn_view_product" style="height: 5px;"></div>
                             <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
                             <div class="text-nowrap text-uppercase text-center">
-                                @Model.GetProductName(product.Id_Model) - @product.Color
+                                <span class="product_category">@product.Category.Name</span>
+                                <br />
+                                <span class="product-name">@Model.GetProductName(product.Id_Model)</span>
+                                <span> - </span>
+                                <span class="product_color">@product.Color</span>
                                 <br>
-                                <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                                @if (product.Product_Model.Sale > 0)
+                                {
+                                    <span class="price-marketing" style="color: black; text-decoration: line-through; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                                }
+                                <span class="product-price font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model) - Model.GetProductPrice(product.Id_Model) * product.Product_Model.Sale / 100) ₫</span>
                             </div>
                         </div>
                     </div>
@@ -63,34 +77,50 @@
 <!-- TODO Hiện thị sản phẩm theo từng danh mục -->
 @foreach (var category in Model.Categories)
 {
-    <div class="row">
-        <div class="container p-0">
-            <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">🔥 @category.Name</h4>
-            <br />
-            <div class="row">
-                @foreach (var product in Model.Products)
+<div data-wow-delay="0.5s" class="row wow fadeIn">
+    <div class="container p-0">
+        <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">🔥 @category.Name</h4>
+        <br />
+        <div class="row">
+            @foreach (var product in Model.Products)
+            {
+                if (product.Id_Category == category.Id_Category)
                 {
-                    if (product.Id_Category == category.Id_Category)
-                    {
-                        <div class="col-6 col-md-3">
-                            <div class="elementProduct box_product">
-                                <a href="/Products/Details/@product.Id_Product">
-                                    <img src="@product.Image_Front" alt="" class="image_product_cover" />
-                                </a>
-                                <div class="btn_view_product" style="height: 5px;"></div>
-                                <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
-                                <div class="text-nowrap text-uppercase text-center">
-                                    @Model.GetProductName(product.Id_Model) - @product.Color<br> <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                    <div class="col-6 col-md-3 mt-4">
+                        <div class="elementProduct box_product">
+                            @if (product.Product_Model.Sale > 0)
+                            {
+                                <div class="lable_sale">
+                                    <span class="px-1"> - @product.Product_Model.Sale %</span>
                                 </div>
+                            }
+                            <a href="/Products/Details/@product.Id_Product">
+                                <img src="@product.Image_Front" alt="" class="image_product_cover" />
+                            </a>
+                            <div class="btn_view_product" style="height: 5px;"></div>
+                            <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
+                            <div class="text-nowrap text-uppercase text-center">
+                                <span class="product_category">@product.Category.Name</span>
+                                <br />
+                                <span class="product-name">@Model.GetProductName(product.Id_Model)</span>
+                                <span> - </span>
+                                <span class="product_color">@product.Color</span>
+                                <br>
+                                @if (product.Product_Model.Sale > 0)
+                                {
+                                    <span class="price-marketing" style="color: black; text-decoration: line-through; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                                }
+                                <span class="product-price font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model) - Model.GetProductPrice(product.Id_Model) * product.Product_Model.Sale / 100) ₫</span>
                             </div>
                         </div>
-                    }
+                    </div>
                 }
-                <div class="col-sm-12 text-center mb-5">
-                    <a href="/products?view=@category.Id_Category&page=1" type="button" class="btn btn-deep-orange text-uppercase"><i class="fas fa-hand-point-right"></i> Xem thêm @category.Name</a>
-                </div>
+            }
+            <div class="col-sm-12 text-center mb-5">
+                <a href="/products?view=@category.Id_Category&page=1" type="button" class="btn btn-deep-orange text-uppercase"><i class="fas fa-hand-point-right"></i> Xem thêm @category.Name</a>
             </div>
         </div>
     </div>
+</div>
 }
 

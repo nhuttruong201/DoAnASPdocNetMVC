@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
+<div class="row" id="info-wrapper">
     <div class="col-sm-12 text-center">
         <br />
         <h4 class="p-3" style="color: #5ecfbc;">CHI TIẾT SẢN PHẨM</h4>
@@ -26,12 +26,19 @@
 
     <div class="col-sm-6">
         <div style="width: max-content;" class="text-uppercase">
-            <p>@Model.GetProductName(Model.ProductDetail.Id_Model) - @Model.ProductDetail.Color</p>
+            <p class="product-name-detail">@Model.GetProductName(Model.ProductDetail.Id_Model) - @Model.ProductDetail.Color</p>
             <hr>
         </div>
 
         <div style="width: max-content;">
-            <p>@Model.FormatPrice(Model.GetProductPrice(Model.ProductDetail.Id_Model)) ₫</p>
+            @if(Model.ProductDetail.Product_Model.Sale > 0)
+            {
+                <span class="product-price-marketing" style="text-decoration: line-through;">
+                    @Model.FormatPrice(Model.GetProductPrice(Model.ProductDetail.Id_Model)) ₫
+                </span>
+                <span> | </span>
+            }
+            <span class="product-price-detail">@Model.FormatPrice(Model.GetProductPrice(Model.ProductDetail.Id_Model)- Model.GetProductPrice(Model.ProductDetail.Id_Model)* Model.ProductDetail.Product_Model.Sale/100) ₫</span>
             <hr>
         </div>
 
@@ -47,6 +54,12 @@
         </div>
 
         <div style="width: max-content;">
+            <span class="text-uppercase">DANH MỤC: </span>
+            <span id="category_detail">@Model.ProductDetail.Category.Name</span>
+            <hr />
+        </div>
+
+        <div style="width: max-content;">
             <span>HIỆN CÒN <span class="font-weight-bold">@Model.ProductDetail.Num</span> SẢN PHẨM</span>
             <input type="hidden" value="@Model.ProductDetail.Num" id="totalProduct" />
             <hr />
@@ -57,9 +70,9 @@
             <input type="button" value="-" onclick="minusQuantity()" class="qty-btn btn-left-quantity">
             <input type="text" id="quantity" name="quantity" value="1" min="1" disabled class="quantity-selector">
             <input type="button" value="+" onclick="plusQuantity()" class="qty-btn btn-right-quantity">
-            <button data-model-id="@Model.ProductDetail.Id_Model" data-product-color="@Model.ProductDetail.Color" id="btn_add_to_cart" class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
+            <button data-product-id="@Model.ProductDetail.Id_Product" data-model-id="@Model.ProductDetail.Id_Model" data-product-color="@Model.ProductDetail.Color" id="btn_add_to_cart" class="btn btn-info"><i class="fas fa-cart-plus"></i> THÊM VÀO GIỎ HÀNG</button>
             <div class="text-center mt-2">
-                <span id="noti_add_to_cart"></span>
+                <span class="text-warning" id="noti_add_to_cart"></span>
             </div>
             
         </div>
@@ -75,27 +88,43 @@
 <div class="row">
     <div class="container mt-5 p-0">
         <h4 class="text-center text-uppercase p-3" style="color: #5ecfbc;">SẢN PHẨM LIÊN QUAN</h4>
-        <div class="row">
-
+        <div class="row" id="list-product-relate">
             @foreach (var product in Model.Products)
             {
                 <div class="col-6 col-md-3">
                     <div class="elementProduct box_product">
+                        @if (product.Product_Model.Sale > 0)
+                        {
+                            <div class="lable_sale">
+                                <span class="px-1"> - @product.Product_Model.Sale %</span>
+                            </div>
+                        }
                         <a href="/Products/Details/@product.Id_Product">
                             <img src="@product.Image_Front" alt="" class="image_product_cover" />
                         </a>
                         <div class="btn_view_product" style="height: 5px;"></div>
                         <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
                         <div class="text-nowrap text-uppercase text-center">
-                            @Model.GetProductName(product.Id_Model) - @product.Color<br> <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                            <span class="product_category">@product.Category.Name</span>
+                            <br />
+                            <span class="product-name">@Model.GetProductName(product.Id_Model)</span>
+                            <span> - </span>
+                            <span class="product_color">@product.Color</span>
+                            <br>
+                            @if (product.Product_Model.Sale > 0)
+                            {
+                                <span class="price-marketing" style="color: black; text-decoration: line-through; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                            }
+                            <span class="product-price font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model) - Model.GetProductPrice(product.Id_Model) * product.Product_Model.Sale / 100) ₫</span>
                         </div>
                     </div>
                 </div>
             }
-            <div class="col-sm-12 text-center mb-4">
-                <a href="/products?view=@Model.ProductDetail.Id_Category&?page=1" type="button" class="btn btn-deep-orange">XEM THÊM @Model.ProductDetail.Category.Name</a>
-                @*<hr />*@
-            </div>
+
+        </div>
+        <div class="col-sm-12 text-center mb-4">
+            <a href="/products?view=@Model.ProductDetail.Id_Category&?page=1" type="button" class="btn btn-deep-orange">XEM THÊM @Model.ProductDetail.Category.Name</a>
+            @*<hr />*@
         </div>
     </div>
 </div>
@@ -105,10 +134,10 @@
 {
     <script>
         function plusQuantity() {
-            if (parseInt($("#quantity").val()) < $("#totalProduct").val()) {
-                $("#quantity").val(parseInt($("#quantity").val()) + 1);
-            }
-            
+            //if (parseInt($("#quantity").val()) < $("#totalProduct").val()) {
+            //    $("#quantity").val(parseInt($("#quantity").val()) + 1);
+            //}
+            $("#quantity").val(parseInt($("#quantity").val()) + 1);
         }
         function minusQuantity() {
             if (parseInt($("#quantity").val()) > 1) {
@@ -120,29 +149,37 @@
     @* Thêm vào giỏ hàng *@
     <script>
         $("#btn_add_to_cart").click(function (e) {
-            var button = $(e.target);
-            //alert("Size: " + $('input[name=Size]:checked').val() + "\nColor: " + button.attr('data-product-color') + "\nId_Model: " + button.attr('data-model-id'));
-            $.post("/api/addtocart", {
-                Id_Model: button.attr("data-model-id"),
-                Color_Product: button.attr("data-product-color"),
-                Size_Product: $('input[name=Size]:checked').val(),
-                Num: $("#quantity").val()
-            })
-                .done(function (data) {
-                    if (data) {
-                        $("#noti_add_to_cart").removeClass("text-warning");
-                        $("#noti_add_to_cart").addClass("text-success");
-                        $("#noti_add_to_cart").html('<i class="fas fa-check"></i> Đã thêm sản phẩm vào giỏ hàng!');
-                    } else {
-                        $("#noti_add_to_cart").removeClass("text-success");
-                        $("#noti_add_to_cart").addClass("text-warning");
-                        $("#noti_add_to_cart").html('<i class="fas fa-exclamation-triangle"></i> Sản phẩm đã có trong giỏ hàng!');
-                    }
-                    
+            if (parseInt($("#quantity").val()) > $("#totalProduct").val()) {
+                $("#noti_add_to_cart").html("Vượt quá số lượng sản phẩm hiện có!");
+            } else {
+                var button = $(e.target);
+                //alert("Size: " + $('input[name=Size]:checked').val() + "\nColor: " + button.attr('data-product-color') + "\nId_Model: " + button.attr('data-model-id'));
+                $.post("/api/addtocart", {
+                    //Id_Model: button.attr("data-model-id"),
+                    //Color_Product: button.attr("data-product-color"),
+                    //Size_Product: $('input[name=Size]:checked').val(),
+                    Id_Product: button.attr("data-product-id"),
+                    Num: $("#quantity").val()
                 })
-                .fail(function () {
-                    alert("Đã xảy ra lỗi, vui lòng thử lại!");
-                });
+                    .done(function (data) {
+                        if (data) {
+                            $("#noti_add_to_cart").removeClass("text-warning");
+                            $("#noti_add_to_cart").addClass("text-success");
+                            $("#noti_add_to_cart").html('<i class="fas fa-check"></i> Đã thêm sản phẩm vào giỏ hàng!');
+                        } else {
+                            $("#noti_add_to_cart").removeClass("text-success");
+                            $("#noti_add_to_cart").addClass("text-warning");
+                            $("#noti_add_to_cart").html('<i class="fas fa-exclamation-triangle"></i> Sản phẩm đã có trong giỏ hàng!');
+                        }
+
+                    })
+                    .fail(function () {
+                        //alert("Đã xảy ra lỗi, vui lòng thử lại!");
+                    });
+            }
+
+
+            
         });
     </script>
 

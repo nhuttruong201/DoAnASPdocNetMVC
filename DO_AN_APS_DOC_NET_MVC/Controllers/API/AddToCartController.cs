@@ -12,6 +12,7 @@ using System.Web.Routing;
 
 namespace DO_AN_APS_DOC_NET_MVC.Controllers.API
 {
+    [Authorize]
     public class AddToCartController : ApiController
     {
         private ApplicationDbContext db;
@@ -25,11 +26,15 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers.API
             // Lấy id của khách hàng
             var userId = User.Identity.GetUserId();
             // Tìm sản phẩm cần thêm vào giỏ hàng
-            Product product = db.Products.FirstOrDefault(p =>
-                p.Id_Model == productDTO.Id_Model &&
-                p.Color.Equals(productDTO.Color_Product) &&
-                p.Size.Equals(productDTO.Size_Product)
-                );
+            //Product product = db.Products.FirstOrDefault(p =>
+            //    p.Id_Model == productDTO.Id_Model &&
+            //    p.Color.Equals(productDTO.Color_Product) &&
+            //    p.Size.Equals(productDTO.Size_Product)
+            //    );
+
+            Product product = db.Products.Find(productDTO.Id_Product);
+
+
             // Kiểm tra sản phẩm tìm kiếm có tồn tại hay không
             if(product == null)
             {

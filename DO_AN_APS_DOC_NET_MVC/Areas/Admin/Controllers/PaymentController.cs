@@ -9,7 +9,7 @@ using System.Data.Entity;
 
 namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class PaymentController : Controller
     {
         private ApplicationDbContext db;

@@ -55,7 +55,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your display name has been changed."
+                message == ManageMessageId.ChangeDisplayNameSuccess ? "Your display name has been changed."
                 : message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
@@ -240,7 +240,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
             userChange.Name = model.Name;
             db.SaveChanges();
             //return RedirectToAction("Index", "Manage");
-            return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+            return RedirectToAction("Index", new { Message = ManageMessageId.ChangeDisplayNameSuccess });
 
         }
         //

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace DO_AN_APS_DOC_NET_MVC.Controllers
 {
@@ -18,12 +19,11 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         }
         public ActionResult Index()
         {
-            // load category carousel
             var categories = db.Categories.ToList();
             List<Product> products = new List<Product>();
             foreach(var item in categories)
             {
-                var productTemp = db.Products.Where(i => i.Id_Category == item.Id_Category).OrderByDescending(p => p.Id_Model).Take(4).ToList();
+                var productTemp = db.Products.Include(i => i.Product_Model).Where(i => i.Id_Category == item.Id_Category).OrderByDescending(p => p.Id_Model).Take(4).ToList();
                 foreach(var pTemp in productTemp)
                 {
                     products.Add(pTemp);
@@ -44,10 +44,10 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
                 }
             }
 
-         
 
             var viewModel = new ProductsViewModel
             {
+                // load category carousel
                 Categories = categories,
                 Products = productDistinct
             };

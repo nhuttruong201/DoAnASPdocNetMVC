@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace DO_AN_APS_DOC_NET_MVC.Controllers
 {
@@ -26,7 +27,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var results = db.Products.Where(i => i.Product_Model.Name.Contains(search)).ToList();
+            var results = db.Products.Include(i => i.Product_Model).Include(i => i.Category).Where(i => i.Product_Model.Name.Contains(search)).ToList();
             var viewModel = new ProductsViewModel
             { 
                 Products = results,

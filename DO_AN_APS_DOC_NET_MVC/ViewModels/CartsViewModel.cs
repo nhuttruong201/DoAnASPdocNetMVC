@@ -49,7 +49,7 @@ namespace DO_AN_APS_DOC_NET_MVC.ViewModels
                 if (point == 4)
                 {
                     point = 1;
-                    listChar.Add(',');
+                    listChar.Add('.');
                 }
                 listChar.Add(strPrice[i]);
                 point++;

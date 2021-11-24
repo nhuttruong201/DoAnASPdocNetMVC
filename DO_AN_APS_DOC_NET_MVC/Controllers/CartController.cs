@@ -23,12 +23,14 @@ namespace DO_AN_APS_DOC_NET_MVC.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            var carts = db.Carts.Where(i => i.Id_Customer == userId).Include(i => i.Product).ToList();
+            var carts = db.Carts.Where(i => i.Id_Customer == userId).Include(i => i.Product).Include(i => i.Product.Product_Model).ToList();
+
 
             var viewModel = new CartsViewModel
             {
                 Carts = carts
             };
+            
 
             return View(viewModel);
         }

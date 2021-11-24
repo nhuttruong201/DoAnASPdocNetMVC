@@ -63,7 +63,7 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
             {
                 db.Categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Manage");
             }
 
             return View(category);

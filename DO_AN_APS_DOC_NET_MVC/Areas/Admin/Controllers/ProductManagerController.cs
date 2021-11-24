@@ -11,7 +11,7 @@ using DO_AN_APS_DOC_NET_MVC.Models.KingClothes;
 
 namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class ProductManagerController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

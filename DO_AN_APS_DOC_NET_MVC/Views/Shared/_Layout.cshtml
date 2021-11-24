@@ -5,13 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - King Clothes</title>
-    @*<link rel="icon" href="images/logo.png" sizes="30x30">*@
+    <link rel="icon" href="images/logo.png" sizes="30x30">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
 
 
     @Styles.Render("~/Content/kingclothes_css")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/kingclothes_js")
+    <script>
+        new WOW().init();
+    </script>
 
 </head>
 <body>
@@ -50,6 +53,7 @@
                                 <a href="#" class="dropdown-toggle text-info" data-toggle="dropdown"><i class="fas fa-tshirt"></i> SẢN PHẨM</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown-item"><a href="/products/all?page=1">Tất cả sản phẩm</a></li>
+                                    <li class="dropdown-item"><a href="/products/sale?page=1">Sale</a></li>
                                     @foreach (var item in LoadCategory())
                                     {
                                         <li class="dropdown-item"><a href="/products?view=@item.Id_Category&page=1">@item.Name</a></li>

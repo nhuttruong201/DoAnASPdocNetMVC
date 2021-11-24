@@ -11,7 +11,6 @@ namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin
                 return "Admin";
             }
         }
-
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(

@@ -23,6 +23,9 @@ namespace DO_AN_APS_DOC_NET_MVC.Models.KingClothes
         [Required(ErrorMessage = "Không được bỏ trống!")]
         public double Price { get; set; }
 
+        [Display(Name = "Sale (%)")]
+        public int Sale { get; set; }
+
         public ICollection<Product> Products { get; set; }
     }
 }

@@ -1,9 +1,8 @@
 ﻿@model PagedList.IPagedList<DO_AN_APS_DOC_NET_MVC.Models.KingClothes.Product>
-@using PagedList.Mvc;
 @{
-    ViewBag.Title = ViewBag.Title;
+    ViewBag.Title = "Sale";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    <link href="~/Content/Site.css" rel="stylesheet" />
+
 
     string GetProductName(int id_model)
     {
@@ -52,12 +51,12 @@
             {
                 <div class="col-6 col-md-3 mt-4">
                     <div class="elementProduct box_product">
-                        @if(product.Product_Model.Sale > 0){
+                        @if (product.Product_Model.Sale > 0)
+                        {
                             <div class="lable_sale">
                                 <span class="px-1"> - @product.Product_Model.Sale %</span>
                             </div>
                         }
-
                         <a href="/Products/Details/@product.Id_Product">
                             <img src="@product.Image_Front" alt="" class="image_product_cover" />
                         </a>
@@ -74,7 +73,7 @@
                             {
                                 <span class="price-marketing" style="color: black; text-decoration: line-through; font-size: 16px;">@FormatPrice(GetProductPrice(product.Id_Model)) ₫</span>
                             }
-                            <span class="product-price font-weight-bold" style="color: black; font-size: 16px;">@FormatPrice(GetProductPrice(product.Id_Model) - GetProductPrice(product.Id_Model) * product.Product_Model.Sale / 100) ₫</span>
+                            <span class="product-price font-weight-bold" style="color: black; font-size: 16px;">@FormatPrice(GetProductPrice(product.Id_Model) - GetProductPrice(product.Id_Model) * product.Product_Model.Sale/100) ₫</span>
                         </div>
                     </div>
                 </div>
@@ -82,7 +81,6 @@
         </div>
     </div>
 </div>
-
 @* Phân Trang *@
 <div class="row">
     <div class="container">
@@ -111,3 +109,4 @@
         </ul>
     </div>
 </div>
+

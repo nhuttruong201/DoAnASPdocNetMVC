@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
+using System.Web.Services.Description;
 
 [assembly: OwinStartupAttribute(typeof(DO_AN_APS_DOC_NET_MVC.Startup))]
 namespace DO_AN_APS_DOC_NET_MVC

@@ -11,7 +11,7 @@
             <span>Từ khóa: <span class="font-weight-bold">@Model.strSearch</span> - <span class="font-weight-bold">@Model.Products.Count() kết quả</span></span>
         </div>
         <br />
-        <div class="row">
+        <div class="row" id="list-product-finded">
             @foreach (var product in Model.Products)
             {
             <div class="col-6 col-md-3">
@@ -22,7 +22,17 @@
                     <div class="btn_view_product" style="height: 5px;"></div>
                     <div class="bg-info btn_view_product mb-1" style="height:3px;"></div>
                     <div class="text-nowrap text-uppercase text-center">
-                        @Model.GetProductName(product.Id_Model) - @product.Color<br> <span class="font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                        <span class="product_category">@product.Category.Name</span>
+                        <br />
+                        <span class="product-name">@Model.GetProductName(product.Id_Model)</span>
+                        <span> - </span>
+                        <span class="product_color">@product.Color</span>
+                        <br>
+                        @if (product.Product_Model.Sale > 0)
+                        {
+                            <span class="price-marketing" style="color: black; text-decoration: line-through; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model)) ₫</span>
+                        }
+                        <span class="product-price font-weight-bold" style="color: black; font-size: 16px;">@Model.FormatPrice(Model.GetProductPrice(product.Id_Model) - Model.GetProductPrice(product.Id_Model) * product.Product_Model.Sale / 100) ₫</span>
                     </div>
                 </div>
             </div>

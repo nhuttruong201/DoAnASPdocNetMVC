@@ -12,7 +12,7 @@ using DO_AN_APS_DOC_NET_MVC.ViewModels;
 
 namespace DO_AN_APS_DOC_NET_MVC.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class OrderManagerController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

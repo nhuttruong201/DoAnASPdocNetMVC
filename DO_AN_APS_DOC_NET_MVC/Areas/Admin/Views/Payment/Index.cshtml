@@ -31,6 +31,7 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="col-sm-5">
                 <p>Kiểm tra thông tin khách hàng</p>
                 <div id="box_noti_check_customer" class="mb-1">
@@ -82,7 +83,7 @@
                 </div>
             </div>
             <div class="col-sm-5">
-                <p>Kết quả tìm kiếm sản phẩm</p>
+                <p class="text-primary" id="noti_find_product">Tìm thấy sản phẩm</p>
                 <div class="" id="box_product_finded">
                     <div id="image_product_finded"> </div>
                     <div class="text-center" style="padding-left: 15px;">
@@ -97,7 +98,7 @@
                     </div>
                 </div>
                 <div class="text-right mb-2" id="box_noti_add_table_fail">
-                    
+
                 </div>
                 <div class="form-group mt-1">
                     <div id="box_noti_check_product">
@@ -125,6 +126,10 @@
 {
     <script>
         $(document).ready(function () {
+
+            $("#noti_find_product").hide();
+            
+
             $("#payment").addClass("active");
             $("#box_product_finded").hide();
             $("#row_product_info").hide();
@@ -150,6 +155,7 @@
                     .done(function (data) {
                         //alert("Đã cập nhật số lượng sản phẩm!");
                         //alert("Màu: " + data.Color + ", Size: " + data.Size + ", Name: " + data.Id_Model);
+                        $("#noti_find_product").show(200);
 
                         $("#numProductAddBill").val(1);
                         $("#image_product_finded").html('<img src="' + data.Image_Front + '" class="float-left" height="130" width="120"  />');
@@ -173,6 +179,9 @@
                     PhoneNumber: $("#phoneNumber").val()
                 })
                     .done(function (data) {
+
+                        
+
                         //alert(data.Name);
                         $("#customer_name").html(data.Name);
                         $("#customer_phone").html(data.PhoneNumber);

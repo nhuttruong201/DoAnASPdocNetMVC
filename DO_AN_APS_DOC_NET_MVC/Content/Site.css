@@ -1,12 +1,32 @@
 ﻿
+
+.product_category {
+    background-color: #ff7043;
+    color: white;
+    font-size: 14px;
+    padding: 2px 6px;
+    border-radius: 6px;
+}
+
+.lable_sale {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    color: white;
+    background-color: #ee3831;
+}
+
+
 .dl-horizontal dt {
     white-space: normal;
 }
 
+
+
 * {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
-    font-family: Tahoma; 
+    font-family: Tahoma;
     font-size: 16px;
 }
 
@@ -32,7 +52,7 @@ ul > li > a:hover {
 .carousel-caption h2 {
     color: white;
     text-shadow: 4px 4px 10px #000;
-    font-family: Tahoma !important;
+    /*font-family: Tahoma !important;*/
 }
 
 
@@ -147,20 +167,21 @@ input {
     color: #65737e;
 }
 
-.container-4 button.icon {
-    border: none;
-    background: #5ecfbc;
-    height: 35px;
-    width: 50px;
-    color: #fff;
-    opacity: 0;
-    font-size: 10pt;
-    -webkit-transition: all .55s ease;
-    -moz-transition: all .55s ease;
-    -ms-transition: all .55s ease;
-    -o-transition: all .55s ease;
-    transition: all .55s ease;
-}
+    .container-4 button.icon {
+        margin-left: -50px;
+        border: none;
+        background: #5ecfbc;
+        height: 35px;
+        width: 50px;
+        color: #fff;
+        /*opacity: 1;*/
+        font-size: 10pt;
+        /* transition: all .55s ease;
+        -webkit-transition: all .55s ease;
+        -moz-transition: all .55s ease;
+        -ms-transition: all .55s ease;
+        -o-transition: all .55s ease;*/
+    }
 
 
 /* ANIMATION EFFECT */
@@ -168,7 +189,7 @@ input {
 .container-4:hover button.icon,
 .container-4:active button.icon,
 .container-4:focus button.icon {
-    outline: none;
+    outline: 0;
     opacity: 1;
     margin-left: -50px;
     cursor: pointer;
